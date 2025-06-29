@@ -17,7 +17,7 @@ jobs:
         run: npm run build
         env:
           SITE_URL: https://laudantstolam.github.io
-          BASE_URL: /obsidian_remote/
+          BASE_URL: /blog/
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
