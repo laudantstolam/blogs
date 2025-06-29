@@ -8,7 +8,7 @@ import remarkMermaid from 'remark-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://obsidian-bloger.pages.dev',
+  site: 'https://laudantstolam.github.io/blogs/',
   base: '/',
   markdown: {
     remarkPlugins: [[remarkMermaid, {
@@ -16,7 +16,7 @@ export default defineConfig({
       wrap: null,            // Don't wrap the output
       mermaidConfig: {
         theme: 'default',
-        securityLevel: 'loose',
+        securityLevel: 'mediums',
         startOnLoad: true
       }
     }]]
