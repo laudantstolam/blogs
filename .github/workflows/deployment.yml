@@ -21,6 +21,12 @@ jobs:
         env:
           SITE_URL: https://laudantstolam.github.io
           BASE_URL: /blogs/
+
+      - name: 查看 blog 目錄內容（是否成功同步）
+        run: ls -la src/content/blog
+
+      - name: 查看 dist 資料夾（是否成功輸出）
+        run: ls -la dist || echo "⚠️ dist 資料夾不存在"
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
