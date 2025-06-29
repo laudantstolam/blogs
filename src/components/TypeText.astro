@@ -1,0 +1,21 @@
+---
+// TypedText.astro
+import { onMount } from 'astro/client'; // 重要：確保只在前端執行
+import Typed from 'typed.js';
+---
+
+<span class="typed" style="color: #F6B683;"></span>
+
+<script>
+  import Typed from 'typed.js';
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const typed = new Typed(".typed", {
+      strings: ["Developer", "Engineer", "Designer", "Dreamer"],
+      loop: true,
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 2000
+    });
+  });
+</script>
