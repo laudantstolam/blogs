@@ -8,8 +8,8 @@ import remarkMermaid from 'remark-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://laudantstolam.github.io/blogs/',
-  base: '/',
+  site: 'https://laudantstolam.github.io',
+  base: '/blogs/',
   markdown: {
     remarkPlugins: [[remarkMermaid, {
       simple: true,           // Use simpler renderer
