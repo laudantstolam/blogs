@@ -401,7 +401,7 @@ li {
 	border-bottom: none;
 }
 
-/* Blockquotes */
+/* Blockquotes
 .prose blockquote {
 	margin: 2em 0;
 	padding: 1em 1.5em;
@@ -422,7 +422,7 @@ li {
 	font-size: 0.875em;
 	font-style: normal;
 	opacity: 0.8;
-}
+} */
 
 /* Horizontal Rule */
 .prose hr {

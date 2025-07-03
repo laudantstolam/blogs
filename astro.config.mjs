@@ -7,6 +7,7 @@ import expressiveCode from "astro-expressive-code";
 import remarkMermaid from "remark-mermaid";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import remarkCallout from "@r4ai/remark-callout";
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +28,7 @@ export default defineConfig({
         },
       ],
       remarkMath,
+      remarkCallout,
     ],
     rehypePlugins: [rehypeKatex] 
   },
