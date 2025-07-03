@@ -13,6 +13,10 @@ tags:
 #### This is H4
 ##### This is H5
 
+- checklist
+- [x] This is a completed task.
+- [ ] This is an incomplete task.
+
 - code
 ```python
 import random
@@ -26,6 +30,7 @@ def test():
 
 
 - latex testing
+
 $\dfrac{output}{input} = \dfrac{T(s)}{R(s)}= \dfrac{1}{Ms^2+bs+k}$
 
 - syntax
