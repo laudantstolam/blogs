@@ -1,10 +1,7 @@
 ---
 title: Metasploit
 subtitle: some notes to metasploit from HTB
-description: 
 publish: true
-created_date: <% tp.date.now %>
-slug: 
 tags:
   - 資安
   - 紅隊
