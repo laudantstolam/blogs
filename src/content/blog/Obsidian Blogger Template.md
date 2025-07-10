@@ -8,6 +8,8 @@ featured_image: URL
 slug:
 tags:
   - obsidian
+  - AI
+  - Self-improvement
 ---
 ```yaml
 ---

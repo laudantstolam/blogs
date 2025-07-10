@@ -1,10 +1,7 @@
 ---
 title: Metasploit
 subtitle: some notes to metasploit from HTB
-description: 
 publish: true
-created_date: <% tp.date.now %>
-slug: 
 tags:
   - 資安
   - 紅隊
@@ -126,10 +123,10 @@ sudo systemctl status postgresql
 
 還有個`db_nmap`指令 :O
 
-`hosts`：显示当前数据库中保存的所有主机信息
-`services`：显示当前数据库中保存的所有服务信息
-`creds`：显示当前数据库中保存的所有与目标进行交互的凭证
-`loot`：显示当前数据库中保存的所有用户与服务凭证，与creds命令搭配使用
+`hosts`：顯示目前資料庫中儲存的所有主機資訊
+`services`：顯示目前資料庫中儲存的所有服務資訊
+`creds`：顯示目前資料庫中儲存的所有與目標互動的憑證資訊
+`loot`：顯示目前資料庫中儲存的所有使用者與服務的憑證，通常與 `creds` 命令搭配使用
 
 >Plugins
 
