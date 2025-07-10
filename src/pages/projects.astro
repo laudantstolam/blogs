@@ -2,6 +2,47 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+// Define your projects here with custom preview images and descriptions
+const projects = [
+    {
+        title: "[Tool] Wifi Auto Connecting Tool",
+        description: "I hate reconnecting WIFIs when I goto different shops, so I made this",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250122125138.png", // Replace with your actual image path
+        blogSlug: "louisapro", // The slug of the related blog post
+        tech: ["python", "renpy"]
+    },
+    {
+        title: "[Tool] 資安女婕思初賽工具", 
+        description: "An all-in-one program for recording answer&questions, scoreboard monitoring and sentry",
+        previewImage: "https://raw.githubusercontent.com/laudantstolam/gics-all-in-one/main/demo/dashboard.jpg", // Replace with your actual image path
+        blogSlug: "gicsallinone", // The slug of the related blog post
+        tech: ["python", "javascript"]
+    },
+    {
+        title: "[機械] 可旋轉式線放電加工機", 
+        description: "We made a cool micro drilling machine and won some prize :D",
+        previewImage: "/path/to/your/preview-image-2.jpg", // Replace with your actual image path
+        blogSlug: "microdrilling", // The slug of the related blog post
+        tech: []
+    },
+    {
+        title: "Example Project 2", 
+        description: "Another custom description for your second project. You can make this as detailed as you want.",
+        previewImage: "/path/to/your/preview-image-2.jpg", // Replace with your actual image path
+        blogSlug: "blog-post-slug-2", // The slug of the related blog post
+        tech: ["line", "aws"]
+    },
+    {
+        title: "Example Project 2", 
+        description: "Another custom description for your second project. You can make this as detailed as you want.",
+        previewImage: "/path/to/your/preview-image-2.jpg", // Replace with your actual image path
+        blogSlug: "blog-post-slug-2", // The slug of the related blog post
+        tech: ["line", "aws"]
+    },
+    // Add more projects as needed
+];
 ---
 
 <!-- <Layout
@@ -16,7 +57,7 @@ import Footer from '../components/Footer.astro';
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title="Projects" description="Explore our collection of articles, ideas, insights, and everything in between." />
+        <BaseHead title="Projects" description="Somw Project I've made :D" />
 		<style>
 			main {
                 flex: 1;
@@ -55,6 +96,29 @@ import Footer from '../components/Footer.astro';
                 line-height: 1.6;
                 margin: 0 auto;
             }
+
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+                gap: 2rem;
+                flex: 1;
+                margin-bottom: 2rem;
+            }
+
+            .no-projects {
+                text-align: center;
+                padding: 4rem 1rem;
+                color: rgb(var(--gray));
+                font-size: 1.25rem;
+                flex: 1;
+            }
+
+            @media (max-width: 768px) {
+                .projects-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+            }
 		</style>
 	</head>
 	<body>
@@ -62,9 +126,26 @@ import Footer from '../components/Footer.astro';
 		<main>
 			<div class="blog-header">
                 <h1 class="blog-title">Projects</h1>
-                <p class="blog-description">[WARNING] Still Under Construction</p>
+                <p class="blog-description">Somw Project I've made :D</p>
             </div>
-			Here Will place some projects i've made
+			
+			{projects.length > 0 ? (
+                <div class="projects-grid">
+                    {projects.map((project) => (
+                        <ProjectCard
+                            title={project.title}
+                            description={project.description}
+                            previewImage={project.previewImage}
+                            blogSlug={project.blogSlug}
+                            tech={project.tech}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div class="no-projects">
+                    No projects found. Check back soon!
+                </div>
+            )}
 			
 		</main>
 		<Footer />
