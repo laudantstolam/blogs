@@ -1,11 +1,12 @@
 ---
 title: Metasploit
-subtitle: some notes to metasploit from HTB
+description: some notes to metasploit from HTB
 publish: true
 tags:
   - 資安
   - 紅隊
 featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/metasploit_cheatsheet.png
+created_date: 2025-05-06
 ---
 `msfconsole` 啟動!
 

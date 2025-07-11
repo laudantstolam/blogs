@@ -19,6 +19,8 @@ const posts = (await getCollection('blog'))
         const dateB = getValidTimestamp(b.data.created_date);
         return dateB - dateA;
     });
+console.log(posts.map(p => p.data.created_date));
+
 ---
 
 <!doctype html>

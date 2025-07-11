@@ -1,11 +1,11 @@
 ---
 title: blog
 subtitle: subtitle
-description:
-publish: true
+description: 
+publish: false
 created_date: <% tp.date.now %>
 featured_image: URL
-slug:
+slug: 
 tags:
   - obsidian
   - AI
