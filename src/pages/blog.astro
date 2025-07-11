@@ -129,7 +129,12 @@ console.log(posts.map(p => p.data.created_date));
 
             .posts-grid {
                 display: grid;
+                /* 1 block */
+                /* grid-template-columns: 1fr; */
+                /* 2 blocks */
                 grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+                /* 3 blocks */
+                /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
                 gap: 2rem;
                 flex: 1;
                 margin-bottom: 2rem;
@@ -180,8 +185,8 @@ console.log(posts.map(p => p.data.created_date));
         <Header />
         <main>
             <div class="blog-header">
-                <h1 class="blog-title">Bullshits i've wrote</h1>
-                <p class="blog-description">Explore our collection of articles, ideas, insights, and everything in between.</p>
+                <h1 class="blog-title">All Blogs</h1>
+                <p class="blog-description">See My Awsome Posts ;)</p>
                 <div class="tags">
                     {sortedTags.map(([tag, count]) => (
                         <a 

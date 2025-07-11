@@ -40,7 +40,7 @@ const sortedPosts = [...posts].sort((a, b) => {
 });
 
 const isAllPosts = tag === 'all';
-const title = isAllPosts ? 'All Posts' : `Posts tagged with #${tag}`;
+const title = isAllPosts ? 'All Posts' : `grep #${tag}`;
 const description = isAllPosts 
     ? 'Browse all articles and insights from our blog.'
     : `Browse all articles and insights related to ${tag}.`;
@@ -98,7 +98,7 @@ const description = isAllPosts
 
             .posts-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 2rem;
                 flex: 1;
                 margin-bottom: 2rem;
