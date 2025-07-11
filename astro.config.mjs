@@ -11,8 +11,8 @@ import remarkCallout from "@r4ai/remark-callout";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://laudantstolam.github.io/blogs",
-  base: "/",
+  site: "https://laudantstolam.github.io",
+  base: "/blogs/",
   markdown: {
     remarkPlugins: [
       [
