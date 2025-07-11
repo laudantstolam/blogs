@@ -7,39 +7,67 @@ import ProjectCard from '../components/ProjectCard.astro';
 // Define your projects here with custom preview images and descriptions
 const projects = [
     {
-        title: "[Tool] Wifi Auto Connecting Tool",
-        description: "I hate reconnecting WIFIs when I goto different shops, so I made this",
-        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250122125138.png", // Replace with your actual image path
-        blogSlug: "louisapro", // The slug of the related blog post
-        tech: ["python", "renpy"]
+        title: "[Grad Proj] 基於路徑優化提升地圖精度的自主式建圖框架之研究", 
+        description: "A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711143009.png", 
+        blogSlug: "gradproj",
+        tech: ["ros", "pytorch"]
+    },
+    {
+        title: "[Data+ML] Steg Image Detect", 
+        description: "Steganography Identification System Based on Time Domain and Frequency Domain Methods",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711084006.png", 
+        blogSlug: "stegdetect",
+        tech: ["apachespark", "scikitlearn", "python"]
+    },
+    {
+        title: "[LineAPI+AWS] kyudobot", 
+        description: "Analyzing the arrow's position and generating results",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250207002613.png", 
+        blogSlug: "kyudobot",
+        tech: ["line", "aws-lambda", "aws-dynamodb", "yolo"]
+    },
+    {
+        title: "[Web] Spotify Dual Music Analyze", 
+        description: "Analyzing music taste and generate common playlist with multiple users",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/202402191546709.png", 
+        blogSlug: "spotifydual",
+        tech: ["flask"]
+    },
+    {
+        title: "[Pygame] Subtitle - Pomodoro & Music player", 
+        description: "Combining pomodoro and online music player with pygame",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/202306212151683.png", 
+        blogSlug: "subtitle",
+        tech: ["python"]
     },
     {
         title: "[Tool] 資安女婕思初賽工具", 
         description: "An all-in-one program for recording answer&questions, scoreboard monitoring and sentry",
-        previewImage: "https://raw.githubusercontent.com/laudantstolam/gics-all-in-one/main/demo/dashboard.jpg", // Replace with your actual image path
-        blogSlug: "gicsallinone", // The slug of the related blog post
+        previewImage: "https://raw.githubusercontent.com/laudantstolam/gics-all-in-one/main/demo/dashboard.jpg", 
+        blogSlug: "gicsallinone",
         tech: ["python", "javascript"]
     },
     {
-        title: "[機械] 可旋轉式線放電加工機", 
+        title: "[Tool] Wifi Auto Connecting Tool",
+        description: "I hate reconnecting WIFIs when I goto different shops, so I made this",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250122125138.png", 
+        blogSlug: "louisapro",
+        tech: ["python", "renpy"]
+    },
+    {
+        title: "[Machenism] Micro Driling Machiene 桌上型可旋轉式線放電加工機", 
         description: "We made a cool micro drilling machine and won some prize :D",
-        previewImage: "/path/to/your/preview-image-2.jpg", // Replace with your actual image path
-        blogSlug: "microdrilling", // The slug of the related blog post
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711075107.png", 
+        blogSlug: "microdrilling",
         tech: []
     },
     {
-        title: "Example Project 2", 
-        description: "Another custom description for your second project. You can make this as detailed as you want.",
-        previewImage: "/path/to/your/preview-image-2.jpg", // Replace with your actual image path
-        blogSlug: "blog-post-slug-2", // The slug of the related blog post
-        tech: ["line", "aws"]
-    },
-    {
-        title: "Example Project 2", 
-        description: "Another custom description for your second project. You can make this as detailed as you want.",
-        previewImage: "/path/to/your/preview-image-2.jpg", // Replace with your actual image path
-        blogSlug: "blog-post-slug-2", // The slug of the related blog post
-        tech: ["line", "aws"]
+        title: "[Game] ReCall Fan-project", 
+        description: "we designed a multi line visual novel to celebrate idol's birthday",
+        previewImage: "https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711075514.png", 
+        blogSlug: "recall",
+        tech: ["renpy"]
     },
     // Add more projects as needed
 ];
