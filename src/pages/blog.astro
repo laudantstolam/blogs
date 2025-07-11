@@ -19,6 +19,24 @@ const posts = (await getCollection('blog'))
         const dateB = getValidTimestamp(b.data.created_date);
         return dateB - dateA;
     });
+
+// Get all tags and their counts
+const tagCounts = new Map<string, number>();
+posts.forEach(post => {
+    if (post.data.tags) {
+        post.data.tags.forEach(tag => {
+            tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+        });
+    }
+});
+
+// Sort tags by count (descending) then alphabetically
+const sortedTags = Array.from(tagCounts.entries())
+    .sort((a, b) => {
+        if (b[1] !== a[1]) return b[1] - a[1]; // Sort by count first
+        return a[0].localeCompare(b[0]); // Then alphabetically
+    });
+
 console.log(posts.map(p => p.data.created_date));
 
 ---
@@ -74,6 +92,41 @@ console.log(posts.map(p => p.data.created_date));
                 margin: 0 auto;
             }
 
+            .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5em;
+                margin: 1em 0;
+                justify-content: center;
+            }
+
+            .tag {
+                background-color: rgba(var(--gray-light), 0.5);
+                color: rgb(var(--gray-dark));
+                padding: 0.2em 0.8em;
+                border-radius: 1em;
+                font-size: 0.9em;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.3em;
+            }
+
+            .tag:hover {
+                background-color: rgba(var(--accent), 0.1);
+                color: rgb(var(--accent));
+                transform: translateY(-2px);
+            }
+
+            .tag-count {
+                background: rgba(var(--gray-dark), 0.15);
+                padding: 0.1em 0.4em;
+                border-radius: 0.7em;
+                font-size: 0.8em;
+                font-weight: 600;
+            }
+
             .posts-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -110,7 +163,17 @@ console.log(posts.map(p => p.data.created_date));
                     grid-template-columns: 1fr;
                     gap: 1.5rem;
                 }
+
+                .tags {
+                    gap: 0.4em;
+                }
+
+                .tag {
+                    font-size: 0.8em;
+                    padding: 0.15em 0.6em;
+                }
             }
+
         </style>
     </head>
     <body>
@@ -118,7 +181,18 @@ console.log(posts.map(p => p.data.created_date));
         <main>
             <div class="blog-header">
                 <h1 class="blog-title">Bullshits i've wrote</h1>
-                <p class="blog-description">okey maybe some tags preview here</p>
+                <p class="blog-description">Explore our collection of articles, ideas, insights, and everything in between.</p>
+                <div class="tags">
+                    {sortedTags.map(([tag, count]) => (
+                        <a 
+                            href={`/blogs/tag/${tag}/`}
+                            class="tag"
+                        >
+                            #{tag}
+                            <span class="tag-count">{count}</span>
+                        </a>
+                    ))}
+                </div>
             </div>
             {posts.length > 0 ? (
                 <div class="posts-grid">
