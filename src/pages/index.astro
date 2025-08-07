@@ -25,91 +25,224 @@ const posts = (await getCollection('blog'))
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 	</head>
 	<body>
 		<Header />
 		<div class="welcome">
-			<h1>Welcome to Ash's Blog</h1>
-			<p class="hero-description">
-			I'm a <TypeText />
+			<div class="container">
+				<div class="row align-items-center min-vh-100">
+					<div class="col-lg-6 col-md-8">
+						<h1>Ashley</h1>
+						<p class="hero-description">
+							I'm a <TypeText />
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 		<main>
-			<!-- Hero Section -->
-			<section class="hero">
-					<!-- <div class="cta-buttons">
-						<a href={posts[0] ? getUrl(`/${posts[0].id}/`) : getUrl('/')} class="primary-button">
-							Start Reading
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<path d="M5 12h14m-7-7 7 7-7 7"/>
-							</svg>
-						</a>
-						<a href="https://github.com/Beingpax/Obsidian-Blogger" class="secondary-button">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-							</svg>
-							View on GitHub
-						</a>
-					</div> -->
-					<!-- Good effects -->
+			<!-- About -->
+			<section id="about" class="about">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>About</h2>
 					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<img
+								src="https://raw.githubusercontent.com/Ash0645/image_remote/main/202401230105886.jpg"
+								class="img-fluid"
+								alt="Ashley's profile picture"
+							/>
+						</div>
+						<div class="col-lg-8 pt-4 pt-lg-0 content">
+							<div class="row">
+								<div class="col-lg-12">
+									<ul>
+										<li>
+											<i class="bi bi-chevron-right"></i>
+											<strong>Name:</strong> <span>Ashley, 劉宜蓁(19y/she)</span>
+										</li>
+										<li>
+											<i class="bi bi-chevron-right"></i>
+											<strong>City:</strong> <span>Taipei, Taiwan</span>
+										</li>
+										<li>
+											<i class="bi bi-chevron-right"></i>
+											<strong>School:</strong> <span>National Taipei University of Technology(NTUT)--undergraduate</span>
+										</li>
+										<li>
+											<i class="bi bi-chevron-right"></i>
+											<strong>Department:</strong> <span>Department of Intelligent Automation Engineering <a href="https://iae.ntut.edu.tw/?Lang=en">(LINK)</a></span>
+										</li>
+										<li>
+											<i class="bi bi-chevron-right"></i>
+											<strong>Language:</strong> <span>fluent→Mandarin/English/Japanese<br/>learning→German/Spanish</span>
+										</li>
+										<li>
+											<i class="bi bi-chevron-right"></i>
+											<strong>Contact:</strong>
+											<span>rachelle0607@gmail.com</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<p>
+								I am Ashley, and I am currently enrolled in NTUT's five-year Intelligent Automation Engineering program. Which is a program that combines engineering and computer science. I've been interested in web development and cyber security. I enjoy designing and implementing helpful, cool things to make my life more interesting:)
+							</p>
+						</div>
 					</div>
-				</div>
-				</div>
 				</div>
 			</section>
-			<div class="spacer-lg"></div>
 
-			<!-- About -->
-			<section id="about" className="about">
-				<div className="container" data-aos="fade-up">
-				  <div className="section-title">
-					<h2>About Meeee</h2>
-				  </div>
-	
-				  <div className="row">
-					<div className="col-lg-8 pt-4 pt-lg-0 content">                
-					  <div className="row">
-						<div className="col-lg-12">
-						  <ul>
-							<li>
-							  <i className="bi bi-chevron-right"></i>{" "}
-							  <strong>Name:</strong> <span>Ashley, 劉宜蓁(19y/she)</span>
-							</li> 
-							<li>
-							  <i className="bi bi-chevron-right"></i>{" "}
-							  <strong>City:</strong> <span>Taipei, Taiwan</span>
-							</li>                     
-							<li>
-							  <i className="bi bi-chevron-right"></i>{" "}
-							  <strong>School:</strong> <span>National Taipei University of Technology(NTUT)--undergraduate</span>
-							</li>
-							<li>
-							  <i className="bi bi-chevron-right"></i>{" "}
-							  <strong>Department:</strong> <span>Department of Intelligent Automation Engineering <a href="https://iae.ntut.edu.tw/?Lang=en">(LINK)</a></span>
-							</li>
-							<li>
-							  <i className="bi bi-chevron-right"></i>{" "}
-							  <strong>Language:</strong> <span>fluent→Manderine/English/Japanese<br/>learing→German/Spanish</span>
-							</li>
-							
-							<li>
-							  <i className="bi bi-chevron-right"></i>{" "}
-							  <strong>Contact:</strong>{" "}
-							  <span>rachelle0607@gmail.com</span>
-							</li>    
-						  </ul>
-						</div>
-					  </div>
-					  <p>
-					  I am Ashley, and I am currently enrolled in NTUT's five-year Intelligent Automation Engineering program. Which is a program that combines engineering and computer science. I've been interested in web development and cyber security. I enjoy designing and implementing helpful, cool things to make my life more interesting:)
-					  </p>
+			<!-- Working Experiences Section -->
+			<section id="experience" class="experience">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Working Experiences</h2>
 					</div>
-				  </div>
+					<div class="row">
+						<div class="col-3 d-flex justify-content-center">
+							<img style="max-width: 45%" alt="AUO-logo" src="https://raw.githubusercontent.com/Ash0645/image_remote/main/202401152201523.jpg">
+						</div>
+						<div class="col-9">
+							<h4 class="experience-title">Software develop internship • AU Optronics Corporation (AUO)</h4>
+							<h5>July 2023 - September 2023</h5>
+							<p>Designed an intuitive and user-friendly interface(DASHBOARD) for an eco-OVEN system in order to display and calculate realtime status of all machines in FAB center. (Gathering PLC data and presenting it in the front end with Django+FastAPI)</p>
+						</div>
+					</div>
 				</div>
-			  </section>
+			</section>
+
+			<!-- Certificates Section -->
+			<section id="certificates" class="certificates">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Certificates</h2>
+					</div>
+					<div class="row">
+						<div class="col-3 d-flex justify-content-center">
+							<img style="max-width: 45%" alt="Certificate-logo" src="https://raw.githubusercontent.com/Ash0645/image_remote/main/202402211608170.png">
+						</div>
+						<div class="col-9">
+							<h4 class="certificate-title">MOEA Certified Information Security Engineer-Associate Level</h4>
+							<h5>November 2023</h5>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Skills Section -->
+			<section id="skills" class="skills">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Skills</h2>
+						<p>
+							I've been interested and advancing in different fields, here are some skills that I've been advancing.
+						</p>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<h3 class="resume-title">Software Developing</h3>
+							<div class="resume-item pb-0">
+								<h4>Programming Language</h4>
+								<ul>
+									<li>Python</li>
+									<li>C C++</li>
+									<li>Js Html Css</li>
+									<li>R</li>
+									<li>Bash Shell</li>
+								</ul>
+							</div>
+							<div class="resume-item pb-0">
+								<h4>Developing Skills</h4>
+								<p><em>Framework</em></p>
+								<ul>
+									<li>Django, React, Vue, nextJS</li>
+									<li>MVC, REST</li>
+								</ul>
+								<p><em>APIs</em></p>
+								<ul>
+									<li>Flask, Fast API, RESTful API</li>
+								</ul>
+								<p><em>Database</em></p>
+								<ul>
+									<li>MySQL, MongoDB, Firestore</li>
+								</ul>
+							</div>
+							<div class="resume-item">
+								<h4>Others</h4>
+								<p><em>Deep Learning</em></p>
+								<ul>
+									<li>Tensorflow</li>
+									<li>Pytorch</li>
+								</ul>
+								<p><em>WorkFlow</em></p>
+								<ul>
+									<li>Github, Gitlab</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<h3 class="resume-title">Engineering</h3>
+							<div class="resume-item pb-0">
+								<h4>Overview</h4>
+								<ul>
+									<li>ROS system</li>
+									<li>AUTOCAD modeling</li>
+									<li>Micro Drilling (EDM machine)</li>
+								</ul>
+							</div>
+							<h3 class="resume-title">Cyber Security</h3>
+							<div class="resume-item pb-0">
+								<h4>Blue Team</h4>
+								<p>
+									focusing on reverse engineering and forensic/auditing skills, recently been preparing for ISACA-CISA certificate
+								</p>
+								<ul>
+									<li>Ghidra/IDA/angr</li>
+									<li>participating in 2025 Team5 camp</li>
+								</ul>
+							</div>
+							<div class="resume-item pb-0">
+								<h4>Red Team</h4>
+								<p>
+									has participating in some ctf competition, and familiar with Nmap/Wireshark/sqlmap
+								</p>
+								<ul>
+									<li>AEGIS(神盾盃) pre-exam: 4, final: 6</li>
+									<li>GICS(資安女婕思) final: 1(2023), 2(2024)</li>
+									<li>CGGC pre-exam</li>
+								</ul>
+							</div>
+							<h3 class="resume-title">Designing</h3>
+							<div class="resume-item pb-0">
+								<h4>JS extends Framework</h4>
+								<ul>
+									<li>D3.js</li>
+									<li>Echart, Apexchart, Mapbox</li>
+									<li>P5.js</li>
+									<li>Three.js</li>
+								</ul>
+								<h4>Tools</h4>
+								<ul>
+									<li>Adobe Photoshop, Illustrator, Indesign</li>
+									<li>Figma, Canva</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<!-- Latest Blog Posts -->
 			<section class="latest-posts">
-				<h2>Latest Blog Posts</h2>
+				<div class="section-title">
+					<h2>Latest Blog Posts</h2>
+				</div>
 				<div class="post-grid">
 					{posts.map((post) => (
 						<BlogCard
@@ -133,6 +266,7 @@ const posts = (await getCollection('blog'))
 	body {
 		background: url("https://raw.githubusercontent.com/Ash0645/image_remote/main/ash-bg.png") top right no-repeat;
 		background-size: contain;
+		background-color: rgb(var(--gray-light));
 	}
 	main {
 		max-width: 100%;
@@ -140,13 +274,41 @@ const posts = (await getCollection('blog'))
 	}
 
 	.welcome {
-		position: absolute;
-		left: 7%;
-		top: 50%;
+		position: relative;
+		/* min-height: 100vh; */
+		display: flex;
+		align-items: center;
 	}
 
 	.welcome h1{
 		color: #fff;
+		font-size: 3rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+
+	.social-links {
+		margin-top: 2rem;
+	}
+
+	.social-links a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: rgba(13, 110, 253, 0.1);
+		color: #0563bb;
+		margin-right: 10px;
+		transition: all 0.3s ease;
+		text-decoration: none;
+	}
+
+	.social-links a:hover {
+		background: #0563bb;
+		color: white;
+		transform: translateY(-2px);
 	}
 
 	.hero {
@@ -295,6 +457,155 @@ const posts = (await getCollection('blog'))
 		margin-top: 2rem;
 	}
 
+	.about {
+		padding: 0.5rem 0 2rem 0;
+	}
+	
+	.experience, .certificates, .skills {
+		padding: 2rem 0;
+    }
+
+	.section-title {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.section-title h2 {
+		font-size: 2.5rem;
+		font-weight: 600;
+		color: rgb(var(--gray-dark)) ;
+		margin-bottom: 1rem;
+		position: relative;
+	}
+
+	.section-title h2::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 50px;
+		height: 3px;
+		background: #0563bb;
+	}
+
+	.section-title p {
+		color: rgb(var(--gray)) ;
+		font-size: 1.1rem;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	/* About Section Specific */
+	.about .img-fluid {
+		border-radius: 10px;
+		box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+	}
+
+	.about ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	.about ul li {
+		margin-bottom: 10px;
+		display: flex;
+		align-items: flex-start;
+	}
+
+	.about ul li i {
+		color: #0563bb;
+		margin-right: 10px;
+		margin-top: 5px;
+	}
+
+	.about ul li strong {
+		color: rgb(var(--gray)) ;
+		min-width: 120px;
+	}
+
+	/* About section paragraph styling */
+	.about .content p {
+		color: rgb(var(--gray-dark));
+	}
+
+	/* Skills Section Specific */
+	.resume-title {
+		color: rgb(var(--gray-dark)) ;
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+		border-bottom: 2px solid #0563bb;
+		padding-bottom: 10px;
+	}
+
+	.resume-item {
+		margin-bottom: 2rem;
+		background: rgba(255,255,255,0.5);
+		padding: 1.5rem;
+		border-radius: 8px;
+		border-left: 4px solid #0563bb;
+	}
+
+	.resume-item h4 {
+		color: #0563bb;
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	.resume-item ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	.resume-item ul li {
+		padding: 5px 0;
+		padding-left: 20px;
+		position: relative;
+	}
+
+	.resume-item ul li::before {
+		content: '▸';
+		position: absolute;
+		left: 0;
+		color: #0563bb;
+		font-weight: bold;
+	}
+
+	.resume-item em {
+		color: rgba(var(--gray), 0.2) ;
+		font-style: italic;
+		margin-bottom: 10px;
+		display: block;
+	}
+
+
+	.experience-title, .certificate-title {
+		color: rgb(var(--gray-dark)) ;
+		font-weight: 400;
+	}
+
+	.experience, .certificate {
+		color: rgb(var(--gray-dark)) !important;
+		/* font-weight: 400; */
+	}
+
+	/* Fix date and location text colors */
+	.experience h5, .certificates h5, .about ul li span {
+		color: rgb(var(--black)) !important;
+	}
+
+	/* Latest posts section theming */
+	.latest-posts h2 {
+		color: rgb(var(--black));
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	:global(.latest-posts .blog-card:hover .title) {
+		color: rgb(var(--black)) !important;
+	}
+
 	@media (max-width: 768px) {
 		.hero {
 			padding: 6rem 1rem;
@@ -330,6 +641,40 @@ const posts = (await getCollection('blog'))
 
 		.view-all {
 			margin-top: 1.5rem;
+		}
+
+		/* Mobile adjustments for new sections */
+		.welcome h1 {
+			font-size: 2.5rem;
+		}
+
+		.welcome {
+			padding: 2rem 1rem;
+		}
+
+		.about, .experience, .certificates, .skills {
+			padding: 3rem 0;
+		}
+
+		.section-title h2 {
+			font-size: 2rem;
+		}
+
+		.about .col-lg-4, .about .col-lg-8 {
+			margin-bottom: 2rem;
+		}
+
+		.experience .col-3, .experience .col-9,
+		.certificates .col-3, .certificates .col-9 {
+			margin-bottom: 1rem;
+		}
+
+		.experience .col-3, .certificates .col-3 {
+			text-align: center !important;
+		}
+
+		.resume-item {
+			padding: 1rem;
 		}
 	}
 </style>
