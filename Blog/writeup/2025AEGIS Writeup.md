@@ -7,8 +7,6 @@ tags:
 featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250930101751.png
 created_date: 2025-10-01
 ---
-### OverView
-
 這次神盾各領域都是2題 差一點點進決賽QQ (10-13名都同分 比時間QQ)
 負責了misc的通靈部分跟rev的兩題 pwn解到漏洞利用了但是卡在最後一步
 這是隊友的 crypto WP -> https://hackmd.io/@eeeeee/BkXJPDHhgg
@@ -458,31 +456,31 @@ if __name__ == "__main__":
 >}
 >```
 
-##### Background Check
+>[!example]+ Background Check
+>```bash
+>┌──(kali㉿kali)-[/media/sf_SHARED_FILE/AEGIS26/pwn/n2]
+>└─$ ldd n2 
+>        linux-vdso.so.1 (0x00007f8996902000)
+>        libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f8996600000)
+>        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f899640a000)
+>        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f899631a000)
+>        /lib64/ld-linux-x86-64.so.2 (0x00007f8996904000)
+>        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f89968b5000)
+>
+>┌──(kali㉿kali)-[/media/sf_SHARED_FILE/AEGIS26/pwn/n2]
+>└─$ gdb-pwndbg n2                
+>
+>pwndbg> checksec
+>File:     /media/sf_SHARED_FILE/AEGIS26/pwn/n2/n2
+>Arch:     amd64
+>RELRO:      Partial RELRO
+>Stack:      Canary found
+>NX:         NX enabled
+>PIE:        No PIE (0x400000)
+>SHSTK:      Enabled
+>IBT:        Enabled
+>Stripped:   No
+>```
 
-```bash
-┌──(kali㉿kali)-[/media/sf_SHARED_FILE/AEGIS26/pwn/n2]
-└─$ ldd n2 
-        linux-vdso.so.1 (0x00007f8996902000)
-        libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f8996600000)
-        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f899640a000)
-        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f899631a000)
-        /lib64/ld-linux-x86-64.so.2 (0x00007f8996904000)
-        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f89968b5000)
-
-┌──(kali㉿kali)-[/media/sf_SHARED_FILE/AEGIS26/pwn/n2]
-└─$ gdb-pwndbg n2                
-
-pwndbg> checksec
-File:     /media/sf_SHARED_FILE/AEGIS26/pwn/n2/n2
-Arch:     amd64
-RELRO:      Partial RELRO
-Stack:      Canary found
-NX:         NX enabled
-PIE:        No PIE (0x400000)
-SHSTK:      Enabled
-IBT:        Enabled
-Stripped:   No
-```
 
 (先這樣 exploit晚點寫QQ)
