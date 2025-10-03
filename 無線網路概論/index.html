@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/png" href="/blogs/icon.png"><meta name="generator" content="Astro v5.1.1"><!-- Fonts --><!-- Font styles --><!-- Preload font files --><link rel="preload" href="/blogs/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin><link rel="preload" href="/blogs/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://laudantstolam.github.io/blogs/%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF%E6%A6%82%E8%AB%96/"><!-- Primary Meta Tags --><title>無線網路 part1</title><meta name="title" content="無線網路 part1"><meta name="description" content="二刷無線網路 - claude 與我的課堂筆記"><meta name="keywords" content="notes"><!-- Robots Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://laudantstolam.github.io/blogs/%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF%E6%A6%82%E8%AB%96/"><meta property="og:title" content="無線網路 part1"><meta property="og:description" content="二刷無線網路 - claude 與我的課堂筆記"><meta property="og:image" content="https://laudantstolam.github.io/blog-placeholder-1.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://laudantstolam.github.io/blogs/%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF%E6%A6%82%E8%AB%96/"><meta property="twitter:title" content="無線網路 part1"><meta property="twitter:description" content="二刷無線網路 - claude 與我的課堂筆記"><meta property="twitter:image" content="https://laudantstolam.github.io/blog-placeholder-1.jpg"><!-- KaTeX CSS for LaTeX rendering --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><link rel="stylesheet" href="/blogs/_astro/_slug_.BCffiVQw.css">
+<link rel="stylesheet" href="/blogs/_astro/_slug_.DnqyYaEC.css">
+<link rel="stylesheet" href="/blogs/_astro/_slug_.DixUw43Y.css">
+<style>[data-astro-image]{width:100%;height:auto;-o-object-fit:var(--fit);object-fit:var(--fit);-o-object-position:var(--pos);object-position:var(--pos);aspect-ratio:var(--w) / var(--h)}[data-astro-image=responsive]{max-width:calc(var(--w) * 1px);max-height:calc(var(--h) * 1px)}[data-astro-image=fixed]{width:calc(var(--w) * 1px);height:calc(var(--h) * 1px)}
+</style></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <div class="nav-wrapper" data-astro-cid-3ef6ksr2> <!-- <div class="nav-brand">
+				<a href={getUrl('/')} class="brand-link">
+					<div class="brand-icon">
+						<img src={getUrl('/icon.png')} alt="icon logo" width="24" height="24" />
+					</div>
+					<span class="brand-text">{SITE_TITLE}</span>
+				</a>
+			</div> --> <div class="nav-links" data-astro-cid-3ef6ksr2> <a href="/blogs/" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Home </a>  <a href="/blogs/blog" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Blog </a>  <a href="/blogs/projects" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Projects </a>  </div> <div class="nav-actions" data-astro-cid-3ef6ksr2> <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme" data-astro-cid-x3pjskd3> <svg width="20" height="20" viewBox="0 0 24 24" class="sun-icon" data-astro-cid-x3pjskd3> <path fill="currentColor" d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z" data-astro-cid-x3pjskd3></path> </svg> <svg width="20" height="20" viewBox="0 0 24 24" class="moon-icon" data-astro-cid-x3pjskd3> <path fill="currentColor" d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.94174 4 12Z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function t(e){document.documentElement.setAttribute("data-theme",e),localStorage.setItem("theme",e)}function o(){const n=(document.documentElement.getAttribute("data-theme")||"dark")==="light"?"dark":"light";t(n)}function d(){const e=localStorage.getItem("theme");t(e||"dark")}m?.addEventListener("click",o);document.addEventListener("DOMContentLoaded",d);window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t("dark")});</script> <a href="https://github.com/laudantstolam" target="_blank" class="social-link" aria-label="GitHub" data-astro-cid-3ef6ksr2> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-3ef6ksr2> <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-3ef6ksr2></path> </svg> </a> </div> </div> </nav> </header>  <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <div class="prose" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2025-10-03T00:00:00.000Z"> Oct 3, 2025 </time>  </div> <h1 data-astro-cid-bvzihdzo>無線網路 part1</h1>  <div class="tags" data-astro-cid-bvzihdzo> <a href="/blogs/tag/notes/" class="tag" data-astro-cid-bvzihdzo>#notes</a> </div>  </div> <!-- Table of Contents --> <aside class="toc-wrapper" id="toc-wrapper" data-astro-cid-bvzihdzo> <div class="toc-header" data-astro-cid-bvzihdzo> <div class="toc-title" data-astro-cid-bvzihdzo> <span data-astro-cid-bvzihdzo>👀</span> <button class="toc-minimize-btn" id="toc-minimize-btn" aria-label="Toggle TOC" data-astro-cid-bvzihdzo> <span id="toc-icon" data-astro-cid-bvzihdzo>−</span> </button> </div> </div> <div class="toc-content" data-astro-cid-bvzihdzo> <ul class="toc-list" id="toc-list" data-astro-cid-bvzihdzo></ul> </div> </aside>  <h2 id="ch1-2">CH1-2</h2>
+<h3 id="1-無線區域網路的兩種基本架構">1. 無線區域網路的兩種基本架構</h3>
+<h4 id="infrastructure-mode">Infrastructure Mode</h4>
+<ul>
+<li><strong>架構特點</strong>：透過存取點 (Access Point, AP) 作為中繼站</li>
+<li><strong>主要優點</strong>：
+<ul>
+<li>管理集中化，易於控制和監管</li>
+<li>涵蓋範圍較大</li>
+<li>可連接有線網路，實現網路互連</li>
+<li>支援較多用戶同時連線</li>
+<li>具備較佳的安全性管理</li>
+</ul>
+</li>
+</ul>
+<h4 id="ad-hoc-mode">Ad-hoc Mode</h4>
+<ul>
+<li><strong>架構特點</strong>：P2P 不用AP</li>
+<li><strong>主要優點</strong>：
+<ul>
+<li>成本低，設定簡單</li>
+<li>具備自我組織能力</li>
+<li>適合移動性高的應用場景</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-行動台服務的五項功能">2. 行動台服務的五項功能</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>功能</th><th>英文名稱</th><th>說明</th></tr></thead><tbody><tr><td>1. 驗證</td><td>Authentication</td><td>驗證身分的合法性</td></tr><tr><td>2. 取消驗證</td><td>Deauthentication</td><td>中斷已建立的驗證關係</td></tr><tr><td>3. 關聯</td><td>Association</td><td>建立行動台(MS)與AP之間的連接</td></tr><tr><td>4. 重新關聯</td><td>Reassociation</td><td>在不同AP間切換連接</td></tr><tr><td>5. 解除關聯</td><td>Disassociation</td><td>中斷與AP的關聯關係</td></tr></tbody></table>
+<h3 id="3-分散式系統服務的三項功能">3. 分散式系統服務的三項功能</h3>
+<p>3.1 Distribution</p>
+<ul>
+<li><code>BSS &#x3C;--> WLAN LAN</code>
+3.2 Integration</li>
+<li><code>WLAN &#x3C;--> other network</code>
+3.3 MS Reassociation Support</li>
+<li>sync data during the switch between aps</li>
+</ul>
+<h3 id="4-ieee-80211-mac-的兩種協調功能">4. IEEE 802.11 MAC 的兩種協調功能</h3>
+<h4 id="41-分散式協調功能-dcf-distributed-coordination-function">4.1 分散式協調功能 (DCF, Distributed Coordination Function)</h4>
+<ul>
+<li>
+<p><strong>機制內容</strong>：採用 CSMA/CA機制
+[[CH7 無線網路#^aaba23]]</p>
+</li>
+<li>
+<p>避免同時得訊框碰撞</p>
+</li>
+<li>
+<p>流程
+<img src="https://raw.githubusercontent.com/Ash0645/image_remote/main/202401071539188.png" alt="image.png|375"></p>
+</li>
+<li>
+<p><strong>特點</strong>：分散式控制，所有節點平等競爭存取權</p>
+</li>
+<li>
+<p><strong>場景</strong>：一般資料傳輸</p>
+</li>
+</ul>
+<h4 id="42-點協調功能-pcf-point-coordination-function">4.2 點協調功能 (PCF, Point Coordination Function)</h4>
+<ul>
+<li><strong>概要</strong>：由AP集中控制存取</li>
+<li><strong>運作特點</strong>：輪詢分配傳輸機會，支援 QoS</li>
+<li><strong>適用場景</strong>：即時性要求較高的應用</li>
+</ul>
+<h3 id="5-rtscts-機制詳述">5. RTS/CTS 機制詳述</h3>
+<h4 id="51-運作原理">5.1 運作原理</h4>
+<h5 id="rts-request-to-send">RTS (Request to Send)</h5>
+<ul>
+<li>傳送端先送出 RTS 控制框，預約傳輸媒體</li>
+<li>包含傳輸時間資訊</li>
+</ul>
+<h5 id="cts-clear-to-send">CTS (Clear to Send)</h5>
+<ul>
+<li>接收端回應 CTS 控制框，確認可以接收</li>
+<li>通知其他節點暫時不要傳輸</li>
+</ul>
+<h4 id="52-解決的問題">5.2 解決的問題</h4>
+<ul>
+<li><strong>隱藏節點問題</strong>：避免無法偵測到彼此的節點同時傳輸</li>
+<li><strong>暴露節點問題</strong>：減少不必要的等待時間</li>
+</ul>
+<h3 id="53-nav-network-allocation-vector">5.3 NAV (Network Allocation Vector)</h3>
+<ul>
+<li>其他節點根據 RTS/CTS 中的時間資訊設定 NAV</li>
+<li>在 NAV 期間內不進行傳輸，避免碰撞</li>
+</ul>
+<h3 id="54-傳輸流程圖">5.4 傳輸流程圖</h3>
+<div class="expressive-code"><link rel="stylesheet" href="/blogs/_astro/ec.0niu6.css"><script type="module" src="/blogs/_astro/ec.8zarh.js"></script><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">發送端 A    接收端 B    其他節點 C</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">   </span></span><span style="--0:#e1e4e8;--1:#24292e">|           |           |</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">   </span></span><span style="--0:#e1e4e8;--1:#24292e">|-- RTS --> |           |</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">   </span></span><span style="--0:#e1e4e8;--1:#24292e">|           |-- CTS --> | (設定 NAV)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">   </span></span><span style="--0:#e1e4e8;--1:#24292e">|-- DATA -->|           | (等待中)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">   </span></span><span style="--0:#e1e4e8;--1:#24292e">|&#x3C;-- ACK ---|           |</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">   </span></span><span style="--0:#e1e4e8;--1:#24292e">|           |           | (NAV 結束)</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="發送端 A    接收端 B    其他節點 C   |           |           |   |-- RTS --> |           |   |           |-- CTS --> | (設定 NAV)   |-- DATA -->|           | (等待中)   |<-- ACK ---|           |   |           |           | (NAV 結束)"><div></div></button></div></figure></div>
+<hr>
+<h3 id="6-backoff-機制詳述">6. Backoff 機制詳述</h3>
+<h4 id="61-機制目的">6.1 機制目的</h4>
+<p>減少碰撞機率，提高網路效率</p>
+<h4 id="62-運作流程">6.2 運作流程</h4>
+<ol>
+<li><strong>偵測媒體</strong>：節點欲傳輸時先偵測媒體是否閒置</li>
+<li><strong>等待 DIFS</strong>：媒體閒置時等待 DIFS (DCF Inter-frame Space) 時間</li>
+<li><strong>競爭視窗</strong>：從競爭視窗 (Contention Window, CW) 中隨機選擇 backoff 時間</li>
+<li><strong>倒數計時</strong>：媒體閒置時進行倒數，忙碌時暫停</li>
+<li><strong>傳輸或重試</strong>：倒數到零時傳輸；若碰撞則增大 CW 並重新 backoff</li>
+</ol>
+<h4 id="63-二進位指數退避演算法">6.3 二進位指數退避演算法</h4>
+<h5 id="演算法規則">演算法規則</h5>
+<ul>
+<li><strong>初始值</strong>：<code>CW = CWmin</code></li>
+<li><strong>碰撞後</strong>：<code>CW = min(2×CW+1, CWmax)</code></li>
+<li><strong>成功後</strong>：<code>CW</code> 重設為 <code>CWmin</code></li>
+<li><strong>公平性</strong>：確保所有節點都有平等的傳輸機會</li>
+</ul>
+<h5 id="時間軸示例">時間軸示例</h5>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">時間 → 0    DIFS    Backoff    傳輸</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">      </span></span><span style="--0:#e1e4e8;--1:#24292e">|-----|--------|----------|</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#e1e4e8;--1:#24292e">      </span></span><span style="--0:#e1e4e8;--1:#24292e">閒置   等待     隨機延遲    資料傳送</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="時間 → 0    DIFS    Backoff    傳輸      |-----|--------|----------|      閒置   等待     隨機延遲    資料傳送"><div></div></button></div></figure></div>
+<h4 id="64-機制效益">6.4 機制效益</h4>
+<ul>
+<li>分散節點的傳輸時間</li>
+<li>降低同時傳輸造成的碰撞機率</li>
+<li>提升整體網路的傳輸效率</li>
+</ul>
+<h2 id="ch3">CH3</h2>
+<h3 id="1-dca-演算法">1. DCA 演算法</h3>
+<h5 id="特點">特點</h5>
+<ul>
+<li>節點需要傳輸時,動態選擇可用的頻道</li>
+<li>透過監聽機制偵測頻道是否被占用</li>
+<li>鄰近節點若偵測到頻道被占用,會<strong>延遲處理</strong>或選擇其他頻道</li>
+<li>避免同時使用相同頻道造成碰撞</li>
+</ul>
+<h5 id="rtscts">RTS/CTS</h5>
+<ul>
+<li>解決隱藏節點問題</li>
+<li><code>RTS req -> CTS allow -> Data transform -> Ack confirm</code></li>
+</ul>
+<p><strong>關鍵機制:</strong></p>
+<ul>
+<li>CTS會廣播 → 隱藏節點也聽得到</li>
+<li>NAV機制   → 虛擬載波感測</li>
+<li>頻道預約  → 避免碰撞</li>
+</ul>
+<h5 id="如何建立表格">如何建立表格</h5>
+<p>DCA通常維護一個<strong>頻道狀態表(Channel State Table)</strong>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>頻道編號</th><th>狀態</th><th>使用節點</th><th>信號強度</th><th>可用時間</th></tr></thead><tbody><tr><td>CH1</td><td>忙碌</td><td>Node A</td><td>-45dBm</td><td>-</td></tr><tr><td>CH2</td><td>空閒</td><td>-</td><td>-</td><td>可立即使用</td></tr><tr><td>CH3</td><td>忙碌</td><td>Node C</td><td>-60dBm</td><td>-</td></tr></tbody></table>
+<p><strong>重點:</strong> 鄰近節點透過載波感測(Carrier Sensing)持續更新此表格</p>
+<h3 id="2-dsdv-路由協定">2. DSDV 路由協定</h3>
+<p><strong>就像是dijkstra演算法的距離向量法</strong></p>
+<h5 id="特性">特性</h5>
+<ul>
+<li><strong>主動式(Proactive)路由協定</strong></li>
+<li>基於距離向量演算法(類似RIP)</li>
+<li>每個節點維護完整的路由表+序列編號</li>
+<li>用編號和路徑成本決定路由表</li>
+</ul>
+<h5 id="舉例說明">舉例說明</h5>
+<p><strong>網路拓撲:</strong></p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">A ←→ B ←→ C ←→ D</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="A ←→ B ←→ C ←→ D"><div></div></button></div></figure></div>
+<p><strong>節點B的路由表:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>目的地</th><th>下一跳</th><th>距離(跳數)</th><th>序號</th></tr></thead><tbody><tr><td>A</td><td>A</td><td>1</td><td>46</td></tr><tr><td>C</td><td>C</td><td>1</td><td>52</td></tr><tr><td>D</td><td>C</td><td>2</td><td>38</td></tr></tbody></table>
+<p><strong>序號機制(Sequence Number):</strong></p>
+<ul>
+<li>每個目的地都有序號,用於避免路由迴圈</li>
+<li>序號越大代表路由資訊越新</li>
+<li>當B收到更大序號的路由更新時,才會更新路由表</li>
+</ul>
+<p><strong>重點:</strong> DSDV透過定期廣播路由更新和序號機制,確保路由表的一致性和即時性</p>
+<h3 id="3-dsr-回應式路由">3. DSR 回應式路由</h3>
+<h5 id="特點-1">特點</h5>
+<ul>
+<li><strong>回應式(Reactive)路由協定</strong></li>
+<li><strong>來源路由(Source Routing)</strong>:完整路徑記錄在封包標頭</li>
+<li><strong>路由探索</strong>: 沒有可用的時候會發送的RREQ 透過廣播進行感知</li>
+<li>不需維護路由表</li>
+</ul>
+<h5 id="運作流程">運作流程</h5>
+<p><strong>階段1: 路由發現(Route Discovery)</strong></p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">A想傳送給D:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">A → broadcast RREQ</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">B收到 → 加入自己ID → 轉發RREQ [A,B]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">C收到 → 加入自己ID → 轉發RREQ [A,B,C]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">D收到 → 回傳RREP [A,B,C,D]</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="A想傳送給D:A → broadcast RREQB收到 → 加入自己ID → 轉發RREQ [A,B]C收到 → 加入自己ID → 轉發RREQ [A,B,C]D收到 → 回傳RREP [A,B,C,D]"><div></div></button></div></figure></div>
+<p><strong>階段2: 路由維護(Route Maintenance)</strong></p>
+<ul>
+<li>使用路由快取(Route Cache)儲存已知路徑</li>
+<li>連結中斷時觸發路由錯誤(RERR)訊息</li>
+<li>來源節點重新啟動路由發現</li>
+</ul>
+<p><strong>封包格式:</strong></p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">[來源|目的|路徑資訊:A→B→C→D|資料]</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="[來源|目的|路徑資訊:A→B→C→D|資料]"><div></div></button></div></figure></div>
+<p><strong>重點:</strong> DSR將完整路徑資訊放在封包中,中間節點只需依序轉發,不用查詢路由表</p>
+<h3 id="4-aodv-回應式路由協定">4. AODV 回應式路由協定</h3>
+<h5 id="特點-2">特點</h5>
+<ul>
+<li>回應式路由</li>
+<li>結合<strong>DSR的按需特性</strong> + <strong>DSDV的路由表與序號機制</strong></li>
+<li>只有在需要時才建立路由</li>
+<li>使用跳數(hop count)作為路由度量</li>
+</ul>
+<h5 id="運作原理">運作原理</h5>
+<p><strong>1. 路由請求(RREQ)階段:</strong></p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">節點A要傳送給節點E:</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">A廣播RREQ → B,C收到</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">B,C建立反向路由(指向A) → 繼續廣播RREQ</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">最終E收到RREQ</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="節點A要傳送給節點E:A廣播RREQ → B,C收到B,C建立反向路由(指向A) → 繼續廣播RREQ最終E收到RREQ"><div></div></button></div></figure></div>
+<p><strong>2. 路由回覆(RREP)階段:</strong>
+建立反向路徑</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">E單播RREP沿反向路由回A</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">中間節點建立正向路由(指向E)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#e1e4e8;--1:#24292e">A收到後產生RREP(送回去) → 路由建立完成</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="E單播RREP沿反向路由回A中間節點建立正向路由(指向E)A收到後產生RREP(送回去) → 路由建立完成"><div></div></button></div></figure></div>
+<div class="mermaid">
+  sequenceDiagram
+    participant A
+    participant B
+    participant C
+    participant D
+    participant E
+
+    %% 路由請求 (RREQ)
+    A->>B: t1 RREQ (廣播)
+    B->>C: t2 RREQ (轉發，建立反向路由)
+    C->>D: t3 RREQ (轉發，建立反向路由)
+    D->>E: t4 RREQ (轉發，建立反向路由)
+    E->>E: t5 收到 RREQ
+
+    %% 路由回覆 (RREP)
+    E-->>D: t6 RREP
+    D-->>C: t7 RREP (轉發，建立正向路由)
+    C-->>B: t8 RREP (轉發，建立正向路由)
+    B-->>A: t9 RREP (轉發，建立正向路由)
+    A->>A: t10 收到 RREP (路由建立完成)
+
+    %% 資料傳輸
+    A->>B: t11 DATA
+    B->>C: t11 DATA
+    C->>D: t11 DATA
+    D->>E: t11 DATA (成功送達)
+
+    %% 鏈路斷裂
+    C--xD: t12 鏈路斷裂 (╳╳╳)
+
+    %% 路由錯誤 (RERR)
+    D-->>C: t13 RERR
+    C-->>B: t13 RERR
+    B-->>A: t13 RERR
+    A->>A: t14 刪除路由 (路由失效)
+
+</div>  </div> </article> </main> <footer data-astro-cid-sz7xmlte> <div class="footer-content" data-astro-cid-sz7xmlte> <div class="copyright" data-astro-cid-sz7xmlte>
+&copy; 2025 Obsidian Blogger. All rights reserved.
+</div> </div> </footer>  <script type="module" src="/blogs/_astro/BlogPost.astro_astro_type_script_index_0_lang.DbtG32J1.js"></script> </body> </html>
