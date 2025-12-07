@@ -40,7 +40,7 @@ import { getUrl } from '../utils/url';
 		position: sticky;
 		top: 0;
 		z-index: 100;
-		background: rgba(var(--gray-light), 0.23);
+		background: rgba(var(--gray-light), 0.3);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
 		border-bottom: 1px solid rgba(var(--gray), 0.1);
@@ -136,7 +136,7 @@ import { getUrl } from '../utils/url';
 	.nav-links a {
 		position: relative;
 		padding: 0.5rem 0.75rem;
-		color: rgb(var(--gray-dark));
+		color: rgb(var(--black));
 		text-decoration: none;
 		font-size: 0.95rem;
 		font-weight: 500;
@@ -146,7 +146,7 @@ import { getUrl } from '../utils/url';
 	}
 
 	.nav-links a:hover {
-		color: rgb(var(--black));
+		color: var(--accent);
 		background: rgba(var(--gray), 0.1);
 	}
 
@@ -168,13 +168,13 @@ import { getUrl } from '../utils/url';
 		justify-content: center;
 		width: 2rem;
 		height: 2rem;
-		color: rgb(var(--gray-dark));
+		color: rgb(var(--black));
 		border-radius: 0.5rem;
 		transition: all 0.2s ease;
 	}
 
 	.social-link:hover {
-		color: rgb(var(--black));
+		color: var(--accent);
 		background: rgba(var(--gray), 0.1);
 		transform: translateY(-1px);
 	}
