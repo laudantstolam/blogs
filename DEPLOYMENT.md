@@ -20,7 +20,7 @@ BASE_URL=/
 
 Run the development server:
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### 2. GitHub Pages
@@ -51,10 +51,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build website
-        run: npm run build
+        run: pnpm build
         env:
           SITE_URL: https://<username>.github.io
           BASE_URL: /<repo-name>/
@@ -84,7 +88,7 @@ BASE_URL=/
    - Key: `BASE_URL`, Value: `/`
 
 2. Configure build settings:
-   - Build command: `npm run build`
+   - Build command: `pnpm build`
    - Publish directory: `dist`
 
 #### Vercel Deployment
