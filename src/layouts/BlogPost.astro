@@ -84,15 +84,35 @@ const safeTags = tags ?? [];
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
+				font-family: 'Zen Maru Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 			}
+
+			/* Ensure all headings in prose use Zen Maru Gothic
+			:global(.prose h1),
+			:global(.prose h2),
+			:global(.prose h3),
+			:global(.prose h4),
+			:global(.prose h5),
+			:global(.prose h6) {
+				font-family: 'Zen Maru Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+			} */
+
+			/* Keep title section with original font */
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;
 				text-align: center;
 				line-height: 1;
+				font-family: var(--font-body);
 			}
+
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-family: var(--font-heading);
+			}
+
+			.title * {
+				font-family: inherit;
 			}
 			.subtitle {
 				color: rgb(var(--gray));
@@ -134,7 +154,6 @@ const safeTags = tags ?? [];
 			/* Image styling in prose */
 			:global(.prose img) {
 				max-width: 100%;
-				width: 100%;
 				height: auto;
 				display: block;
 				margin: 1em auto;
