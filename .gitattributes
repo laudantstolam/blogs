@@ -1,0 +1,16 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Force LF line endings for markdown files
+*.md text eol=lf
+
+# Force LF for common text files
+*.js text eol=lf
+*.mjs text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Windows batch files should use CRLF
+*.bat text eol=crlf

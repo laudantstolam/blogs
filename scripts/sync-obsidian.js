@@ -20,12 +20,18 @@ const EXCLUDED_DIRS = [
 
 async function cleanBlogDirectory() {
     try {
-        // Remove all files in the blog directory
+        // Remove all files and directories in the blog directory
         const files = await fs.readdir(ASTRO_BLOG_PATH);
         await Promise.all(
-            files.map(file => 
-                fs.unlink(path.join(ASTRO_BLOG_PATH, file))
-            )
+            files.map(async file => {
+                const filePath = path.join(ASTRO_BLOG_PATH, file);
+                const stat = await fs.stat(filePath);
+                if (stat.isDirectory()) {
+                    await fs.rm(filePath, { recursive: true, force: true });
+                } else {
+                    await fs.unlink(filePath);
+                }
+            })
         );
         console.log('🧹 Cleaned blog directory');
     } catch (error) {
@@ -94,9 +100,12 @@ async function processMarkdownFile(filePath) {
         if (shouldPublishPost(frontmatter)) {
             const fileName = path.basename(filePath);
             const destinationPath = path.join(ASTRO_BLOG_PATH, fileName);
-            
-            // Copy file to Astro blog directory
-            await fs.copyFile(filePath, destinationPath);
+
+            // Read file content and normalize line endings to LF
+            const fileContent = await fs.readFile(filePath, 'utf8');
+            const normalizedContent = fileContent.replace(/\r\n/g, '\n');
+            await fs.writeFile(destinationPath, normalizedContent, 'utf8');
+
             console.log(`✅ Copied ${path.relative(PROJECT_ROOT, filePath)} to blog directory`);
         } else {
             console.log(`ℹ️ Skipped ${path.relative(PROJECT_ROOT, filePath)} (not marked for publishing)`);
