@@ -1,23 +1,23 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Define paths
-set "SourcePath="
-set "DestPath="
-set "RepoPath="
+@REM REM Define paths
+@REM set "SourcePath="
+@REM set "DestPath="
+@REM set "RepoPath="
 
 
-@REM REM Or use .env file to set these variables
-@REM for /f "usebackq tokens=1,* delims==" %%a in (".env") do (
-@REM     set "line=%%a"
-@REM     if not "!line:~0,1!"=="#" (
-@REM         if not "%%a"=="" set "%%a=%%b"
-@REM     )
-@REM )
+REM Or use .env file to set these variables
+for /f "usebackq tokens=1,* delims==" %%a in (".env") do (
+    set "line=%%a"
+    if not "!line:~0,1!"=="#" (
+        if not "%%a"=="" set "%%a=%%b"
+    )
+)
 
-@REM set "SourcePath=%SOURCE_PATH%"
-@REM set "DestPath=%DEST_PATH%"
-@REM set "RepoPath=%REPO_PATH%"
+set "SourcePath=%SOURCE_PATH%"
+set "DestPath=%DEST_PATH%"
+set "RepoPath=%REPO_PATH%"
 
 REM Copy files
 echo Copying files to Blog folder...
