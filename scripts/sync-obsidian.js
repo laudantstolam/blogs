@@ -85,25 +85,50 @@ function shouldPublishPost(frontmatter) {
 async function processMarkdownFile(filePath) {
     try {
         const content = await fs.readFile(filePath, 'utf8');
-        let frontmatter = {}, postContent = content;
-        
+        let frontmatter = {};
+
         try {
             const parsed = grayMatter(content);
             frontmatter = parsed.data;
-            postContent = parsed.content;
         } catch (parseError) {
             console.error(`Error parsing frontmatter in ${filePath}:`, parseError);
             return; // Skip this file if frontmatter parsing fails
         }
-        
+
+        // Read file content and clean up tags with "#" prefix in frontmatter
+        let fileContent = await fs.readFile(filePath, 'utf8');
+        let contentChanged = false;
+
+        // Clean tags only in the frontmatter tags section
+        const cleanedContent = fileContent.replace(
+            /^(tags:\s*\n)((?:\s+-\s+.*\n)*)/gm,
+            (_match, tagsHeader, tagsList) => {
+                const cleanedTags = tagsList
+                    .replace(/^(\s*-\s*)"#([^"]+)"/gm, (_m, prefix, tag) => {
+                        contentChanged = true;
+                        return prefix + tag;
+                    })
+                    .replace(/^(\s*-\s*)#(\S+)/gm, (_m, prefix, tag) => {
+                        contentChanged = true;
+                        return prefix + tag;
+                    });
+                return tagsHeader + cleanedTags;
+            }
+        );
+
+        // Update the original file if tags were cleaned
+        if (contentChanged) {
+            await fs.writeFile(filePath, cleanedContent, 'utf8');
+            console.log(`🔧 Cleaned tags in ${path.relative(PROJECT_ROOT, filePath)}`);
+        }
+
         // Check if the post should be published
         if (shouldPublishPost(frontmatter)) {
             const fileName = path.basename(filePath);
             const destinationPath = path.join(ASTRO_BLOG_PATH, fileName);
 
-            // Read file content and normalize line endings to LF
-            const fileContent = await fs.readFile(filePath, 'utf8');
-            const normalizedContent = fileContent.replace(/\r\n/g, '\n');
+            // Normalize line endings to LF
+            const normalizedContent = cleanedContent.replace(/\r\n/g, '\n');
             await fs.writeFile(destinationPath, normalizedContent, 'utf8');
 
             console.log(`✅ Copied ${path.relative(PROJECT_ROOT, filePath)} to blog directory`);
