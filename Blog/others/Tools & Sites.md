@@ -4,8 +4,8 @@ subtitle:
 description: collections of useful tools
 publish: false
 tags:
-  - "#notes"
-  - "#資安"
+  - notes
+  - 資安
 featured_image:
 created_date: 2025-10-07
 ---

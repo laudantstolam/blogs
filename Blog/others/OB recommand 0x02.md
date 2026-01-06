@@ -4,7 +4,7 @@ subtitle:
 description: 從平替到全自動化備份與部屬網頁
 publish: true
 tags:
-  - "#others"
+  - others
 featured_image:
 created_date: 2026-01-06
 ---
