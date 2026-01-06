@@ -54,7 +54,6 @@ $$\Rightarrow y(t)=A|T(jw)|sin(wt+\angle {T(jw)}$$
 ![image.png|325](https://raw.githubusercontent.com/Ash0645/image_remote/main/20250701004904.png)
 
 ### 其他使用範例
-
 #### 跨裝置同步
 
 <font color="#e36c09">套件: git</font>

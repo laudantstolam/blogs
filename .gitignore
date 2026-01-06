@@ -18,5 +18,14 @@ pnpm-debug.log*
 .DS_Store
 
 # Astro
-.astro/ src/content/blog/*
 .astro/
+src/content/blog/*
+
+# Windows reserved device names
+nul
+NUL
+CON
+PRN
+AUX
+COM*
+LPT*
