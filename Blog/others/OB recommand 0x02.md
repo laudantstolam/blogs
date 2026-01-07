@@ -9,14 +9,11 @@ featured_image:
 created_date: 2026-01-06
 ---
 
-> [!important] 終於完成了!!! OB補全計畫
+> [!important] 摘要
 > 
-> 很高興宣布，從git版控到blog自動化部屬，一鍵執行的完全體已經完成了
+> 這篇主要會涵蓋目前的blog的發布流程，從obsidian markdown筆記到blog的自動發布與同步
 > 
 
-#### 套件列表
-- Commander --> 建立快捷鍵的按鈕
-- git --> 內文版本控制
 ## Obsidian Git -- 平替之路的起點
 
 ![[OB recommand 0x01#跨裝置同步]]
@@ -127,18 +124,24 @@ Obsidian 的 .md 文件
 
 首先透過`shell command`建立一個執行自動化部屬的執行指令
 (這邊可以針對command進行詳細設定，這邊預設是不會彈出cmd視窗出來的)
-![image.png|525](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260106201613.png)
+
+![image.png|600](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260106201613.png)
 
 接著利用`commander` 建立按鈕
-![image.png|525](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260106202614.png)
+![image.png|600](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260106202614.png)
 
 成功建立快捷鍵了，自此一鍵部屬大成功!!!!!
-![image.png|450](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260106203003.png)
+![image.png|600](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260106203003.png)
 
 同時我也可以用Obsidian 1.7.0版本更新的base功能去做篩選跟排序(可以用表格/列表/圖標來顯示跟統整)
-![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260107004240.png)
+![image.png|600](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260107004240.png)
 
 
 這不是超讚的嗎!!! 一下子就可以看到各種屬性和發布狀態，也可以追蹤要發布的筆記直接一鍵發布
 
-先預告 下一篇會是base跟tasknote的工作流程介紹
+>[!bug]+ 之後的改進方向
+>- 目前還需要移動一份副本到publish資料夾，之後可能會做成只要把屬性加上了就可以一鍵發佈到blog的形式
+>- 加上加密筆記的發布方式(跟blog同一套發布流程，但是是隱藏筆記需要輸入密碼才能查看)
+>- UI 還想做更多嘗試
+
+先預告 下一篇會是base跟tasknote還有webclipper的工作流程介紹
