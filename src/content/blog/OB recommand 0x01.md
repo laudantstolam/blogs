@@ -16,21 +16,27 @@ tags:
 
 那麼首先，讓我用最近換上的美麗布景來開始推坑:
 
-![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20250630233542.png)
+| 深色主題                                                                                         | 淺色主題                                                                                             |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20250630233542.png) | ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260112043432.png)<br> |
 
 我的開啟畫面大致是像上面那樣，最左側是不同功能的快捷鍵，然後是檔案目錄跟搜尋，中間是筆記的工作區跟預設的開啟畫面，右邊是git跟文字大綱(輪流切換)和日曆
-
+  
 很喜歡OB的一個地方就是自由度，只要你想，每一個方塊(?)都是可以自由變換大小跟排列的，甚至可以自己寫CSS把整個頁面爆改成其他風格，或是簡單一點--套一個好看的模板
+
 e.g.`(設定->外觀->管理)`
 ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20250630235439.png)
 
 有了一個美麗的工作區後就是著手專注在筆記的生產上，每個人的工作流程不太一樣，這邊會舉我目前的使用習慣給大家參考康康
 
 >[!quote]+ 我的OB設定參考
->- 安裝套件: Styles
+>- 安裝套件: Style Settings + CodeBlock Customizer
 >- 主題: Border的Sunset theme : https://github.com/Akifyss/obsidian-border/blob/main/presets/Sunset.json
 >- 安裝步驟: 裡面的CSS直接去styles中import
 >- ![](https://raw.githubusercontent.com/Ash0645/image_remote/main/%E9%8C%84%E8%A3%BD_2025_11_09_16_29_35_810.gif)
+>- 明亮主題也好看，這邊可以客製化 `callout` 樣式跟 codeblock的樣子
+>   ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260112043015.png)
+
 
 ### Obsidian 內建功能介紹
 
@@ -51,7 +57,10 @@ $$\Rightarrow y(t)=A|T(jw)|sin(wt+\angle {T(jw)}$$
 
 另一個我覺得很有用的東西是我首頁"七月計畫"那邊的螢光格
 可以自己定義不同的icon跟圖標，甚至可以折疊-->很適合拿來做問題跟答案的筆記模板
-![image.png|325](https://raw.githubusercontent.com/Ash0645/image_remote/main/20250701004904.png)
+
+| 暗黑主題                                                                                             | 明亮主題                                                                                         |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260112044156.png)<br> | ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260112044053.png) |
 
 ### 其他使用範例
 #### 跨裝置同步
