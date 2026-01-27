@@ -1,0 +1,137 @@
+---
+title: IDA Pro + UV 虛擬環境解決方法
+subtitle:
+description: chatgpt said my env is like trashbin QQ
+publish: true
+tags:
+featured_image:
+created_date: 2026-01-28
+---
+chatgpt: Yeah… that Python folder is giving “I’ve installed everything since 2019 and never cleaned once” energy 😅 
+me: QQ
+
+#### Original Env
+
+```bash
+C:\Users\***>uv python list
+cpython-3.13.5-windows-x86_64-none                   C:\Python313\python.exe
+cpython-3.13.5-windows-x86_64-none                   C:\ProgramData\chocolatey\bin\python3.13.exe
+cpython-3.12.3-windows-x86_64-none                   AppData\Local\Programs\Python\Python312\python.exe
+cpython-3.10.10-windows-x86_64-none                  AppData\Local\Programs\Python\Python310\python.exe
+cpython-3.9.13-windows-x86_64-none                   AppData\Local\Programs\Python\Python39\python.exe
+cpython-3.7.9-windows-x86_64-none                    AppData\Local\Programs\Python\Python37\python.exe
+```
+
+總之目前裡面有:
+- choco 安裝的3.13
+- 從官網下載的3.7.9 / 3.9.13 / 3.10.10 / 3.12.3
+- 另外安裝的全域路徑3.13.5
+
+###### Making Backups
+
+```bash
+C:\Users\<USER_NAME>>C:\Python313\python.exe -m pip freeze > %USERPROFILE%\pip_313.txt
+
+C:\Users\<USER_NAME>>C:\Users\<USER_NAME>\AppData\Local\Programs\Python\Python312\python.exe -m pip freeze > %USERPROFILE%\pip_312.txt
+
+C:\Users\<USER_NAME>>C:\Users\<USER_NAME>\AppData\Local\Programs\Python\Python310\python.exe -m pip freeze > %USERPROFILE%\pip_310.txt
+
+```
+
+###### Clean env
+
+系統管理員可以把上面的東西都刪掉
+剩下的可以參考[這篇](https://blog.csdn.net/wudinaniya/article/details/108547066)把windows註冊的python的依賴拿掉
+```
+python --> 'python' 不是內部或外部命令、可執行的程式或批次檔。
+```
+
+#### uv taking over
+
+`powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
+
+##### uv 語法導讀
+https://blog.miniasp.com/post/2025/10/20/uv-uvx-cheatsheet
+
+##### 來把IDA直接替換成uv venv吧
+一些基礎知識: 
+- idapyswitch.exe 在ida資料夾下面，用來切換ida版本用的東西
+- idapythonrc.py 在ida\python\examples裡面，是開啟ida的時候會讀取用來設定環境的文件
+官方建議作法: https://community.hex-rays.com/t/using-a-virtualenv-for-idapython/261
+
+###### 下載 Python 3.12
+`uv python install 3.12`
+
+> 為什麼選 3.12？IDA Pro 9.x 官方推薦使用 Python 3.12，相容性最佳。3.13 目前部分套件支援度還不完整。
+
+(optional) 把 3.12 版本設定為之後創建 venv / 跑程式用的預設版本：
+`uv python pin 3.12`
+這會在當前目錄建立 `.python-version` 文件，之後在該目錄執行 uv 指令會自動使用指定版本。
+
+###### (optional) 指定Python版本
+這邊預設應該會直接指定到3.12，因為我還有裝別的東西所以為了確認有重新指定一次
+
+```bash
+C:\Users\rache\Downloads\IDA Professional 9.1>idapyswitch.exe
+Checking installs from "Astral Software Inc."
+Checking "CPython 3.12.12 (64-bit)" (3.12.12)
+Found: "C:\Users\rache\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none" (version: 3.12.12 ('3.12.12150.1013'))
+Checking "CPython 3.9.25 (64-bit)" (3.9.25)
+Found: "C:\Users\rache\AppData\Roaming\uv\python\cpython-3.9.25-windows-x86_64-none" (version: 3.9.25 ('3.9.25150.1013'))
+IDA previously used: "C:\Users\rache\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\python312.dll" (guessed version: 3.12.12 ('3.12.12150.1013')). Making this the preferred version.
+The following Python installations were found:
+    #0: 3.12.12 ('3.12.12150.1013') (C:\Users\rache\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\python3.dll)
+    #1: 3.9.25 ('3.9.25150.1013') (C:\Users\rache\AppData\Roaming\uv\python\cpython-3.9.25-windows-x86_64-none\python3.dll)
+Please pick a number between 0 and 1 (default: 0)
+
+```
+
+###### ida 環境處理
+
+建立虛擬環境與安裝相關依賴
+- `uv venv ida_uv_env --python 3.12`
+- `ida_uv_env\Scripts\activate`
+- `uv pip install shims anytree yara-python keystone-engine openai flare-capa` 
+
+原本在ida\python\examples裡面，要複製到 `C:\Users\<USER_NAME>\AppData\Roaming\Hex-Rays\IDA Pro\idapythonrc.py` ，才能讓 IDA 在開啟的時候讀取它~
+
+```python
+import sys
+import os
+
+# UV venv 路徑
+UV_ENV_PATH = r"C:\Users\<USER_NAME>\Downloads\IDA Professional 9.1\ida_uv_env"
+
+# 將 UV venv 的 site-packages 加入 sys.path
+site_packages = os.path.join(UV_ENV_PATH, "Lib", "site-packages")
+if os.path.isdir(site_packages):
+    sys.path.insert(0, site_packages)
+else:
+    print(f"[idapythonrc] UV env site-packages not found: {site_packages}")
+
+# Optional: 將 DLLs 加入 PATH（避免 YARA / Keystone 找不到 DLL）
+# 注意：UV venv 預設不會有 DLLs 資料夾，這段通常不會執行
+# 但如果你手動複製了 DLL 檔案進去，這段可以確保它們被正確載入
+dlls_path = os.path.join(UV_ENV_PATH, "DLLs")
+if os.path.isdir(dlls_path):
+    os.environ["PATH"] = f"{dlls_path};" + os.environ["PATH"]
+
+
+print("[idapythonrc] Initialization complete")
+```
+
+
+#### IDA plugin 安裝
+
+###### ida pro mcp 解法
+- py -3.13 -m pip install https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip
+- uv run python -m ida_pro_mcp --install
+- ![image.png|350](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260128003522.png)
+
+
+###### findcrypt / yara會遇到的問題
+- 記得安裝yara-python不是yara
+- libyara引入位置錯誤就開everything重新複製到對的地方
+- ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260128002500.png)
+
+- 如果引入過程出現一些bug就把yara砍掉 ref https://blog.csdn.net/qq_34905587/article/details/115264740
