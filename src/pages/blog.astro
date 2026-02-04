@@ -23,11 +23,6 @@ const posts = allPosts
         return dateB - dateA;
     });
 
-// Get featured post (most recent)
-const featuredPost = posts[0];
-const recentPosts = posts.slice(1, 5);
-const olderPosts = posts.slice(5);
-
 // Get all tags and their counts
 const tagCounts = new Map<string, number>();
 posts.forEach(post => {
@@ -68,7 +63,524 @@ const totalTags = tagCounts.size;
                 width: 100%;
                 max-width: 1400px;
                 margin: 0 auto;
-                padding: 1rem 1.5rem 3rem;
+                padding: 1rem 1.5rem 2rem;
+            }
+
+            /* ==================== TWO PANEL LAYOUT ==================== */
+            .blog-layout {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 1.5rem;
+                min-height: calc(100vh - 180px);
+            }
+
+            /* ==================== LEFT SIDEBAR ==================== */
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                position: sticky;
+                top: 1rem;
+                height: fit-content;
+                max-height: calc(100vh - 120px);
+            }
+
+            .sidebar-card {
+                background: rgba(var(--gray-light), 0.5);
+                border: 1px solid rgba(var(--gray), 0.1);
+                border-radius: 1rem;
+                padding: 1.25rem;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .sidebar-card:hover {
+                border-color: rgba(var(--gray), 0.2);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            /* Intro Card */
+            .intro-card {
+                background: linear-gradient(
+                    135deg,
+                    rgba(var(--accent), 0.08) 0%,
+                    rgba(var(--gray-light), 0.7) 100%
+                );
+                border-color: rgba(var(--accent), 0.15);
+            }
+
+            .intro-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                padding: 0.3rem 0.6rem;
+                background: var(--accent);
+                color: white;
+                font-size: 0.65rem;
+                font-weight: 600;
+                border-radius: 2rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .intro-label svg {
+                width: 10px;
+                height: 10px;
+            }
+
+            .intro-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: rgb(var(--black));
+                margin: 0.75rem 0 0.25rem;
+                line-height: 1.2;
+            }
+
+            .intro-desc {
+                font-size: 0.9rem;
+                color: rgb(var(--gray));
+                margin: 0;
+            }
+
+            /* Stats Row */
+            .stats-row {
+                display: flex;
+                gap: 0.75rem;
+                margin-top: 1rem;
+            }
+
+            .stat-box {
+                flex: 1;
+                text-align: center;
+                padding: 0.6rem;
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 0.6rem;
+                transition: transform 0.2s ease;
+            }
+
+            [data-theme='dark'] .stat-box {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .stat-box:hover {
+                transform: translateY(-2px);
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--accent);
+                line-height: 1;
+            }
+
+            .stat-name {
+                font-size: 0.7rem;
+                color: rgb(var(--gray));
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                margin-top: 0.2rem;
+            }
+
+            /* Graph Card */
+            .graph-card {
+                flex: 1;
+                min-height: 200px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 0.75rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: rgb(var(--black));
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                margin: 0;
+            }
+
+            .card-title svg {
+                width: 14px;
+                height: 14px;
+                color: var(--accent);
+            }
+
+            .see-all {
+                font-size: 0.75rem;
+                color: var(--accent);
+                text-decoration: none;
+                font-weight: 500;
+                padding: 0.2rem 0.4rem;
+                border-radius: 0.3rem;
+                transition: background-color 0.2s ease;
+            }
+
+            .see-all:hover {
+                background: rgba(35, 55, 255, 0.08);
+            }
+
+            .graph-wrapper {
+                flex: 1;
+                min-height: 250px;
+                height: 300px;
+                border-radius: 0.6rem;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .graph-wrapper :global(.graph-container) {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100% !important;
+            }
+
+            .graph-wrapper :global(.graph-canvas) {
+                height: 100% !important;
+            }
+
+            /* ==================== MAIN CONTENT - ALL POSTS ==================== */
+            .posts-panel {
+                display: flex;
+                flex-direction: column;
+                background: rgba(var(--gray-light), 0.3);
+                border: 1px solid rgba(var(--gray), 0.1);
+                border-radius: 1.25rem;
+                overflow: hidden;
+            }
+
+            .posts-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 1.25rem;
+                border-bottom: 1px solid rgba(var(--gray), 0.1);
+                background: rgba(var(--gray-light), 0.5);
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .posts-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: rgb(var(--black));
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin: 0;
+            }
+
+            .posts-title svg {
+                width: 18px;
+                height: 18px;
+                color: var(--accent);
+            }
+
+            .posts-count {
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: rgb(var(--gray));
+                background: rgba(var(--gray), 0.1);
+                padding: 0.2rem 0.5rem;
+                border-radius: 1rem;
+            }
+
+            .header-controls {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .search-box {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.4rem 0.75rem;
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid rgba(var(--gray), 0.15);
+                border-radius: 0.5rem;
+                width: 200px;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            [data-theme='dark'] .search-box {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .search-box:focus-within {
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px rgba(35, 55, 255, 0.1);
+            }
+
+            .search-box svg {
+                width: 14px;
+                height: 14px;
+                color: rgb(var(--gray));
+                flex-shrink: 0;
+            }
+
+            .search-box:focus-within svg {
+                color: var(--accent);
+            }
+
+            .search-input {
+                flex: 1;
+                border: none;
+                background: transparent;
+                font-size: 0.8rem;
+                color: rgb(var(--black));
+                outline: none;
+                min-width: 0;
+            }
+
+            .search-input::placeholder {
+                color: rgb(var(--gray));
+            }
+
+            /* View Toggle */
+            .view-toggle {
+                display: flex;
+                gap: 2px;
+                background: rgba(var(--gray), 0.1);
+                border-radius: 0.5rem;
+                padding: 2px;
+            }
+
+            .view-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                border: none;
+                border-radius: 0.4rem;
+                background: transparent;
+                color: rgb(var(--gray));
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .view-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .view-btn:hover {
+                color: var(--accent);
+                background: rgba(var(--accent), 0.1);
+            }
+
+            .view-btn.active {
+                background: rgba(255, 255, 255, 0.9);
+                color: var(--accent);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            [data-theme='dark'] .view-btn.active {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            /* Topic Filter Area */
+            .topic-filter {
+                padding: 0.75rem 1.25rem;
+                border-bottom: 1px solid rgba(var(--gray), 0.08);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .filter-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: rgb(var(--gray));
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+            }
+
+            .filter-pills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.375rem;
+                flex: 1;
+            }
+
+            .filter-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.25rem;
+                padding: 0.3rem 0.6rem;
+                background: rgba(var(--gray-light), 0.8);
+                color: rgb(var(--gray-dark));
+                border-radius: 1rem;
+                font-size: 0.75rem;
+                font-weight: 500;
+                text-decoration: none;
+                border: 1px solid transparent;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .filter-pill:hover {
+                background: rgba(var(--accent), 0.1);
+                color: var(--accent);
+                border-color: rgba(var(--accent), 0.2);
+            }
+
+            .filter-pill.active {
+                background: var(--accent);
+                color: white;
+                border-color: var(--accent);
+            }
+
+            .filter-pill .pill-count {
+                font-size: 0.65rem;
+                opacity: 0.7;
+            }
+
+            .filter-pill.active .pill-count {
+                opacity: 0.9;
+            }
+
+            .clear-filter {
+                font-size: 0.75rem;
+                color: rgb(var(--gray));
+                text-decoration: none;
+                cursor: pointer;
+                padding: 0.3rem 0.5rem;
+                border-radius: 0.3rem;
+                border: none;
+                background: transparent;
+                transition: color 0.2s ease, background-color 0.2s ease;
+                display: none;
+            }
+
+            .clear-filter.visible {
+                display: inline-flex;
+            }
+
+            .clear-filter:hover {
+                color: var(--accent);
+                background: rgba(var(--accent), 0.08);
+            }
+
+            /* Scrollable Post List */
+            .posts-scroll {
+                flex: 1;
+                overflow-y: auto;
+                padding: 1rem 1.25rem;
+                max-height: calc(100vh - 280px);
+                min-height: 500px;
+            }
+
+            /* Custom Scrollbar */
+            .posts-scroll::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .posts-scroll::-webkit-scrollbar-track {
+                background: rgba(var(--gray), 0.05);
+                border-radius: 4px;
+            }
+
+            .posts-scroll::-webkit-scrollbar-thumb {
+                background: rgba(var(--gray), 0.2);
+                border-radius: 4px;
+            }
+
+            .posts-scroll::-webkit-scrollbar-thumb:hover {
+                background: rgba(var(--gray), 0.3);
+            }
+
+            .post-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.625rem;
+            }
+
+            /* Card View */
+            .post-list.card-view {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1rem;
+            }
+
+            .post-list.card-view .blog-card {
+                height: 100%;
+            }
+
+            .post-list.card-view .blog-card.compact {
+                border-radius: 16px;
+            }
+
+            .post-list.card-view .blog-card.compact .card-content {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.25rem;
+                gap: 0.75rem;
+            }
+
+            .post-list.card-view .blog-card.compact .title {
+                font-size: 1.1rem;
+                white-space: normal;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+            }
+
+            .post-list.card-view .blog-card.compact .footer {
+                width: 100%;
+                justify-content: space-between;
+                padding-top: 0.75rem;
+                border-top: 1px solid rgba(var(--black), 0.06);
+            }
+
+            /* Empty and No Results States */
+            .empty-state,
+            .no-results {
+                text-align: center;
+                padding: 3rem 2rem;
+                color: rgb(var(--gray));
+            }
+
+            .no-results {
+                display: none;
+            }
+
+            .no-results.visible {
+                display: block;
+            }
+
+            .empty-state p,
+            .no-results p {
+                margin: 0;
+                font-size: 0.95rem;
+            }
+
+            /* ==================== ANIMATIONS ==================== */
+            @keyframes fade-in {
+                from { opacity: 0; transform: translateY(8px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .sidebar-card {
+                animation: fade-in 0.4s ease-out backwards;
+            }
+
+            .sidebar-card:nth-child(1) { animation-delay: 0ms; }
+            .sidebar-card:nth-child(2) { animation-delay: 80ms; }
+
+            .posts-panel {
+                animation: fade-in 0.4s ease-out 100ms backwards;
             }
 
             /* Reduced motion */
@@ -89,540 +601,15 @@ const totalTags = tagCounts.size;
                 outline: none;
             }
 
-            /* ==================== BENTO GRID LAYOUT ==================== */
-            .bento-grid {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                grid-auto-rows: minmax(80px, auto);
-                gap: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .bento-card {
-                background: rgba(var(--gray-light), 0.5);
-                border: 1px solid rgba(var(--gray), 0.1);
-                border-radius: 1.25rem;
-                padding: 1.25rem;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-            }
-
-            .bento-card:hover {
-                transform: translate3d(0, -2px, 0);
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            }
-
-            /* ==================== FEATURED POST - Large card ==================== */
-            .featured-card {
-                grid-column: span 12;
-                grid-row: span 3;
-                background: linear-gradient(
-                    135deg,
-                    rgba(var(--accent), 0.08) 0%,
-                    rgba(var(--gray-light), 0.7) 100%
-                );
-                border-color: rgba(var(--accent), 0.15);
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .featured-card::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                right: -30%;
-                width: 60%;
-                height: 150%;
-                background: radial-gradient(circle, rgba(var(--accent), 0.06) 0%, transparent 70%);
-                pointer-events: none;
-            }
-
-            .featured-label {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.35rem;
-                padding: 0.35rem 0.75rem;
-                background: var(--accent);
-                color: white;
-                font-size: 0.7rem;
-                font-weight: 600;
-                border-radius: 2rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                width: fit-content;
-            }
-
-            .featured-label svg {
-                width: 12px;
-                height: 12px;
-            }
-
-            .featured-content {
-                position: relative;
-                z-index: 1;
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 1rem 0;
-            }
-
-            .featured-title {
-                font-size: 2rem;
-                font-weight: 700;
-                color: rgb(var(--black));
-                margin-bottom: 0.5rem;
-                line-height: 1.2;
-            }
-
-            .featured-title a {
-                color: inherit;
-                text-decoration: none;
-                transition: color 0.2s ease;
-            }
-
-            .featured-title a:hover {
-                color: var(--accent);
-            }
-
-            .featured-excerpt {
-                font-size: 1rem;
-                color: rgb(var(--gray));
-                line-height: 1.6;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                max-width: 500px;
-            }
-
-            .featured-footer {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 1rem;
-                flex-wrap: wrap;
-            }
-
-            .featured-date {
-                font-size: 0.85rem;
-                color: rgb(var(--gray));
-            }
-
-            .featured-cta {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.6rem 1.2rem;
-                background: var(--accent);
-                color: white;
-                font-weight: 500;
-                font-size: 0.9rem;
-                border-radius: 0.6rem;
-                text-decoration: none;
-                cursor: pointer;
-                transition: transform 0.15s ease, box-shadow 0.2s ease;
-            }
-
-            .featured-cta:hover {
-                transform: translate3d(0, -2px, 0);
-                box-shadow: 0 4px 12px rgba(35, 55, 255, 0.35);
-                color: white;
-                text-decoration: none;
-            }
-
-            .featured-cta svg {
-                width: 16px;
-                height: 16px;
-                transition: transform 0.2s ease;
-            }
-
-            .featured-cta:hover svg {
-                transform: translate3d(3px, 0, 0);
-            }
-
-            /* ==================== STATS CARD ==================== */
-            .stats-card {
-                grid-column: span 3;
-                grid-row: span 2;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 1rem;
-            }
-
-            .stats-row {
-                display: flex;
-                gap: 1rem;
-            }
-
-            .stat-box {
-                flex: 1;
-                text-align: center;
-                padding: 0.75rem;
-                background: rgba(var(--gray-light), 0.6);
-                border-radius: 0.75rem;
-            }
-
-            .stat-value {
-                font-size: 1.75rem;
-                font-weight: 700;
-                color: var(--accent);
-                line-height: 1;
-            }
-
-            .stat-name {
-                font-size: 0.75rem;
-                color: rgb(var(--gray));
-                text-transform: uppercase;
-                letter-spacing: 0.03em;
-                margin-top: 0.25rem;
-            }
-
-            /* ==================== TAGS CARD ==================== */
-            .tags-card {
-                grid-column: span 9;
-                grid-row: span 2;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .card-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 0.75rem;
-            }
-
-            .card-title {
-                font-size: 0.9rem;
-                font-weight: 600;
-                color: rgb(var(--black));
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .card-title svg {
-                width: 16px;
-                height: 16px;
-                color: var(--accent);
-            }
-
-            .see-all {
-                font-size: 0.8rem;
-                color: var(--accent);
-                text-decoration: none;
-                font-weight: 500;
-            }
-
-            .see-all:hover {
-                text-decoration: underline;
-            }
-
-            .tags-cloud {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                flex: 1;
-                align-content: flex-start;
-                overflow: hidden;
-            }
-
-            .tag-pill {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.3rem;
-                padding: 0.4rem 0.75rem;
-                background: rgba(var(--gray-light), 0.8);
-                color: rgb(var(--gray-dark));
-                border-radius: 2rem;
-                font-size: 0.8rem;
-                font-weight: 500;
-                text-decoration: none;
-                border: 1px solid rgba(var(--gray), 0.1);
-                cursor: pointer;
-                transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-            }
-
-            .tag-pill:hover {
-                background: var(--accent);
-                color: white;
-                border-color: var(--accent);
-                text-decoration: none;
-            }
-
-            .tag-pill .count {
-                font-size: 0.7rem;
-                opacity: 0.7;
-            }
-
-            /* ==================== GRAPH CARD ==================== */
-            .graph-card {
-                grid-column: span 4;
-                grid-row: span 3;
-                display: flex;
-                flex-direction: column;
-                padding: 1rem;
-            }
-
-            .graph-wrapper {
-                flex: 1;
-                min-height: 280px;
-                border-radius: 0.75rem;
-                overflow: hidden;
-            }
-
-            /* ==================== RECENT POSTS CARD ==================== */
-            .recent-card {
-                grid-column: span 8;
-                grid-row: span 7;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .recent-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 0.75rem;
-                flex-wrap: wrap;
-                gap: 0.75rem;
-            }
-
-            .recent-title-group {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .search-box {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.4rem 0.75rem;
-                background: rgba(var(--gray-light), 0.8);
-                border: 1px solid rgba(var(--gray), 0.1);
-                border-radius: 0.6rem;
-                flex: 1;
-                max-width: 300px;
-                transition: border-color 0.15s ease, box-shadow 0.15s ease;
-            }
-
-            .search-box:focus-within {
-                border-color: var(--accent);
-                box-shadow: 0 0 0 3px rgba(var(--accent), 0.1);
-            }
-
-            .search-box svg {
-                width: 16px;
-                height: 16px;
-                color: rgb(var(--gray));
-                flex-shrink: 0;
-            }
-
-            .search-input {
-                flex: 1;
-                border: none;
-                background: transparent;
-                font-size: 0.85rem;
-                color: rgb(var(--black));
-                outline: none;
-            }
-
-            .search-input::placeholder {
-                color: rgb(var(--gray));
-            }
-
-            .view-toggle {
-                display: flex;
-                gap: 0.25rem;
-                padding: 0.25rem;
-                background: rgba(var(--gray-light), 0.8);
-                border-radius: 0.5rem;
-            }
-
-            .view-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 32px;
-                height: 32px;
-                border: none;
-                background: transparent;
-                color: rgb(var(--gray));
-                border-radius: 0.4rem;
-                cursor: pointer;
-                transition: background-color 0.15s ease, color 0.15s ease;
-            }
-
-            .view-btn:hover {
-                color: rgb(var(--gray-dark));
-                background: rgba(var(--gray), 0.1);
-            }
-
-            .view-btn.active {
-                background: rgb(var(--gray-light));
-                color: var(--accent);
-            }
-
-            [data-theme='dark'] .view-btn.active {
-                background: rgba(255, 255, 255, 0.1);
-            }
-
-            .view-btn svg {
-                width: 16px;
-                height: 16px;
-            }
-
-            .post-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                gap: 1.25rem;
-            }
-
-            /* List view for posts */
-            .post-list.list-view {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .post-list.list-view :global(article) {
-                display: flex;
-                flex-direction: row;
-                max-height: 150px;
-            }
-
-            .post-list.list-view :global(article .card-content) {
-                flex-direction: row;
-                align-items: center;
-                padding: 0.5rem 1rem;
-            }
-
-            .post-list.list-view :global(article .main-content) {
-                flex: 1;
-                min-width: 0;
-            }
-
-            .post-list.list-view :global(article .title) {
-                font-size: 1.1rem;
-                margin-top: 0;
-            }
-
-            .post-list.list-view :global(article .description) {
-                display: none;
-            }
-
-            .post-list.list-view :global(article .footer) {
-                border-top: none;
-                padding-top: 0;
-                margin-top: 0;
-                flex-shrink: 0;
-            }
-
-            /* ==================== ALL POSTS SECTION ==================== */
-            .all-posts-section {
-                margin-top: 1rem;
-            }
-
-            .section-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 1.25rem;
-                padding-bottom: 0.75rem;
-                border-bottom: 1px solid rgba(var(--gray), 0.1);
-            }
-
-            .section-title {
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: rgb(var(--black));
-            }
-
-            .view-toggle {
-                display: flex;
-                gap: 0.25rem;
-                padding: 0.25rem;
-                background: rgba(var(--gray-light), 0.8);
-                border-radius: 0.5rem;
-            }
-
-            .view-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 36px;
-                height: 36px;
-                border: none;
-                background: transparent;
-                color: rgb(var(--gray));
-                border-radius: 0.4rem;
-                cursor: pointer;
-                transition: background-color 0.15s ease, color 0.15s ease;
-            }
-
-            .view-btn:hover {
-                color: rgb(var(--gray-dark));
-                background: rgba(var(--gray), 0.1);
-            }
-
-            .view-btn.active {
-                background: rgb(var(--gray-light));
-                color: var(--accent);
-            }
-
-            [data-theme='dark'] .view-btn.active {
-                background: rgba(255, 255, 255, 0.1);
-            }
-
-            .view-btn svg {
-                width: 18px;
-                height: 18px;
-            }
-
-            /* ==================== EMPTY STATE ==================== */
-            .empty-state {
-                text-align: center;
-                padding: 3rem 1rem;
-                color: rgb(var(--gray));
-            }
-
             /* ==================== RESPONSIVE ==================== */
             @media (max-width: 1024px) {
-                .bento-grid {
-                    grid-template-columns: repeat(6, 1fr);
+                .blog-layout {
+                    grid-template-columns: 280px 1fr;
+                    gap: 1rem;
                 }
 
-                .featured-card {
-                    grid-column: span 6;
-                    grid-row: span 3;
-                }
-
-                .stats-card {
-                    grid-column: span 2;
-                    grid-row: span 2;
-                }
-
-                .tags-card {
-                    grid-column: span 4;
-                    grid-row: span 2;
-                }
-
-                .graph-card {
-                    grid-column: span 2;
-                    grid-row: span 3;
-                }
-
-                .recent-card {
-                    grid-column: span 4;
-                    grid-row: span 7;
-                }
-
-                .featured-title {
-                    font-size: 1.5rem;
+                .posts-scroll {
+                    max-height: calc(100vh - 300px);
                 }
             }
 
@@ -631,99 +618,80 @@ const totalTags = tagCounts.size;
                     padding: 0.75rem 1rem 2rem;
                 }
 
-                .bento-grid {
+                .blog-layout {
                     grid-template-columns: 1fr;
-                    gap: 0.875rem;
+                    gap: 1rem;
                 }
 
-                .featured-card,
-                .stats-card,
-                .tags-card,
-                .graph-card,
-                .recent-card {
-                    grid-column: span 1;
+                .sidebar {
+                    position: relative;
+                    top: 0;
+                    max-height: none;
+                    flex-direction: row;
+                    flex-wrap: wrap;
                 }
 
-                .featured-card {
-                    grid-row: span 2;
-                    padding: 1.25rem;
-                }
-
-                .stats-card {
-                    grid-row: span 1;
-                }
-
-                .tags-card {
-                    grid-row: span 1;
+                .sidebar-card {
+                    flex: 1;
+                    min-width: 200px;
                 }
 
                 .graph-card {
-                    grid-row: span 2;
+                    min-height: 180px;
                 }
 
-                .recent-card {
-                    grid-row: span 3;
+                .posts-scroll {
+                    max-height: 60vh;
+                    min-height: 400px;
                 }
 
-                .featured-title {
-                    font-size: 1.35rem;
+                .posts-header {
+                    flex-direction: column;
+                    align-items: stretch;
                 }
 
-                .featured-excerpt {
-                    font-size: 0.9rem;
-                    -webkit-line-clamp: 2;
+                .header-controls {
+                    justify-content: space-between;
                 }
 
-                .graph-wrapper {
-                    min-height: 220px;
+                .search-box {
+                    flex: 1;
                 }
 
-                .posts-grid {
-                    grid-template-columns: 1fr;
+                .topic-filter {
+                    flex-direction: column;
+                    align-items: flex-start;
                 }
 
-                .stat-value {
-                    font-size: 1.5rem;
+                .filter-pills {
+                    width: 100%;
                 }
             }
 
             @media (max-width: 480px) {
-                .featured-footer {
+                .sidebar {
                     flex-direction: column;
-                    align-items: flex-start;
+                }
+
+                .sidebar-card {
+                    min-width: 100%;
                 }
 
                 .stats-row {
                     gap: 0.5rem;
                 }
 
-                .stat-box {
-                    padding: 0.5rem;
-                }
-
                 .stat-value {
                     font-size: 1.25rem;
                 }
 
-                .post-item {
-                    padding: 0.75rem;
-                }
-
-                .recent-header {
+                .header-controls {
                     flex-direction: column;
                     align-items: stretch;
                 }
 
-                .recent-title-group {
-                    justify-content: center;
-                }
-
                 .search-box {
-                    max-width: 100%;
-                }
-
-                .view-toggle {
-                    align-self: center;
+                    width: 100%;
                 }
             }
         </style>
@@ -731,189 +699,273 @@ const totalTags = tagCounts.size;
     <body>
         <Header />
         <main>
-            <!-- Bento Grid Layout -->
-            <div class="bento-grid">
-                <!-- Featured Post - Intro -->
-                <article class="bento-card featured-card">
-                    <div class="featured-label">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                        </svg>
-                        Blog
-                    </div>
-                    <div class="featured-content">
-                        <h1 class="featured-title">
-                            All Blogs
-                        </h1>
-                        <p class="featured-excerpt">See My Awesome Posts ;)</p>
-                    </div>
-                </article>
-
-                <!-- Stats Card -->
-                <div class="bento-card stats-card">
-                    <div class="stats-row">
-                        <div class="stat-box">
-                            <div class="stat-value">{totalPosts}</div>
-                            <div class="stat-name">Posts</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">{totalTags}</div>
-                            <div class="stat-name">Topics</div>
+            <div class="blog-layout">
+                <!-- Left Sidebar -->
+                <aside class="sidebar">
+                    <!-- Intro Card with Stats -->
+                    <div class="sidebar-card intro-card">
+                        <!-- <div class="intro-label">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                            Blog
+                        </div> -->
+                        <h1 class="intro-title">All Posts</h1>
+                        <p class="intro-desc">I luuuuuve Obsidian ;)</p>
+                        <div class="stats-row">
+                            <div class="stat-box">
+                                <div class="stat-value">{totalPosts}</div>
+                                <div class="stat-name">Posts</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">{totalTags}</div>
+                                <div class="stat-name">Topics</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Tags Card -->
-                <div class="bento-card tags-card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
-                                <circle cx="7" cy="7" r="1" fill="currentColor"/>
-                            </svg>
-                            Topics
-                        </h2>
-                    </div>
-                    <div class="tags-cloud">
-                        {sortedTags.slice(0, 10).map(([tag, count]) => (
-                            <a href={getUrl(`/tag/${tag}/`)} class="tag-pill">
-                                {tag}
-                                <span class="count">({count})</span>
-                            </a>
-                        ))}
-                    </div>
-                </div>
-
-                <!-- Graph Card -->
-                <div class="bento-card graph-card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="3"/>
-                                <circle cx="19" cy="5" r="2"/>
-                                <circle cx="5" cy="5" r="2"/>
-                                <circle cx="19" cy="19" r="2"/>
-                                <circle cx="5" cy="19" r="2"/>
-                                <path d="M12 9V5M12 19v-4M9 12H5M19 12h-4"/>
-                            </svg>
-                            Knowledge Graph
-                        </h2>
-                        <a href={getUrl('/graph/')} class="see-all">Fullscreen</a>
-                    </div>
-                    <div class="graph-wrapper">
-                        <GraphView height="100%" showControls={true} />
-                    </div>
-                </div>
-
-                <!-- Recent Posts Card -->
-                <div class="bento-card recent-card">
-                    <div class="recent-header">
-                        <div class="recent-title-group">
+                    <!-- Graph Card -->
+                    <div class="sidebar-card graph-card">
+                        <div class="card-header">
                             <h2 class="card-title">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <circle cx="19" cy="5" r="2"/>
+                                    <circle cx="5" cy="5" r="2"/>
+                                    <circle cx="19" cy="19" r="2"/>
+                                    <circle cx="5" cy="19" r="2"/>
+                                    <path d="M12 9V5M12 19v-4M9 12H5M19 12h-4"/>
                                 </svg>
-                                All Posts
+                                Knowledge Graph
                             </h2>
+                            <a href={getUrl('/graph/')} class="see-all">Expand</a>
                         </div>
-                        <div class="search-box">
+                        <div class="graph-wrapper">
+                            <GraphView height="300px" showControls={false} />
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Posts Panel -->
+                <section class="posts-panel">
+                    <header class="posts-header">
+                        <h2 class="posts-title">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
                             </svg>
-                            <input type="text" id="search-input" class="search-input" placeholder="Search posts..." />
-                        </div>
-                        <div class="view-toggle">
-                            <button class="view-btn active" data-view="list" aria-label="List view">
+                            All Posts
+                            <span class="posts-count" id="posts-count">{totalPosts}</span>
+                        </h2>
+                        <div class="header-controls">
+                            <div class="search-box">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <line x1="3" y1="6" x2="21" y2="6"/>
-                                    <line x1="3" y1="12" x2="21" y2="12"/>
-                                    <line x1="3" y1="18" x2="21" y2="18"/>
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="M21 21l-4.35-4.35"/>
                                 </svg>
-                            </button>
-                            <button class="view-btn" data-view="grid" aria-label="Grid view">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <rect x="3" y="3" width="7" height="7"/>
-                                    <rect x="14" y="3" width="7" height="7"/>
-                                    <rect x="3" y="14" width="7" height="7"/>
-                                    <rect x="14" y="14" width="7" height="7"/>
-                                </svg>
-                            </button>
+                                <input type="text" id="search-input" class="search-input" placeholder="Search posts..." />
+                            </div>
+                            <div class="view-toggle" role="group" aria-label="View mode">
+                                <button class="view-btn active" data-view="list" aria-pressed="true" title="List view">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="8" y1="6" x2="21" y2="6"/>
+                                        <line x1="8" y1="12" x2="21" y2="12"/>
+                                        <line x1="8" y1="18" x2="21" y2="18"/>
+                                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                                    </svg>
+                                </button>
+                                <button class="view-btn" data-view="card" aria-pressed="false" title="Card view">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
+                    </header>
+
+                    <!-- Topic Filter -->
+                    <div class="topic-filter">
+                        <span class="filter-label">Topics</span>
+                        <div class="filter-pills" id="filter-pills">
+                            {sortedTags.map(([tag, count]) => (
+                                <button class="filter-pill" data-tag={tag.toLowerCase()}>
+                                    {tag}
+                                    <span class="pill-count">({count})</span>
+                                </button>
+                            ))}
+                        </div>
+                        <button class="clear-filter" id="clear-filter">Clear</button>
                     </div>
-                    <div class="post-list" id="post-list">
-                        {posts.map((post) => (
-                            <BlogCard
-                                title={post.data.title}
-                                description={post.data.description ?? undefined}
-                                date={post.data.created_date ?? undefined}
-                                slug={post.data.slug ?? post.id}
-                            />
-                        ))}
+
+                    <!-- Scrollable Posts List -->
+                    <div class="posts-scroll">
+                        <div class="post-list" id="post-list">
+                            {posts.map((post) => (
+                                <BlogCard
+                                    title={post.data.title}
+                                    description={post.data.description ?? undefined}
+                                    date={post.data.created_date ?? undefined}
+                                    slug={post.data.slug ?? post.id}
+                                    tags={post.data.tags ?? []}
+                                    compact={true}
+                                />
+                            ))}
+                        </div>
+                        <div class="no-results" id="no-results">
+                            <p>No posts match your search.</p>
+                        </div>
+                        {posts.length === 0 && (
+                            <div class="empty-state">
+                                <p>No posts found. Check back soon!</p>
+                            </div>
+                        )}
                     </div>
-                </div>
+                </section>
             </div>
-
-            <!-- All Posts Section - Removed (all posts shown in Recent Posts card) -->
-
-            {posts.length === 0 && (
-                <div class="empty-state">
-                    <p>No posts found. Check back soon!</p>
-                </div>
-            )}
         </main>
         <Footer />
 
         <script>
-            // View toggle functionality
-            const viewButtons = document.querySelectorAll('.view-btn');
+            // Elements
+            const searchInput = document.getElementById('search-input') as HTMLInputElement;
             const postList = document.getElementById('post-list');
-            const VIEW_KEY = 'blog-view-preference';
+            const postsCount = document.getElementById('posts-count');
+            const filterPills = document.querySelectorAll('.filter-pill');
+            const clearFilter = document.getElementById('clear-filter');
+            const noResults = document.getElementById('no-results');
+            const viewToggleBtns = document.querySelectorAll('.view-btn');
 
-            function setView(view: string) {
-                viewButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.getAttribute('data-view') === view);
+            let activeTags: Set<string> = new Set();
+            let searchTerm = '';
+            let currentView = 'list';
+
+            function filterPosts() {
+                if (!postList) return;
+
+                const blogCards = postList.querySelectorAll('.blog-card');
+                let visibleCount = 0;
+
+                blogCards.forEach(card => {
+                    const title = card.querySelector('.title')?.textContent?.toLowerCase() || '';
+                    const cardTags = (card as HTMLElement).dataset.tags?.toLowerCase().split(',').filter(t => t) || [];
+
+                    const matchesSearch = !searchTerm || title.includes(searchTerm);
+                    // Post must have ALL selected tags (AND logic)
+                    const matchesTags = activeTags.size === 0 ||
+                        Array.from(activeTags).every(tag => cardTags.includes(tag));
+
+                    const isVisible = matchesSearch && matchesTags;
+                    (card as HTMLElement).style.display = isVisible ? '' : 'none';
+
+                    if (isVisible) visibleCount++;
                 });
 
-                if (postList) {
-                    if (view === 'list') {
-                        postList.classList.add('list-view');
-                    } else {
-                        postList.classList.remove('list-view');
-                    }
+                // Update count
+                if (postsCount) {
+                    postsCount.textContent = visibleCount.toString();
                 }
 
-                localStorage.setItem(VIEW_KEY, view);
+                // Show/hide no results
+                if (noResults) {
+                    noResults.classList.toggle('visible', visibleCount === 0);
+                }
+
+                // Show/hide clear button
+                if (clearFilter) {
+                    clearFilter.classList.toggle('visible', activeTags.size > 0);
+                }
             }
 
-            viewButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const view = btn.getAttribute('data-view');
-                    if (view) setView(view);
+            // Search functionality
+            if (searchInput) {
+                searchInput.addEventListener('input', (e: Event) => {
+                    searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+                    filterPosts();
+                });
+            }
+
+            // Tag filter functionality (multi-select)
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const tag = (pill as HTMLElement).dataset.tag;
+                    if (!tag) return;
+
+                    if (activeTags.has(tag)) {
+                        // Deselect if clicking same tag
+                        activeTags.delete(tag);
+                        pill.classList.remove('active');
+                    } else {
+                        // Add tag to selection
+                        activeTags.add(tag);
+                        pill.classList.add('active');
+                    }
+
+                    filterPosts();
                 });
             });
 
-            // Restore view preference - default to list view
-            const savedView = localStorage.getItem(VIEW_KEY) || 'list';
-            setView(savedView);
+            // Clear filter
+            if (clearFilter) {
+                clearFilter.addEventListener('click', () => {
+                    activeTags.clear();
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    filterPosts();
+                });
+            }
 
-            // Search functionality
-            const searchInput = document.getElementById('search-input') as HTMLInputElement;
-            if (searchInput && postList) {
-                searchInput.addEventListener('input', (e: Event) => {
-                    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-                    const blogCards = postList.querySelectorAll('.blog-card');
+            // View toggle functionality
+            viewToggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const view = (btn as HTMLElement).dataset.view;
+                    if (view === currentView) return;
 
-                    blogCards.forEach(card => {
-                        const title = card.querySelector('.title')?.textContent?.toLowerCase() || '';
-                        const isVisible = title.includes(searchTerm);
-                        (card as HTMLElement).style.display = isVisible ? '' : 'none';
+                    currentView = view || 'list';
+
+                    // Update button states
+                    viewToggleBtns.forEach(b => {
+                        const isActive = (b as HTMLElement).dataset.view === currentView;
+                        b.classList.toggle('active', isActive);
+                        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                    });
+
+                    // Update post list class
+                    if (postList) {
+                        postList.classList.toggle('card-view', currentView === 'card');
+                    }
+                });
+            });
+
+            // Graph sync - highlight post in graph when hovering on blog card
+            function setupGraphSync() {
+                if (!postList) return;
+
+                const blogCards = postList.querySelectorAll('.blog-card');
+
+                blogCards.forEach(card => {
+                    const postId = (card as HTMLElement).dataset.postId;
+                    if (!postId) return;
+
+                    card.addEventListener('mouseenter', () => {
+                        window.dispatchEvent(new CustomEvent('graph-highlight-post', {
+                            detail: { postId }
+                        }));
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        window.dispatchEvent(new CustomEvent('graph-clear-highlight'));
                     });
                 });
             }
+
+            // Initialize graph sync
+            setupGraphSync();
         </script>
     </body>
 </html>
