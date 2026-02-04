@@ -3,7 +3,9 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BlogCard from '../components/BlogCard.astro';
+import GraphView from '../components/GraphView.astro';
 import { getCollection } from 'astro:content';
+import { getUrl } from '../utils/url';
 
 // Helper function to get a valid timestamp or fallback
 function getValidTimestamp(date: Date | null | undefined): number {

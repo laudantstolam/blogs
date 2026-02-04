@@ -29,3 +29,11 @@ PRN
 AUX
 COM*
 LPT*
+
+# AI stuff
+.claude/
+
+# obsidian settings
+.obsidian/
+Blog/.obsidian/
+
