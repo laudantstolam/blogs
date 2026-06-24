@@ -14,16 +14,17 @@ created_date: 2025-10-26
 | :--------------------------------- | :------ | :-- | :-- | :----- | :------------ |
 |                                    | V       |     |     |        |               |
 
-| challenge | difficulty | genere        | GPT-able |
-| :-------- | :--------- | ------------- | -------- |
-| 01        | 💔         | pygame        | V        |
-| 02        | 💔         | python opcode | V        |
-| 03        | 💔         | pdf misc      | V        |
-| 04        | 💔         | header repair | 0.5+通靈   |
-| 05(進度70%) | 💔💔💔     | dbg and abs   | 0.2?     |
-| 06        | tbc        |               |          |
-| 07        | tbc        |               |          |
-| 08        | tbc        |               |          |
+| challenge | difficulty | genere           | Agent-able |
+| :-------- | :--------- | ---------------- | ---------- |
+| 01        | 💔         | pygame           | V          |
+| 02        | 💔         | python opcode    | V          |
+| 03        | 💔         | pdf misc         | V          |
+| 04        | 💔         | header repair    | 0.5+通靈     |
+| 05        | 💔💔💔     | dbg and capstone | 0.4        |
+| 06        | 💔💔       | pyc LCG          | V          |
+| 07        | tbc        |                  |            |
+| 08        | tbc        |                  |            |
+| 09        | tbc        |                  |            |
 
 
 上課上到一半被autong抓來打flare-on
@@ -397,6 +398,7 @@ pdf misc
 >但其實一樣修一下開頭重新執行就有了flag了
 >但是中間學到了一些解壓縮的方法跟twinbasic語法 蠻好玩的 耶
 
+
 ### 05
 
 >[!quote]+ challenge
@@ -419,7 +421,7 @@ pdf misc
 >
 >#### NTFS stream
 >然後另外去找了一下ntfs相關的背景知識還有之前AIS3馬師講到的再stream裡面藏東西的evade方法筆記
->```
+>```bash fold
 >Get-Item -Path .\ntfsm.exe -Stream *                                               15:59:45
 >
 >PSPath        : Microsoft.PowerShell.Core\FileSystem::C:\flareon\05\ntfsm.exe::$DATA
@@ -457,48 +459,22 @@ pdf misc
 >```
 >跟前面靜態逆出來的幾個關鍵參數有對上
 
+
 >[!note]+ solution
 >### 靜態分析主要函數
->看到string裡面有個`input 16 characters`的檢查，順藤摸瓜找到主要的比較函式
->- `sub_14000c0b0`: 裡面依序設定了4個map: `state, input, position, transitions`
->- 逐字元讀取並設定`state`
->- 參考`jump table` (0x000140ca3b) 讀取出要比較的目標
->	- **中間卡在這邊不知道怎麼去定位到具體的比較目標以及選項之間的樹狀關係**
->- table會根據state進入不同的分支然後進行對應的字元比較並寫入新的state
->-  把state寫入 NTFS ADS (sub_140FF1190)
->- 執行shellcode 跑 create subprocess
->	-  沒搞好會登出電腦重開機QQ
->- 如果一連串都是對的會去跑flag的func`sub_14000b2a0`(但是首先還是需要知道那個16bits
->```mermaid
->flowchart TD
->    A[用戶執行程式] --> B[讀取 NTFS ADS]
->    B --> C{第一次執行？}
->    C -->|是| D[初始化]
->    D --> E[exit]
+>1. 輸入檢查：看到string裡面有個`input 16 characters`的檢查，**得知輸入長度=16**
+>	- `sub_14000c0b0`: 裡面依序設定了4個map: `state, input, position, transitions`
+>	- 逐字元讀取並設定`state`
+>	- 參考`jump table` (0x000140ca3b) 讀取出要比較的目標
+>		- **中間卡在這邊不知道怎麼去定位到具體的比較目標以及選項之間的樹狀關係**
+>2. state寫入
+>	- table會根據state進入不同的分支然後進行對應的字元比較並寫入新的state
+>	-  把state寫入 NTFS ADS (sub_140FF1190)
+>	- 執行shellcode 跑 create subprocess
+>		-  沒搞好會登出電腦重開機QQ
+>	- 如果一連串都是對的會去跑flag的func`sub_14000b2a0`(但是首先還是需要知道個16bits
 >
->    C -->|否| F{position < 16？}
->    
->    F -->|Yes| G[繼續處理]
->    G --> H[跳轉表查找]
->    H --> I[state → 查表 → 代碼地址]
->    I --> J[跳轉到該地址]
->    J --> K[執行狀態處理代碼]
->    K --> L{字元匹配？}
->
->    L -->|Yes| M[新狀態，transitions++]
->    L -->|No| N[ShellExecuteA → 進程爆炸]
->
->    M --> O[position++]
->    O --> P[更新 ADS]
->    P --> Q[exit 0]
->
->    F -->|No| R[檢查完成]
->    R --> S{transitions == 16？}
->    S -->|Yes| T["correct!" → exit 0]
->    S -->|No| U["wrong!" → exit 1]
->```
->
->>[!example]+ 舉第一個字元比較的例子
+>>[!example]- 舉第一個字元比較的例子
 >>舉個例子第一個字的比較會是case 0
 >>`jumptable 000000014000CA5A ` 然後進去比較J/U/i三個不同的分支 
 >>```c
@@ -549,14 +525,592 @@ pdf misc
 >---
 >**於是我們有個想法**
 >**1. 拿到跳轉表**
->**2. 建立樹狀結構**
->**3. 用DFS或是其他方法找到正確的路徑**
+>- dispatcher = `0x14000CA5A`
+>- jump table = `0x140c687b8`
+>	- 從func list也可以看到一個大的jump table = `0x14000CA5A`
+>- **case count** = 0x1629c + 1 = 90781 (這裡有個坑因為直接看cases會被截斷到65535)
 >
->##### 釐清與逆向PART1. 跳轉表
->done, tbc
->##### 釐清與逆向PART2. 生成FNS (func裡面的字串比較)
->done, tbc
->##### 釐清與逆向PART3.開搞DFS
->這邊做到一半 好累 之後再看看有沒有辦法自己搓出來
->
- 
+> ```asm
+> 0x14000ca2f: cmp  qword [rsp+0x58d38], 0x1629c          ; state vs upper bound (90780)
+> 0x14000ca3b: ja   default
+> 0x14000ca41: lea  rax, [rip - 0xca48]                   ; rax = 0x140000000 (image base)
+> 0x14000ca50: mov  ecx, dword [rax + rcx*4 + 0xc687b8]   ; table @ base+0xc687b8, 4-byte entries
+> 0x14000ca57: add  rcx, rax                              ; handler = entry + base (relative offset)
+> 0x14000ca5a: jmp  rcx
+> ```
+> 
+> ```python
+> Python>si = idaapi.get_switch_info(0x14000CA5A)
+> Python>print(si)
+> <ida_nalt.switch_info_t; proxy of <Swig Object of type 'switch_info_t *' at 0x0000022736ECA520> >
+> Python>idaapi.calc_switch_cases(0x14000CA5A, si)
+> <ida_xref.cases_and_targets_t; proxy of <Swig Object of type 'cases_and_targets_t *' at 0x0000022736EACCC0> >
+> 
+> ## case 數量(這邊有坑 不應該是65535(0xffff))
+> Python>si.ncases
+> 0xffff
+> Python>si.jumps
+> 0x140c687b8
+> Python>si.get_jtable_element_size()
+> 0x4
+> Python>si.elbase
+> 0x140000000
+> 
+> ```
+> 
+> **2. 建立樹狀結構**
+> 
+> 從不同的case比較可以提取出通用邏輯來建立index tree
+> ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260606003216.png)
+> 
+> 首先抓出pattern然後逐一找到他們比較的ASCII跟設定的狀態值(`ns`)
+> ```python
+> #   Handler pattern:
+> #       rdtsc spin-loop  (anti-timing, skipped)
+> #       movzx eax, [rsp+0x30]              ; load input char
+> #       cmp   [rsp+tmp], <CHAR>            ; compare
+> #       je    <target>                     ; -> mov [rsp+0x58d30], <NEXT_STATE>
+> #       ...
+> #       jmp   <fail/dispatch>              ; end of cmp chain
+> 
+> 
+> def parse_handler(rva):
+>     try:
+>         file_off = pe.get_offset_from_rva(rva)
+>     except Exception:
+>         return {}
+> 
+>     code     = pe.__data__[file_off : file_off + 0x400] 
+>     # read a reasonable chunk of code
+>     # 400-1000 bytes should be enough to cover the whole cmp chain
+>     insns    = list(md.disasm(code, BASE + rva))
+>     addr_map = {ins.address: ins for ins in insns}
+> 
+>     transitions, prev = {}, None
+>     for ins in insns:
+>         if ins.mnemonic == "jmp":      # 結束條件
+>             break
+> 
+>         if ins.mnemonic in ("je", "jz") and prev and prev.mnemonic == "cmp":
+>         #  pattern = je/jz，而且前一行是 cmp
+>             ops = prev.operands
+>             if len(ops) >= 2 and ops[1].type == X86_OP_IMM:
+>                 cv = ops[1].imm & 0xFF
+>                 if 0x20 <= cv <= 0x7E:                 # check printable ASCII
+>                     tgt = ins.operands[0].imm       # de-ref je/jz target addr
+>                     mov = addr_map.get(tgt)            # je lands on the state-store mov
+>                     if mov and mov.mnemonic == "mov" and len(mov.operands) >= 2:
+>                         ns = mov.operands[1].imm & 0xFFFFFFFF  # save state value
+>                         transitions[chr(cv)] = ns
+>         prev = ins
+> 
+>     return transitions
+> 
+> ```
+> 
+> 然後parse成json list
+> ```python
+> def build_graph(jmp_tbl):
+>     graph, visited, queue = {}, set(), deque([0])
+>     while queue:
+>         sid = queue.popleft()
+>         
+>         if sid in visited:
+>             continue
+>         visited.add(sid)
+> 
+>         rva = jmp_tbl[sid] if sid < len(jmp_tbl) else 0
+>         trans = parse_handler(rva) if rva else {}
+>         graph[sid] = trans
+> 
+>         for ns in trans.values():
+>             if ns not in visited and ns < len(jmp_tbl):   # only enqueue real states
+>                 queue.append(ns)
+> 
+>     nonempty = sum(1 for v in graph.values() if v)
+>     print("[*] graph built: %d reachable states, %d with transitions" % (len(graph), nonempty))
+>     return graph
+> ```
+> 
+> 
+> ```json
+> {
+>   "0": {
+>     "J": 2,
+>     "U": 3,
+>     "i": 1
+>   },
+>   "2": {
+>     "Y": 6
+>   },
+>   "3": {
+>     "P": 7,
+>     "Z": 8
+>   },
+>   "1": {
+>     "L": 4,
+>     "q": 5
+>   }
+>   }
+> ```
+> 
+> **3. 用DFS/BFS找到16 character的路徑**
+> 
+> 從上面的json開始找到連續16個可以串起來的路徑
+> ```python
+> def solve(graph, depth=FLAG_LEN):
+>     queue = deque([(0, "")])
+>     while queue:
+>         state, path = queue.popleft()
+>         if len(path) == depth: # len = 16 
+>             return path
+>         for ch, ns in graph.get(state, {}).items():
+>             queue.append((ns, path + ch))
+> ```
+> ### sloving script
+> 
+> ```python fold
+> #!/usr/bin/env python3
+> """
+> uv run --with pefile --with capstone python solve_ntfsm.py
+> """
+> import pefile, struct, json
+> import os
+> from capstone import *
+> from capstone.x86 import X86_OP_IMM
+> from collections import deque
+> 
+> # ── Config ────────────────────────────────────────────────────────────────────
+> BINARY    = "ntfsm.exe"
+> BASE      = 0x140000000      # PE ImageBase
+> JTABLE_VA = 0x140C687B8      # switch jump table (from IDA: jmp rcx @ 0x14000CA5A)
+> NCASES    = 90781            # switch case count
+> FLAG_LEN  = 16               # password length (trie depth)
+> MAP_JSON  = "map.json"
+> 
+> pe = pefile.PE(BINARY)
+> md = Cs(CS_ARCH_X86, CS_MODE_64)
+> md.detail = True
+> 
+> 
+> # ── 1. Load the 90781-entry jump table (4-byte relative offsets) ───────────────
+> def load_jump_table():
+>     off = pe.get_offset_from_rva(JTABLE_VA - BASE)
+>     tbl = [struct.unpack_from("<I", pe.__data__, off + i * 4)[0] for i in range(NCASES)]
+>     print("[*] jump table loaded: %d entries (handler[0] @ rva 0x%x)" % (len(tbl), tbl[0]))
+>     return tbl
+> 
+> 
+> # ── 2. Parse one handler -> {char: next_state} ─────────────────────────────────
+> #   Handler pattern:
+> #       rdtsc spin-loop  (anti-timing, skipped)
+> #       movzx eax, [rsp+0x30]              ; load input char
+> #       cmp   [rsp+tmp], <CHAR>            ; compare
+> #       je    <target>                     ; -> mov [rsp+0x58d30], <NEXT_STATE>
+> #       ...
+> #       jmp   <fail/dispatch>              ; end of cmp chain
+> def parse_handler(rva):
+>     try:
+>         file_off = pe.get_offset_from_rva(rva)
+>     except Exception:
+>         return {}
+> 
+>     code     = pe.__data__[file_off : file_off + 0x800] # read a reasonable chunk of code 400-1000 bytes should be enough to cover the whole cmp chain
+>     insns    = list(md.disasm(code, BASE + rva))
+>     addr_map = {ins.address: ins for ins in insns}
+> 
+>     transitions, prev = {}, None
+>     for ins in insns:
+>         if ins.mnemonic == "jmp":      # unconditional jump = end of cmp chain
+>             break
+> 
+>         if ins.mnemonic in ("je", "jz") and prev and prev.mnemonic == "cmp":
+>             ops = prev.operands
+>             if len(ops) >= 2 and ops[1].type == X86_OP_IMM:
+>                 cv = ops[1].imm & 0xFF
+>                 if 0x20 <= cv <= 0x7E:                 # printable ASCII
+>                     tgt = ins.operands[0].imm
+>                     mov = addr_map.get(tgt)            # je lands on the state-store mov
+>                     if mov and mov.mnemonic == "mov" and len(mov.operands) >= 2:
+>                         ns = mov.operands[1].imm & 0xFFFFFFFF
+>                         transitions[chr(cv)] = ns
+>         prev = ins
+> 
+>     return transitions
+> 
+> 
+> # ── 3. BFS-build the reachable state graph ─────────────────────────────────────
+> def build_graph(jmp_tbl):
+>     graph, visited, queue = {}, set(), deque([0])
+>     while queue:
+>         sid = queue.popleft()
+>         if sid in visited:
+>             continue
+>         visited.add(sid)
+> 
+>         rva = jmp_tbl[sid] if sid < len(jmp_tbl) else 0
+>         trans = parse_handler(rva) if rva else {}
+>         graph[sid] = trans
+> 
+>         for ns in trans.values():
+>             if ns not in visited and ns < len(jmp_tbl):   # only enqueue real states
+>                 queue.append(ns)
+> 
+>     nonempty = sum(1 for v in graph.values() if v)
+>     print("[*] graph built: %d reachable states, %d with transitions" % (len(graph), nonempty))
+>     return graph
+> 
+> 
+> # ── 4. BFS for the exact-length path ───────────────────────────────────────────
+> def solve(graph, depth=FLAG_LEN):
+>     queue = deque([(0, "")])
+>     while queue:
+>         state, path = queue.popleft()
+>         if len(path) == depth:
+>             return path
+>         for ch, ns in graph.get(state, {}).items():
+>             queue.append((ns, path + ch))
+>     return None
+> 
+> 
+> # ── Main ────────────────────────────────────────────────────────────────────────
+> if __name__ == "__main__":
+>     # map exist
+>     if os.path.exists(MAP_JSON):
+>         print("[*] Json exist, loading %s" % MAP_JSON)
+>         with open(MAP_JSON, "r") as f:
+>             raw_map = json.load(f)
+>             graph = {int(k): v for k, v in raw_map.items()}
+>         print("[+] Loaded！include %d reachable state。" % len(graph))
+>     else:
+>         print("[*] Guilding Graph")
+>         jmp_tbl = load_jump_table()
+>         graph   = build_graph(jmp_tbl)
+> 
+>         with open(MAP_JSON, "w") as f:
+>             json.dump({str(k): v for k, v in graph.items()}, f, indent=2)
+>         print("[*] FSM map saved -> %s" % MAP_JSON)
+> 
+>     print("[+] ===BFS...===")
+>     pw = solve(graph)
+>     
+>     print("=" * 64)
+>     if pw:
+>         print("[+] PASSWORD (%d chars): %s" % (len(pw), pw))
+>     else:
+>         print("[!] no %d-char path found" % FLAG_LEN)
+>     print("=" * 64)
+> ```
+> 
+> 
+
+
+> [!danger]+ Reference: binja/ghidra解法
+>ref(ghidra解法): https://washi1337.github.io/ctf-writeups/writeups/flare-on/2025/5/
+>ref(binja解法): https://jhalon.github.io/flare-on-12-ntfsm/
+
+### 06
+
+> [!quote]+ challenge
+> 
+> 是一個經過pyinstaller pack過的socket connection tool
+> 使用 [pyinstxtractor](https://github.com/extremecoders-re/pyinstxtractor)解壓出來看到一個 `challenge_to_compile.pyc`
+> 
+> ```bash
+> ┌──(kali㉿kali)-[/media/sf_SHARED_FILE/flareon/06]
+> └─$ python pyex.py chat_client    
+> [+] Processing chat_client
+> [+] Pyinstaller version: 2.1+
+> [+] Python version: 3.12
+> [+] Length of package: 31946910 bytes
+> [+] Found 553 files in CArchive
+> [+] Beginning extraction...please standby
+> [+] Possible entry point: pyiboot01_bootstrap.pyc
+> [+] Possible entry point: pyi_rth_inspect.pyc
+> [+] Possible entry point: pyi_rth_pkgutil.pyc
+> [+] Possible entry point: pyi_rth_multiprocessing.pyc
+> [+] Possible entry point: pyi_rth_setuptools.pyc
+> [+] Possible entry point: pyi_rth_pkgres.pyc
+> [+] Possible entry point: pyi_rth__tkinter.pyc
+> [+] Possible entry point: challenge_to_compile.pyc
+> [+] Successfully extracted pyinstaller archive: chat_client
+> ```
+> 
+> 雖然pycdc解下去會有error但還是可以看出基本雛形，整體架構是一個用tkinter寫的聊天室，帶了一些web3的東西跟自建的加解密的func
+> ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260611192923.png)
+> 
+> **SmartContract**
+> 建立[乙太坊](https://ethereum.org/zh-tw/developers/docs/evm/)連結，有一些像是`Connected to Sepolia network at {SmartContracts.rpc_url}'` 的關鍵字，問了AI知道是EVM相關的東西
+> 
+> **LCGOracle**
+> 智能合約+LCG，定義合約號並deploy contract with LCG
+> LCG formula: $X_{n+1}​=(aXn​+c) \text{ mod } m$
+> 
+> 基本上就是拿LCG的m, c, n, seed 去遠端呼叫合約函數計算LCG的值最後返回狀態
+> 
+> ```python
+> ## 把 LCG 部署到 blockchain
+> self.deployed_contract = SmartContracts.deploy_contract(...)
+> 
+> ## 呼叫 smart contract 計算下一個 LCG 值
+> self.state = self.deployed_contract.functions.nextVal(...).call()
+> ```
+> 
+> 
+> **TripleXOROracle**
+> ```python
+> ciphertext = self.deployed_contract.functions.encrypt(prime_from_lcg, conversation_time, plaintext_bytes).call()
+> ```
+> 
+> ciphertext = primeFromLcg XOR conversationTime XOR plaintext
+> so primeFromLcg = ciphertext XOR conversationTime XOR plaintext
+> 
+> **ChatLogic**
+> ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260611210252.png)
+> 
+> 1. Seed 生成: 拿電腦名稱做sha256當作hash seed
+> ```python
+> def _get_system_artifact_hash(self):
+> 	artifact = platform.node().encode('utf-8')
+> 	hash_val = hashlib.sha256(artifact).digest()
+> 	seed_hash = int.from_bytes(hash_val, 'little')
+> 	print(f'[SETUP]  - Generated Seed {seed_hash}...')
+> 	return seed_hash
+> ```
+> 
+> 2. LCG prime 生成
+> 
+> ```python
+> def _generate_primes_from_hash(self, seed_hash):
+> 	primes = []
+> 	current_hash_byte_length = (seed_hash.bit_length() + 7) // 8
+> 	current_hash = seed_hash.to_bytes(current_hash_byte_length, 'little')
+> 	print('[SETUP] Generating LCG parameters from system artifact...')
+> 	iteration_limit = 10000
+> 	iterations = 0
+> 	while len(primes) < 3 and iterations < iteration_limit:
+> 		current_hash = hashlib.sha256(current_hash).digest()
+> 		candidate = int.from_bytes(current_hash, 'little')
+> 		iterations += 1
+> 		if candidate.bit_length() == 256 and isPrime(candidate):
+> 			primes.append(candidate)
+> 			print(f'[SETUP]  - Found parameter {len(primes)}: {str(candidate)[:20]}...')
+> 	if len(primes) < 3:
+> 		error_msg = '[!] Error: Could not find 3 primes within iteration limit.'
+> 		print('Current Primes: ', primes)
+> 		print(error_msg)
+> 		exit()
+> 	return (primes[0], primes[1], primes[2])
+> ```
+> 把seeds拿去不斷sha256之後當成int、檢查是不是質數直到拿到三個數字
+> 所以目前為止LCG的幾項輸入都是已知且固定的
+> 
+> 3. set enc method
+> 
+> | mode   | encryption |
+> | ------ | ---------- |
+> | normal | LCG + XOR  |
+> | safe   | RSA        |
+> 
+> 去看輸出的 `chatlog.json`，**一共7則LCG-XOR跟2個RSA**，`[ENCRYPTED]` 部分沒有明文的應該就是我們要的東西
+> ```json
+> [
+>   {
+>     "conversation_time": 0,
+>     "mode": "LCG-XOR",
+>     "plaintext": "Hello",
+>     "ciphertext": "e934b27119f12318fe16e8cd1c1678fd3b0a752eca163a7261a7e2510184bbe9"
+>   },
+>   <SNIP 6 other LCG-XOR cipher>
+>   {
+>     "conversation_time": 242,
+>     "mode": "RSA",
+>     "plaintext": "[ENCRYPTED]",
+>     "ciphertext": "680a65364a498aa87cf17c934ab308b2aee0014aee5b0b7d289b5108677c7ad1eb3bcfbcad7582f87cb3f242391bea7e70e8c01f3ad53ac69488713daea76bb3a524bd2a4bbbc2cfb487477e9d91783f103bd6729b15a4ae99cb93f0db22a467ce12f8d56acaef5d1652c54f495db7bc88aa423bc1c2b60a6ecaede2f4273f6dce265f6c664ec583d7bd75d2fb849d77fa11d05de891b5a706eb103b7dbdb4e5a4a2e72445b61b83fd931cae34e5eaab931037db72ba14e41a70de94472e949ca3cf2135c2ccef0e9b6fa7dd3aaf29a946d165f6ca452466168c32c43c91f159928efb3624e56430b14a0728c52f2668ab26f837120d7af36baf48192ceb3002"
+>   },
+>   {
+>     "conversation_time": 249,
+>     "mode": "RSA",
+>     "plaintext": "[ENCRYPTED]",
+>     "ciphertext": "6f70034472ce115fc82a08560bd22f0e7f373e6ef27bca6e4c8f67fedf4031be23bf50311b4720fe74836b352b34c42db46341cac60298f2fa768f775a9c3da0c6705e0ce11d19b3cbdcf51309c22744e96a19576a8de0e1195f2dab21a3f1b0ef5086afcffa2e086e7738e5032cb5503df39e4bf4bdf620af7aa0f752dac942be50e7fec9a82b63f5c8faf07306e2a2e605bb93df09951c8ad46e5a2572e333484cae16be41929523c83c0d4ca317ef72ea9cde1d5630ebf6c244803d2dc1da0a1eefaafa82339bf0e6cf4bf41b1a2a90f7b2e25313a021eafa6234643acb9d5c9c22674d7bc793f1822743b48227a814a7a6604694296f33c2c59e743f4106"
+>   }
+> ]
+> ```
+> 
+> ```python
+>  if self.super_safe_mode and self.rsa_key:
+> 	plaintext_bytes = plaintext.encode('utf-8')
+> 	plaintext_enc = bytes_to_long(plaintext_bytes)
+> 	_enc = pow(plaintext_enc, self.rsa_key.e, self.rsa_key.n)
+> 	ciphertext = _enc.to_bytes(self.rsa_key.n.bit_length(), 'little').rstrip(b'\x00')
+> 	encryption_mode = 'RSA'
+> 	plaintext = '[ENCRYPTED]'
+> ```
+> 
+> 
+
+> [!note]+ solution
+> 
+>  4. 從前面`TripleXOROracle`可知`LCGstate = ciphertext XOR time XOR plaintext_word`
+>   5. 破LCG參數 — 連狀態關係：$v_{i+1} = M*v_i + C (mod N)$
+>     - 差分：$d_i = v_{i+1} - v_i$
+>     - 代數：$d_{i+2} = M*d_{i+1} → d_{i+2}*d_i - d_{i+1}^2 ≡ 0 (mod N)$
+>     - gcd全式 → N（模數）
+>     - 反演：$M = (v_2-v_1) / (v_1-v_0) mod N$
+>     - 求C：$C = v_1 - M*v_0 mod N$
+>   6. 續推迭代 — 用M,C,N重複迭代，蒐集256位質數8個
+>   7. RSA破解 — n = 質數乘積，$φ = ∏(p-1)，d = e^{-1} mod φ$，解密
+> 
+> ```python
+> import json, math
+> from sympy import isprime
+> from functools import reduce
+> 
+> data = json.load(open("chat_client_extracted/chat_log.json"))
+> 
+> # 1. ciphertext = primeFromLcg XOR conversationTime XOR plaintext_word
+> states = []
+> for e in data:
+>     if e["mode"] != "LCG-XOR":
+>         continue
+>     ct = int(e["ciphertext"], 16)
+>     pt_word = int.from_bytes(e["plaintext"].encode().ljust(32, b"\x00"), "big")
+>     states.append(ct ^ e["conversation_time"] ^ pt_word)
+> 
+> # 2. Crack LCG
+> diffs  = [b - a for a, b in zip(states, states[1:])]
+> zeroes = [t2*t0 - t1*t1 for t0, t1, t2 in zip(diffs, diffs[1:], diffs[2:])]
+> N = reduce(math.gcd, zeroes)
+> M = (states[2]-states[1]) * pow(states[1]-states[0], -1, N) % N
+> C = (states[1] - M*states[0]) % N
+> assert all((M*states[i]+C) % N == states[i+1] for i in range(len(states)-1))
+> 
+> # 3. Extend the stream and collect 256-bit primes (RSA factors)
+> cands = list(states)
+> while sum(isprime(p) and p.bit_length() == 256 for p in cands) < 8 and len(cands) < 200:
+>     cands.append((M*cands[-1] + C) % N)
+> primes = [p for p in cands if isprime(p) and p.bit_length() == 256][:8]
+> 
+> n = math.prod(primes)
+> phi = math.prod(p-1 for p in primes)
+> d = pow(65537, -1, phi)
+> 
+> for ent in data:
+>     if ent["mode"] != "RSA":
+>         continue
+>     c = int.from_bytes(bytes.fromhex(ent["ciphertext"]), "little")  # stored little-endian
+>     m = pow(c, d, n)
+>     print(m.to_bytes((m.bit_length()+7)//8, "big"))
+> ```
+> 
+> ```bash
+> (CTF) uv run solve.py
+> b"Actually what's your email?"
+> b"It's W3b3_i5_Gr8@flare-on.com"
+> ```
+
+
+### 07
+拿到一個pcap跟一個PE
+
+```bash
+└─$ binwalk hopeanddreams.exe 
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             Microsoft executable, portable (PE)
+4484677       0x446E45        bix header, header size: 64 bytes, header CRC: 0x2, created: 1970-03-30 01:53:54, image size: 21531595 bytes, Data Address: 0xE8B62200, Entry Point: 0x84C074, data CRC: 0x10E9F6FE, compression type: lzma, image name: ""
+4618016       0x467720        Base64 standard index table
+4624932       0x469224        YAFFS filesystem root entry, little endian, type file, v1 root directory
+4625216       0x469340        AES Inverse S-Box
+4625504       0x469460        SHA256 hash constants, little endian
+4629008       0x46A210        AES Inverse S-Box
+4630176       0x46A6A0        AES S-Box
+4704864       0x47CA60        XML document, version: "1.0"
+```
+
+感覺是LZMA loader+AES的東西
+另外pdb也被拔掉了...算了好像沒啥用的感覺
+```
+14046c460  char PDBFileName[0x42] = "C:\\this\\binary\\rips\\the\\bones\\from\\your\\back\\its\\a\\death\\trap.pdb", 0
+```
+
+##### pcap 分析
+用 [A-packets](https://apackets.com/pcaps/http) 線上分析了一下，大概掃過一些endpoint跟traffic的資訊
+
+| endpoints                                                                                        | traffic overview                                                                                 |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260611221609.png)<br> | ![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260611221619.png)<br> |
+
+裡面有很多的connection但幾乎都是一樣的內容，如下，data都長一樣
+```bash
+GET /get HTTP/1.1
+Accept-Encoding:  
+Connection:  close
+Accept:  */*
+Host:  theannualtraditionofstaringatdisassemblyforweeks.torealizetheflagwasjustxoredwiththefilenamethewholetime.com:8080
+User-Agent:  rustc-hyper/0.25.0
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.10.11
+Date:22 GMT
+Content-type: application/json
+
+{"d": "85a131bdef4d0cd3ae36aaf5984ceee068f131de94f2b7f44bec46104f2584e4"}
+```
+
+##### PE 分析
+###### 從string開始亂戳
+
+看到strings裡面有一些神奇function，在下面幾個下了bp
+- WS2_32.getaddrinfo
+- kernel32.GetUserhostname
+
+**WS2_32.getaddrinfo**
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260612004122.png)
+- connect with `twelve.flare-on.com:8000`
+
+回到上一層交叉比對binja內容可以看到呼叫`2E900`的socket函數
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260612012737.png)
+在網上一層是`sub_140002e70` socket
+再往上是`sub_140006820` wrapper
+and sub_140007360 handshake handler
+總之往上繼續追看到了 `/good` 這個endpoint
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260612014436.png)
+
+對比當時在wireshark看到的東西，他有帶一個神奇bearer
+```bash
+GET /good HTTP/1.1
+   User-Agent:  Mozilla/5.0 (Avocado OS; 1-Core Toaster) AppleWebKit/537.36 (XML, like Gecko) FLARE/1.0
+   Authorization:  Bearer e4b8058f06f7061e8f0f8ed15d23865ba2427b23a695d9b27bc308a26d
+   Accept-Encoding:  
+   Connection:  close
+   Accept:  */*
+   Host:  twelve.flare-on.com:8000
+   
+   HTTP/1.0 200 OK
+   Server: SimpleHTTP/0.6 Python/3.10.11
+   Date:07 GMT
+   Content-type: application/json
+   
+   {"d": "085d8ea282da6cf76bb2765bc3b26549a1f6bdf08d8da2a62e05ad96ea645c685da48d66ed505e2e28b968d15dabed15ab1500901eb9da4606468650f72550483f1e8c58ca13136bb8028f976bedd36757f705ea5f74ace7bd8af941746b961c45bcac1eaf589773cecf6f1c620e0e37ac1dfc9611aa8ae6e6714bb79a186f47896f18203eddce97f496b71a630779b136d7bf0c82d560"}
+```
+
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260612015328.png)
+再往下看他會組出一個 **YYYYMMDD+16+UserName@DeviceName**
+之後依序讀入User-Agent/Bearer...
+但後面只有Bearer跟d值是感覺經過某種加密而成，故這一串東西推測應該是被轉換成了Bearer的值
+###### 分析協議
+
+**GetUserNameA**
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260612202518.png)
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260614032103.png)
+
+往上一點去下BP會看到組出bearer了但和紀錄中看到的不一樣
+紀錄裡面是: e4b8058f06f7061e8f0f8ed15d23865ba2427b23a695d9b27bc308a26d
+這邊拿到的: e4b805d0061e1e2c8f0266169872b6954244c2
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260613160745.png)
+![image.png](https://raw.githubusercontent.com/Ash0645/image_remote/main/20260614060553.png)
+
+進度整理:
+- GetUserName 

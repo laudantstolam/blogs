@@ -9,7 +9,7 @@ description: notes to  OST2 Arch 2001
 featured_image:
 created_date: 2026-02-27
 ---
-
+ㄗㄨㄛ
 > [!NOTE] Links
 > course: https://apps.p.ost2.fyi/learning/course/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/home
 > Notebook LLM: https://notebooklm.google.com/notebook/32b19e1c-2976-4b2a-8832-e62356f63861
