@@ -482,5 +482,3 @@ if __name__ == "__main__":
 >Stripped:   No
 >```
 
-
-(先這樣 exploit晚點寫QQ)

@@ -669,7 +669,7 @@ pdf misc
 > ```
 > ### sloving script
 > 
-> ```python fold
+> ```python
 > #!/usr/bin/env python3
 > """
 > uv run --with pefile --with capstone python solve_ntfsm.py
