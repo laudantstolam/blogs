@@ -124,13 +124,9 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
   .graph-container {
     position: relative;
     width: 100%;
-    border-radius: 1rem;
+    border-radius: 0;
     overflow: hidden;
-    background: linear-gradient(
-      135deg,
-      rgba(var(--gray-light), 0.6),
-      rgba(var(--gray-light), 0.3)
-    );
+    background: rgb(var(--card-bg));
     border: 1px solid rgba(var(--gray), 0.15);
   }
 
@@ -142,7 +138,7 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
 
   .graph-container.compact-mode {
     border: none;
-    border-radius: 0.6rem;
+    border-radius: 0;
   }
 
   .graph-container.compact-mode .graph-canvas {
@@ -163,19 +159,17 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
     min-height: 36px;
     padding: 8px 14px;
     border: 1px solid rgba(var(--gray), 0.2);
-    border-radius: 6px;
-    background: rgba(var(--gray-light), 0.95);
+    border-radius: 0;
+    background: rgb(var(--card-bg));
     color: rgb(var(--gray-dark));
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 
   .graph-btn:hover {
-    background: rgba(var(--gray-light), 1);
+    background: rgba(var(--gray), 0.1);
     border-color: var(--accent);
     color: var(--accent);
   }
@@ -197,11 +191,9 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
     right: 12px;
     z-index: 10;
     padding: 10px 14px;
-    background: rgba(var(--gray-light), 0.9);
-    border-radius: 8px;
+    background: rgb(var(--card-bg));
+    border-radius: 0;
     font-size: 12px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(var(--gray), 0.15);
   }
 
@@ -239,13 +231,11 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
     right: 12px;
     z-index: 10;
     padding: 8px 12px;
-    background: rgba(var(--gray-light), 0.9);
+    background: rgb(var(--card-bg));
     color: rgb(var(--gray-dark));
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 11px;
     text-align: center;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(var(--gray), 0.15);
     opacity: 0.8;
   }
@@ -296,7 +286,7 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
     // Theme colors
     const colors = {
       light: {
-        tag: '#2337ff',
+        tag: '#205ea6',
         tagText: '#ffffff',
         post: '#6073a0',
         postText: '#22293a',
@@ -305,7 +295,7 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
         highlight: '#10b981'
       },
       dark: {
-        tag: '#818cf8',
+        tag: '#205ea6',
         tagText: '#ffffff',
         post: '#64748b',
         postText: '#e2e8f0',

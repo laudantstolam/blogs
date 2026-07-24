@@ -31,13 +31,12 @@ const { title, description, previewImage, blogSlug, tech } = Astro.props;
                 <div class="tech-group">
                   {(tech ?? []).map(t => (
                     <span class="tech-badge" title={t}>
-                      <img
-                        src={`https://cdn.simpleicons.org/${t}`}
-                        width="18"
-                        height="18"
-                        alt={t}
-                        class="mr-1"
-                      />
+                      <span
+                        class="tech-icon"
+                        role="img"
+                        aria-label={t}
+                        style={`--icon-url: url(https://api.iconify.design/simple-icons:${t.toLowerCase()}.svg)`}
+                      ></span>
                       {t}
                     </span>
                   ))}
@@ -210,8 +209,21 @@ const { title, description, previewImage, blogSlug, tech } = Astro.props;
         white-space: nowrap;
     }
 
-    .tech-badge img {
+    .tech-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
         margin-right: 0.25rem;
+        background-color: currentColor;
+        -webkit-mask-image: var(--icon-url);
+        mask-image: var(--icon-url);
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        flex-shrink: 0;
     }
 
     .date {

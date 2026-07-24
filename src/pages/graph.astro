@@ -78,11 +78,7 @@ tagCooccurrence.forEach((weight, key) => {
         width: 100vw;
         overflow: hidden;
         padding: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(var(--gray-light), 0.95),
-          rgba(var(--gray-light), 0.8)
-        );
+        background: rgb(var(--gray-light));
       }
 
       #cy {
@@ -104,20 +100,18 @@ tagCooccurrence.forEach((weight, key) => {
       .controls button {
         padding: 10px 18px;
         border: 1px solid rgba(var(--gray), 0.2);
-        border-radius: 8px;
-        background: rgba(var(--gray-light), 0.8);
+        border-radius: 0;
+        background: rgb(var(--card-bg));
         color: rgb(var(--gray-dark));
         cursor: pointer;
         font-size: 14px;
         font-family: var(--font-body);
         font-weight: 500;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         transition: all 0.2s ease;
       }
 
       .controls button:hover {
-        background: rgba(var(--gray-light), 1);
+        background: rgba(var(--gray), 0.1);
         border-color: var(--accent);
         color: var(--accent);
         transform: translateY(-1px);
@@ -140,15 +134,13 @@ tagCooccurrence.forEach((weight, key) => {
         left: 16px;
         z-index: 100;
         padding: 12px 18px;
-        background: rgba(var(--gray-light), 0.9);
+        background: rgb(var(--card-bg));
         color: rgb(var(--gray-dark));
-        border-radius: 10px;
+        border-radius: 0;
         font-size: 13px;
         font-family: var(--font-body);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(var(--gray), 0.15);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--box-shadow);
       }
 
       .legend {
@@ -157,15 +149,13 @@ tagCooccurrence.forEach((weight, key) => {
         right: 16px;
         z-index: 100;
         padding: 14px 18px;
-        background: rgba(var(--gray-light), 0.9);
+        background: rgb(var(--card-bg));
         color: rgb(var(--gray-dark));
-        border-radius: 10px;
+        border-radius: 0;
         font-size: 13px;
         font-family: var(--font-body);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(var(--gray), 0.15);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--box-shadow);
       }
 
       .legend-item {
@@ -202,16 +192,14 @@ tagCooccurrence.forEach((weight, key) => {
         height: 44px;
         border: 1px solid rgba(var(--gray), 0.2);
         border-radius: 50%;
-        background: rgba(var(--gray-light), 0.9);
+        background: rgb(var(--card-bg));
         color: rgb(var(--gray-dark));
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         transition: all 0.2s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--box-shadow);
       }
 
       .theme-btn:hover {
@@ -307,7 +295,7 @@ tagCooccurrence.forEach((weight, key) => {
       // Theme colors - will be updated based on theme
       const colors = {
         light: {
-          tag: '#2337ff',
+          tag: '#205ea6',
           tagText: '#ffffff',
           post: '#6073a0',
           postText: '#22293a',
@@ -317,7 +305,7 @@ tagCooccurrence.forEach((weight, key) => {
           background: '#f6f8fa'
         },
         dark: {
-          tag: '#818cf8',
+          tag: '#205ea6',
           tagText: '#ffffff',
           post: '#64748b',
           postText: '#e2e8f0',

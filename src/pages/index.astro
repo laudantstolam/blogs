@@ -81,8 +81,8 @@ const posts = (await getCollection('blog'))
                   <i class="bi bi-person-badge"></i>
                 </div>
                 <div class="card-content">
-                  <h3>Ashley Liu • 劉宜蓁</h3>
-                  <p class="subtitle">20 years old • she/her</p>
+                  <h3>Ashley L.</h3>
+                  <p class="subtitle">21 yo • she/they</p>
                 </div>
               </div>
 
@@ -122,7 +122,7 @@ const posts = (await getCollection('blog'))
       </section>
 
       <!-- Working Experiences Section -->
-      <section id="experience" class="experience">
+      <!-- <section id="experience" class="experience">
         <div class="container" data-aos="fade-up">
           <div class="section-title">
             <h2>Journey</h2>
@@ -182,7 +182,7 @@ const posts = (await getCollection('blog'))
                 </div>
               </div>
             </div> -->
-
+<!-- 
             <div class="timeline-item">
               <div class="timeline-marker"></div>
               <div class="timeline-content">
@@ -218,7 +218,7 @@ const posts = (await getCollection('blog'))
             </div>
           </div>
         </div>
-      </section>
+      </section>  -->
 
       <!-- Skills Section -->
       <section id="skills" class="skills">
@@ -386,43 +386,44 @@ const posts = (await getCollection('blog'))
 </html>
 
 <style>
-  /* Override global accent to white for index page only */
+  /* Override global accent for index page only */
   :root {
-    --accent: #ffffff;
+    --accent: #205ea6;
   }
 
   :root {
-    /* Tech color palette - light mode */
-    --terminal-bg: #ffffff;
-    --terminal-surface: #bdd8e9;
-    --terminal-text: #0a4174;
-    --terminal-accent: #4e8ea2;
-    --terminal-highlight: #7bbde8;
-    --terminal-muted: #49769f;
-    --terminal-border: #6ea2b3;
+    /* Flexoki-based palette - light mode (paper + ink + one accent) */
+    --terminal-bg: #fffcf0;
+    --terminal-surface: #f2f0e5;
+    --terminal-text: #100f0f;
+    --terminal-accent: #205ea6;
+    --terminal-highlight: #4385be;
+    --terminal-muted: #575653;
+    --terminal-border: #100f0f;
+    --font-serif: Georgia, 'Times New Roman', serif;
 
-    /* Neumorphism shadows for light mode */
-    --shadow-1: 6px 6px 12px rgba(0, 29, 57, 0.15);
-    --shadow-2: -6px -6px 12px rgba(255, 255, 255, 0.8);
-    --shadow-inset-1: inset 3px 3px 6px rgba(0, 29, 57, 0.1);
-    --shadow-inset-2: inset -3px -3px 6px rgba(255, 255, 255, 0.6);
+    /* Depth via hairline border + whisper shadow on hover, no hard drop shadow */
+    --shadow-1: none;
+    --shadow-2: none;
+    --shadow-inset-1: 0 4px 20px rgba(16, 15, 15, 0.08);
+    --shadow-inset-2: none;
   }
 
   [data-theme="dark"] {
-    /* Tech color palette - dark mode */
-    --terminal-bg: #333d4d;
-    --terminal-surface: #0a4174;
-    --terminal-text: #bdd8e9;
-    --terminal-accent: #7bbde8;
-    --terminal-highlight: #6ea2b3;
-    --terminal-muted: #49769f;
-    --terminal-border: #4e8ea2;
+    /* Flexoki-based palette - dark mode, slate blue-gray accent */
+    --terminal-bg: #100f0f;
+    --terminal-surface: #1c1b1a;
+    --terminal-text: #cecdc3;
+    --terminal-accent: #5b7b8c;
+    --terminal-highlight: #7b98a6;
+    --terminal-muted: #878580;
+    --terminal-border: #575653;
 
-    /* Neumorphism shadows for dark mode */
-    --shadow-1: 6px 6px 12px rgba(0, 0, 0, 0.5);
-    --shadow-2: -6px -6px 12px rgba(73, 118, 159, 0.08);
-    --shadow-inset-1: inset 3px 3px 6px rgba(0, 0, 0, 0.4);
-    --shadow-inset-2: inset -3px -3px 6px rgba(73, 118, 159, 0.05);
+    /* Depth via hairline border + whisper shadow on hover, no hard drop shadow */
+    --shadow-1: none;
+    --shadow-2: none;
+    --shadow-inset-1: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --shadow-inset-2: none;
   }
 
   body {
@@ -480,19 +481,20 @@ const posts = (await getCollection('blog'))
   }
 
   .welcome h1 {
-    color: #ffffff;
-    font-size: 3rem;
+    color: #cecdc3;
+    font-size: 3.25rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    font-family: var(--font-mono);
-    letter-spacing: -0.02em;
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
     position: relative;
   }
 
   .welcome h1::before {
     content: "> ";
-    color: #ffffff;
-    opacity: 0.6;
+    color: var(--terminal-accent);
+    font-family: var(--font-mono);
+    opacity: 0.8;
   }
 
   .social-links {
@@ -505,7 +507,7 @@ const posts = (await getCollection('blog'))
     justify-content: center;
     width: 50px;
     height: 50px;
-    border-radius: 12px;
+    border-radius: 0;
     background: var(--terminal-bg);
     color: var(--terminal-text);
     margin-right: 15px;
@@ -557,7 +559,7 @@ const posts = (await getCollection('blog'))
     padding: 0.5rem 1rem;
     background: rgba(var(--accent), 0.1);
     color: var(--accent);
-    border-radius: 2rem;
+    border-radius: 0;
     font-size: 0.875rem;
     font-weight: 500;
     margin-bottom: 2rem;
@@ -593,7 +595,7 @@ const posts = (await getCollection('blog'))
   .hero-description {
     font-size: 1.25rem;
     margin-bottom: 2.5rem;
-    color: #ffffff;
+    color: var(--terminal-muted);
     max-width: 600px;
     line-height: 1.6;
     font-family: var(--font-mono);
@@ -612,7 +614,7 @@ const posts = (await getCollection('blog'))
     align-items: center;
     gap: 0.5rem;
     padding: 0.875rem 1.75rem;
-    border-radius: 8px;
+    border-radius: 0;
     text-decoration: none;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -726,7 +728,7 @@ const posts = (await getCollection('blog'))
 
   .about-img {
     width: 100%;
-    border-radius: 12px;
+    border-radius: 0;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-1), var(--shadow-2);
     border: 2px solid var(--terminal-border);
@@ -743,7 +745,7 @@ const posts = (await getCollection('blog'))
   .about-quick-facts {
     margin-top: 1.5rem;
     background: var(--terminal-bg);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 1.5rem;
     box-shadow: var(--shadow-1), var(--shadow-2);
     transition: all 0.3s ease;
@@ -788,7 +790,7 @@ const posts = (await getCollection('blog'))
 
   .about-card {
     background: var(--terminal-bg);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 2rem;
     box-shadow: var(--shadow-1), var(--shadow-2);
     display: flex;
@@ -825,7 +827,7 @@ const posts = (await getCollection('blog'))
     width: 50px;
     height: 50px;
     background: var(--terminal-bg);
-    border-radius: 8px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -843,7 +845,7 @@ const posts = (await getCollection('blog'))
     font-size: 1.5rem;
     color: var(--terminal-text);
     margin-bottom: 0.5rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-serif);
   }
 
   .card-content h4 {
@@ -851,6 +853,7 @@ const posts = (await getCollection('blog'))
     color: var(--terminal-muted);
     margin-bottom: 0.5rem;
     font-weight: 600;
+    font-family: var(--font-serif);
   }
 
   .card-content p {
@@ -899,7 +902,7 @@ const posts = (await getCollection('blog'))
 
   .language-tags .tag {
     padding: 0.4rem 0.9rem;
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 0.85rem;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -970,7 +973,7 @@ const posts = (await getCollection('blog'))
     width: 16px;
     height: 16px;
     background: var(--terminal-accent);
-    border-radius: 2px;
+    border-radius: 0;
     z-index: 2;
     box-shadow: 0 0 8px var(--terminal-accent);
     transition: all 0.3s ease;
@@ -984,7 +987,7 @@ const posts = (await getCollection('blog'))
 
   .timeline-content {
     background: var(--terminal-bg);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 2rem;
     box-shadow: var(--shadow-1), var(--shadow-2);
     margin-left: 30px;
@@ -1027,7 +1030,7 @@ const posts = (await getCollection('blog'))
     height: 80px;
     object-fit: contain;
     background: var(--terminal-bg);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 10px;
     flex-shrink: 0;
     box-shadow: var(--shadow-inset-1), var(--shadow-inset-2);
@@ -1098,7 +1101,7 @@ const posts = (await getCollection('blog'))
     display: inline-block;
     padding: 0.5rem 2rem;
     background: var(--terminal-bg);
-    border-radius: 8px;
+    border-radius: 0;
     box-shadow: var(--shadow-1), var(--shadow-2);
     font-family: var(--font-mono);
     border: 2px solid var(--terminal-border);
@@ -1127,7 +1130,7 @@ const posts = (await getCollection('blog'))
 
   .skill-category {
     background: var(--terminal-bg);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 2rem;
     box-shadow: var(--shadow-1), var(--shadow-2);
     transition: all 0.3s ease;
@@ -1177,7 +1180,7 @@ const posts = (await getCollection('blog'))
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: 0;
     box-shadow: var(--shadow-inset-1), var(--shadow-inset-2);
     border: 1px solid var(--terminal-border);
   }
@@ -1226,7 +1229,7 @@ const posts = (await getCollection('blog'))
     padding: 0.4rem 0.9rem;
     background: var(--terminal-bg);
     color: var(--terminal-text);
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 0.85rem;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -1255,7 +1258,7 @@ const posts = (await getCollection('blog'))
     gap: 0.5rem;
     background: var(--terminal-bg);
     padding: 0.5rem 1rem;
-    border-radius: 6px;
+    border-radius: 0;
     color: var(--terminal-text);
     font-size: 0.85rem;
     width: fit-content;
