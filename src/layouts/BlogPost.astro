@@ -64,81 +64,155 @@ const safeTags = tags ?? [];
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
 		<style>
+			/*
+			  Paper-reading redesign — Flexoki hairline-editorial (see DESIGN.md).
+			  The article is one framed "sheet" lifted off the warm desk: hairline
+			  border, whisper shadow, a manuscript margin rule, a masthead, and a
+			  comfortable measure. Radius 0; colours from tokens only; CJK body
+			  content set in Iansui via --font-cjk (defined in global.css).
+			*/
 			main {
-				width: calc(100% - 2em);
+				width: 100%;
 				max-width: 100%;
 				margin: 0;
+				padding: 2.5rem 1em 4.5rem;
 			}
+
+			/* The sheet: a page of paper on the desk */
+			.prose {
+				position: relative;
+				width: 1200px;
+				max-width: calc(100% - 2em);
+				margin: 0 auto;
+				padding: 3.75rem 4rem;
+				background: rgb(var(--card-bg));
+				border: 1px solid rgba(var(--black), 0.1);
+				box-shadow: var(--box-shadow); /* whisper lift, sanctioned by DESIGN.md */
+				color: rgb(var(--gray-dark));
+				/* English keeps Onest; Han glyphs fall through to Iansui */
+				font-family: var(--font-body), var(--font-cjk);
+			}
+
+			/* Manuscript margin rule down the left gutter — a reading guide */
+			.prose::before {
+				content: "";
+				position: absolute;
+				top: 3.75rem;
+				bottom: 3.75rem;
+				left: 2.5rem;
+				width: 1px;
+				background: rgba(var(--black), 0.1);
+				pointer-events: none;
+			}
+
 			.hero-image {
 				width: 100%;
+				margin-top: 2rem;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
 				border-radius: 0;
-				border: 1px solid rgba(var(--gray), 0.2);
-			}
-			.prose {
-				width: 920px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-				font-family: var(--font-body);
+				border: 1px solid rgba(var(--black), 0.1);
 			}
 
-			/* Keep title section with original font */
+			/* Masthead: centered serif title closed by a hairline rule */
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+				margin-bottom: 2.75rem;
+				padding-bottom: 2rem;
 				text-align: center;
-				line-height: 1;
+				border-bottom: 1px solid rgba(var(--black), 0.1);
 				font-family: var(--font-body);
 			}
 
 			.title h1 {
-				margin: 0 0 0.5em 0;
-				font-family: var(--font-heading);
+				margin: 0;
+				/* Latin serif; Han glyphs fall through to Iansui */
+				font-family: var(--font-heading), var(--font-cjk);
+				letter-spacing: -0.02em;
 			}
 
-			.title * {
-				font-family: inherit;
-			}
 			.subtitle {
+				font-family: var(--font-heading), var(--font-cjk);
+				font-style: italic;
 				color: rgb(var(--gray));
-				font-size: 1.25em;
-				margin-bottom: 1em;
+				font-size: 1.35rem;
+				line-height: 1.4;
+				margin: 0.85rem 0 0;
 			}
 			.date {
-				margin-bottom: 0.5em;
+				font-family: var(--font-mono);
+				font-size: 0.78rem;
+				text-transform: uppercase;
+				letter-spacing: 0.09em;
 				color: rgb(var(--gray));
+				margin-bottom: 1.1rem;
 			}
 			.tags {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.5em;
-				margin: 1em 0;
+				gap: 0.5rem;
+				margin: 1.6rem 0 0;
 				justify-content: center;
 			}
+			/* Hairline accent badges — mirrors BlogCard.astro tag-badge */
 			.tag {
-				background-color: rgba(var(--gray-light), 0.5);
-				color: rgb(var(--gray-dark));
-				padding: 0.2em 0.8em;
+				display: inline-flex;
+				padding: 0.3rem 0.8rem;
+				border: 1px solid rgba(var(--accent-rgb), 0.35);
+				color: var(--accent);
+				background: transparent;
 				border-radius: 0;
-				font-size: 0.9em;
+				font-family: var(--font-mono);
+				font-size: 0.8rem;
+				letter-spacing: 0.02em;
 				text-decoration: none;
-				transition: all 0.2s ease;
+				transition: background-color 0.2s ease, color 0.2s ease;
 			}
 			.tag:hover {
-				background-color: rgba(var(--accent), 0.1);
-				color: rgb(var(--accent));
-				transform: translateY(-2px);
+				background: var(--accent);
+				color: rgb(var(--gray-light));
 			}
+
+			/* End-of-article colophon mark */
+			:global(.article-end) {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1rem;
+				margin: 3.5rem 0 0.5rem;
+			}
+			:global(.article-end::before),
+			:global(.article-end::after) {
+				content: "";
+				width: 3rem;
+				height: 1px;
+				background: rgba(var(--black), 0.15);
+			}
+			:global(.article-end span) {
+				width: 7px;
+				height: 7px;
+				background: var(--accent);
+				display: block;
+			}
+
+			/* Drop cap — set only when the article opens on a paragraph (JS-guarded) */
+			:global(.prose p.dropcap::first-letter) {
+				font-family: var(--font-heading), var(--font-cjk);
+				font-size: 3.4em;
+				line-height: 0.78;
+				float: left;
+				margin: 0.02em 0.12em 0 0;
+				color: var(--accent);
+				font-weight: 700;
+			}
+
 			:global(.mermaid) {
-				background: rgb(248, 250, 252);
+				background: rgb(var(--gray-light));
 				padding: 1.5rem;
+				border: 1px solid rgba(var(--black), 0.1);
 				border-radius: 0;
-				margin: 1rem 0;
+				margin: 2rem 0;
 			}
 
 			/* Image styling in prose */
@@ -146,7 +220,7 @@ const safeTags = tags ?? [];
 				max-width: 100%;
 				height: auto;
 				display: block;
-				margin: 1em auto;
+				margin: 1.5em auto;
 				border-radius: 0;
 			}
 
@@ -156,16 +230,16 @@ const safeTags = tags ?? [];
 				top: 6rem;
 				right: 2rem;
 				width: auto;
+				max-width: 220px;
 				max-height: calc(100vh - 8rem);
 				overflow-y: auto;
 				padding: 1rem 1.2rem;
-				background: rgba(var(--gray-light), 0.3);
-				backdrop-filter: blur(12px);
+				/* Flat hairline paper card — no blur/shadow, matches BlogCard */
+				background: rgb(var(--card-bg));
 				border-radius: 0;
-				border: 1px solid rgba(var(--gray), 0.2);
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+				border: 1px solid rgba(var(--black), 0.1);
 				z-index: 100;
-				transition: all 0.3s ease;
+				transition: border-color 0.2s ease;
 			}
 			.toc-wrapper.minimized {
 				width: auto;
@@ -186,27 +260,32 @@ const safeTags = tags ?? [];
 				background: transparent;
 			}
 			.toc-wrapper::-webkit-scrollbar-thumb {
-				background: rgba(var(--accent), 0.3);
+				background: rgba(var(--accent-rgb), 0.3);
 				border-radius: 0;
 			}
 			.toc-wrapper::-webkit-scrollbar-thumb:hover {
-				background: rgba(var(--accent), 0.5);
+				background: rgba(var(--accent-rgb), 0.5);
 			}
 			.toc-header {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
 				margin-bottom: 0.8rem;
-				padding-bottom: 0.4rem;
-				border-bottom: 1px solid rgba(var(--gray), 0.2);
+				padding-bottom: 0.5rem;
+				border-bottom: 1px solid rgba(var(--black), 0.1);
 			}
 			.toc-title {
-				font-size: 0.9em;
-				font-weight: 600;
-				color: rgb(var(--gray-dark));
 				display: flex;
 				align-items: center;
 				gap: 0.7rem;
+			}
+			.toc-label {
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				font-weight: 500;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: rgb(var(--gray));
 			}
 			.toc-minimize-btn {
 				background: none;

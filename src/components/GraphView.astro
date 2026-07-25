@@ -12,7 +12,7 @@ const { height = '500px', showControls = true } = Astro.props;
 const allPosts = await getCollection('blog');
 
 // Build nodes and edges
-const nodes: Array<{data: {id: string, label: string, type: string, url?: string, count?: number}}> = [];
+const nodes: Array<{data: {id: string, label: string, type: string, url?: string, count?: number, slugId?: string}}> = [];
 const edges: Array<{data: {source: string, target: string}}> = [];
 const tagNodes = new Map<string, number>();
 
@@ -545,38 +545,54 @@ const graphId = `graph-${Math.random().toString(36).substr(2, 9)}`;
     observer.observe(document.documentElement, { attributes: true });
 
     // Listen for external highlight events (sync with blog cards)
-    window.addEventListener('graph-highlight-post', function(e) {
-      const postId = e.detail?.postId;
-      if (!postId) return;
+    // Debounced + de-duplicated so fast successive hovers (scrolling a list)
+    // don't queue up multiple camera pans and cause jitter.
+    let highlightDebounce = null;
+    let activeHighlightId = null;
 
+    function applyHighlight(postId) {
       // Find the node by matching the slugId
       const node = cy.nodes('[type="post"]').filter(n => {
         const slugId = n.data('slugId') || '';
-        const nodeUrl = n.data('url') || '';
-        // Match by slugId first, then by URL containing the postId
-        return slugId === postId || nodeUrl.includes(postId) || n.data('id').includes(postId);
+        return slugId === postId;
       }).first();
 
-      if (node && node.length > 0) {
-        const connected = node.connectedEdges().connectedNodes();
-        const connectedEdges = node.connectedEdges();
+      if (!node || node.length === 0) return;
+      if (activeHighlightId === postId) return; // already focused, skip re-pan
+      activeHighlightId = postId;
 
-        cy.elements().removeClass('hover hover-connected dimmed highlighted faded');
-        node.addClass('hover highlighted');
-        connected.addClass('hover-connected');
-        connectedEdges.addClass('hover-connected');
-        cy.elements().not(node).not(connected).not(connectedEdges).addClass('dimmed');
+      const connected = node.connectedEdges().connectedNodes();
+      const connectedEdges = node.connectedEdges();
 
-        // Center on the node with animation
-        cy.animate({
-          center: { eles: node },
-          duration: 300,
-          easing: 'ease-out'
-        });
-      }
+      cy.elements().removeClass('hover hover-connected dimmed highlighted faded');
+      node.addClass('hover highlighted');
+      connected.addClass('hover-connected');
+      connectedEdges.addClass('hover-connected');
+      cy.elements().not(node).not(connected).not(connectedEdges).addClass('dimmed');
+
+      // Stop any in-flight pan before starting a new one, otherwise queued
+      // animations fight each other and the camera visibly stutters.
+      cy.stop(true, false);
+      cy.animate({
+        center: { eles: node },
+        duration: 250,
+        easing: 'ease-out'
+      });
+    }
+
+    window.addEventListener('graph-highlight-post', function(e) {
+      const postId = e.detail?.postId;
+      if (!postId) return;
+      if (highlightDebounce) clearTimeout(highlightDebounce);
+      highlightDebounce = setTimeout(() => applyHighlight(postId), 60);
     });
 
     window.addEventListener('graph-clear-highlight', function() {
+      if (highlightDebounce) {
+        clearTimeout(highlightDebounce);
+        highlightDebounce = null;
+      }
+      activeHighlightId = null;
       cy.elements().removeClass('hover hover-connected dimmed highlighted faded');
     });
 
