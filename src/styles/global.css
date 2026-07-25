@@ -2,6 +2,8 @@
 @import url('https://api.fontshare.com/v2/css?f[]=onest@400,500,600,700&f[]=sora@400,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+/* Iansui 芫荽 — Traditional-Chinese reading face for blog article content */
+@import url('https://fonts.googleapis.com/css2?family=Iansui&display=swap');
 
 /*
   The CSS in this style tag is based off of Bear Blog's default CSS.
@@ -28,6 +30,9 @@
 	--font-heading: Georgia, 'Times New Roman', serif;
 	--font-body: 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--font-mono: 'Ubuntu Mono', 'SF Mono', Monaco, Consolas, monospace;
+	/* Traditional-Chinese reading face (Iansui) — kept free of a trailing
+	   generic so it composes cleanly ahead of the Latin stacks below */
+	--font-cjk: 'Iansui', 'Iansui-Regular';
 	--font-weight-bold: 700;
 
 	--card-bg: 242, 240, 229;
@@ -97,7 +102,7 @@ h6 {
 	line-height: 1.2;
 	font-family: var(--font-heading);
 	font-weight: 600;
-	letter-spacing: -0.015em;
+	/* letter-spacing: -0.01em; */
 }
 
 h1 {

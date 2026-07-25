@@ -119,27 +119,27 @@ const totalTags = tagCounts.size;
             }
 
             .rail-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
                 line-height: 1.05;
                 margin-bottom: 0.4rem;
             }
 
             .rail-desc {
                 font-family: var(--font-body);
-                font-size: 0.85rem;
+                font-size: 1.0rem;
                 color: rgb(var(--gray));
                 margin: 0 0 1.25rem;
             }
 
             .rail-stat {
-                font-size: 0.75rem;
+                font-size: 1.0rem;
                 color: rgb(var(--gray));
                 margin-bottom: 0.25rem;
             }
 
             .rail-stat b {
                 color: var(--accent);
-                font-size: 0.9rem;
+                font-size: 1.2rem;
             }
 
             .search-box {
@@ -148,6 +148,7 @@ const totalTags = tagCounts.size;
                 gap: 0.4rem;
                 padding: 0.5rem 0.6rem;
                 border: 1px solid rgba(var(--gray), 0.25);
+                margin-top: 1.5rem;
                 margin-bottom: 0.75rem;
                 transition: border-color 0.2s ease;
             }
@@ -178,6 +179,10 @@ const totalTags = tagCounts.size;
             .search-input::selection {
                 background: rgba(var(--gray), 0.25);
                 color: rgb(var(--black));
+            }
+
+            .search-input:focus-visible {
+                outline: none;
             }
 
             .filter-pills {
