@@ -10,10 +10,16 @@ import rehypeKatex from "rehype-katex";
 import remarkCallout from "@r4ai/remark-callout";
 import { flexokiLight, flexokiDark } from "./src/styles/ec-themes.mjs";
 
+try {
+  process.loadEnvFile();
+} catch {
+  // no .env present (e.g. fresh clone) — fall back to defaults below
+}
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://laudantstolam.github.io",
-  base: "/blogs/",
+  site: process.env.SITE_URL ?? "http://localhost:4321",
+  base: process.env.BASE_URL ?? "/",
   markdown: {
     remarkPlugins: [
       [

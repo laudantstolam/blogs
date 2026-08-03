@@ -1281,6 +1281,22 @@ const posts = (await getCollection('blog'))
     color: var(--terminal-accent) !important;
   }
 
+  /* Footer.astro uses global --gray-light/--gray, but this page overrides body's
+     background to --terminal-bg — retheme footer here so it doesn't seam against it. */
+  :global(footer) {
+    background: var(--terminal-surface) !important;
+    color: var(--terminal-muted) !important;
+    border-top: 1px solid var(--terminal-border) !important;
+  }
+
+  :global(footer .copyright) {
+    color: var(--terminal-muted) !important;
+  }
+
+  :global(footer .copyright a) {
+    color: var(--terminal-accent) !important;
+  }
+
   @media (max-width: 768px) {
     .hero {
       padding: 6rem 1rem;

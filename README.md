@@ -17,6 +17,25 @@ Any `.md` file under the repo root gets scanned; only ones with
 `publish: true` in property are
 copied into `src/content/blog/`. See `scripts/sync-obsidian.js`.
 
+`src/content/blog/` is generated — wiped and recopied on every sync/build.
+Edit source notes (repo root, e.g. `Blog/`), never files in `src/content/blog/`
+directly; see `src/content/README.md`.
+
+### Optional: syncing from a live Obsidian vault (`sync-and-dev.bat`)
+
+If your vault lives outside this repo, `sync-and-dev.bat` copies published
+notes in from there before running the normal sync:
+
+```
+vault SOURCE_PATH  --xcopy-->  repo DEST_PATH (Blog/)  --sync-obsidian.js-->  src/content/blog/
+```
+
+It then runs `git add . && git commit && git push` automatically — only use
+it if you're fine with unattended commits/pushes on every run. Configure
+`SOURCE_PATH` / `DEST_PATH` / `REPO_PATH` in `.env` (see `.env.example`).
+If your vault notes already live in the repo (e.g. under `Blog/`), skip this
+script — `pnpm dev` / `pnpm build` sync directly, no `.bat` needed.
+
 ## Writing a post
 
 ```md
@@ -86,8 +105,14 @@ slug or the badge renders with no icon.
 
 ## Deployment
 
-See `DEPLOYMENT.md` for GitHub Pages / custom domain setup
-(`SITE_URL`/`BASE_URL` env vars, GitHub Actions workflow).
+Local build: set `SITE_URL` / `BASE_URL` in `.env` (copy from `.env.example`) —
+read by `astro.config.mjs`, falls back to `http://localhost:4321` / `/` if unset.
+
+CI (`.github/workflows/deployment.yml`, GitHub Pages): auto-derives
+`https://<owner>.github.io` / `/<repo-name>/` from the fork's own GitHub repo —
+works out of the box on any fork, no config needed. For a custom domain, set
+`SITE_URL` / `BASE_URL` repo Variables (Settings > Actions > Variables) to
+override.
 
 ## Styling
 
