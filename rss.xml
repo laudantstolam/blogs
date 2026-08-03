@@ -2917,10 +2917,10 @@ long_to_bytes(FLAG)=b’breakall{know_u_know_key_exchange}‘&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;for&lt;/span&gt;&lt;span&gt; i &lt;/span&gt;&lt;span&gt;in&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;33&lt;/span&gt;&lt;span&gt;):&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span&gt;enc_value &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; enc&lt;/span&gt;&lt;span&gt;[&lt;/span&gt;&lt;span&gt;i&lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;9&lt;/span&gt;&lt;span&gt;]&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;    &lt;/span&gt;&lt;span&gt;for&lt;/span&gt;&lt;span&gt; byte &lt;/span&gt;&lt;span&gt;in&lt;/span&gt;&lt;span&gt; guess_list&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;        &lt;/span&gt;&lt;/span&gt;&lt;span&gt;byte_value &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;ord&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;        &lt;/span&gt;&lt;/span&gt;&lt;span&gt;guess &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte_value &lt;/span&gt;&lt;span&gt;*&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;41056&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;%&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;43969&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;        &lt;/span&gt;&lt;span&gt;if&lt;/span&gt;&lt;span&gt; guess &lt;/span&gt;&lt;span&gt;==&lt;/span&gt;&lt;span&gt; enc_value&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;            &lt;/span&gt;&lt;/span&gt;&lt;span&gt;result&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span&gt;append&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;            &lt;/span&gt;&lt;span&gt;break&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;print&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;flag_head &lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&apos;&apos;&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span&gt;join&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;result&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&quot;&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span&gt;&quot;&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;breakall{are_u_brute_master_or_math_master}&lt;/code&gt;&lt;/p&gt;</content:encoded><category>writeup</category></item><item><title>FireFox Hooker</title><link>https://laudantstolam.github.io/blogs/firefoxhooker/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/firefoxhooker/</guid><description>Project made in T5 camp - firefox hooker</description><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>
+&lt;p&gt;&lt;code&gt;breakall{are_u_brute_master_or_math_master}&lt;/code&gt;&lt;/p&gt;</content:encoded><category>writeup</category></item><item><title>FireFox Hooker</title><link>https://laudantstolam.github.io/blogs/firefoxhooker/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/firefoxhooker/</guid><description>TeamT5 Camp Colab Project</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>
     This browser does not support PDFs. Please download the PDF to view it: 
     &amp;amp;#x3C;a href=&quot;https://raw.githubusercontent.com/Ash0645/image_remote/main/t5camp.pdf&quot;&amp;gt;Download PDF&amp;amp;#x3C;/a&amp;gt;.
-</content:encoded><category>project</category></item><item><title>kyudobot</title><link>https://laudantstolam.github.io/blogs/kyudobot/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/kyudobot/</guid><description>箭矢落點辨識結合LINE聊天機器人自動化分析</description><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>
+</content:encoded><category>project</category></item><item><title>kyudobot</title><link>https://laudantstolam.github.io/blogs/kyudobot/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/kyudobot/</guid><description>Analyzing the arrow&apos;s position and generating results</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>
 Link
 &lt;div&gt;
 &lt;p&gt;Github: &lt;a href=&quot;https://github.com/laudantstolam/kyudou-bot&quot;&gt;laudantstolam/kyudou-bot: a line bot for analyzing kyudou practice&lt;/a&gt;&lt;/p&gt;
@@ -2992,21 +2992,7 @@ Link
 [4] &lt;a href=&quot;https://www.youtube.com/watch?v=wuZtUMEiKWY&quot;&gt;https://www.youtube.com/watch?v=wuZtUMEiKWY&lt;/a&gt;
 [5] &lt;a href=&quot;https://www.youtube.com/watch?v=pFiGSrRtaU4&amp;amp;t=293s&quot;&gt;https://www.youtube.com/watch?v=pFiGSrRtaU4&amp;amp;t=293s&lt;/a&gt;
 [6] &lt;a href=&quot;https://docs.ultralytics.com/tasks/segment/&quot;&gt;https://docs.ultralytics.com/tasks/segment/&lt;/a&gt;
-[7] &lt;a href=&quot;https://ithelp.ithome.com.tw/articles/10282541?sc=pt&quot;&gt;https://ithelp.ithome.com.tw/articles/10282541?sc=pt&lt;/a&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>StegImage Detect</title><link>https://laudantstolam.github.io/blogs/stegdetect/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/stegdetect/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1bF-0ak2XFNQL-TY-jOYdq4gh0jxPlxll/view&quot;&gt;完整報告連結&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;題目名稱: 基於時域及頻域方法之隱寫術辨別系統&lt;/h3&gt;
-&lt;p&gt;lemme show u my awsome slides ;)&lt;/p&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-
-&lt;/p&gt;</content:encoded><category>project</category><category>資安</category><category>forensic</category></item><item><title>Spotify Music Taste Analyze</title><link>https://laudantstolam.github.io/blogs/spotifydual/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/spotifydual/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;h3&gt;Result Preview&lt;/h3&gt;
+[7] &lt;a href=&quot;https://ithelp.ithome.com.tw/articles/10282541?sc=pt&quot;&gt;https://ithelp.ithome.com.tw/articles/10282541?sc=pt&lt;/a&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Spotify Music Taste Analyze</title><link>https://laudantstolam.github.io/blogs/spotifydual/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/spotifydual/</guid><description>Analyzing music taste and generate common playlist with multiple users</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h3&gt;Result Preview&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
 &lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;Inspired by several Spotify expanded third-party project that expand into visualizing various listening data in well-designed interfaces, but limited to the analysis of personal data. Consequently, I decided to develop a project based on the concept of “making friends through music” to compare the data of two individuals. By analyzing personal listening habits, trending artists, and song attributes, we could present several types of data analysis.&lt;/p&gt;
@@ -3094,10 +3080,21 @@ Link
 &lt;h5&gt;MEANING&lt;/h5&gt;
 &lt;ul&gt;
 &lt;li&gt;share what are you listening with friends&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>畢業專題</title><link>https://laudantstolam.github.io/blogs/gradproj/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gradproj/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1T0W3_rBjih3zZ1Ew4sfCWNGTgnzDVLkg/view&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
+&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>StegImage Detect</title><link>https://laudantstolam.github.io/blogs/stegdetect/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/stegdetect/</guid><description>Steganography Identification System Based on Time Domain and Frequency Domain Methods</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1bF-0ak2XFNQL-TY-jOYdq4gh0jxPlxll/view&quot;&gt;完整報告連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Gics All In One</title><link>https://laudantstolam.github.io/blogs/gicsallinone/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gicsallinone/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;h2&gt;Ｍotivation&lt;/h2&gt;
+&lt;h3&gt;題目名稱: 基於時域及頻域方法之隱寫術辨別系統&lt;/h3&gt;
+&lt;p&gt;lemme show u my awsome slides ;)&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+&lt;/p&gt;</content:encoded><category>project</category><category>資安</category><category>forensic</category></item><item><title>Gics All In One</title><link>https://laudantstolam.github.io/blogs/gicsallinone/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gicsallinone/</guid><description>An all-in-one program for recording answer&amp;questions, scoreboard monitoring and sentry</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h2&gt;Ｍotivation&lt;/h2&gt;
 &lt;p&gt;女婕思初賽實在太痛苦 每年都需要守夜跟刷無聊題目 所以做了一個工具紀錄&lt;/p&gt;
 &lt;h4&gt;Demo(1/2) Awsome Answer Helper&lt;/h4&gt;
 &lt;p&gt;&lt;/p&gt;
@@ -3124,12 +3121,15 @@ Link
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/2025gics/gics-ranking-bot&quot;&gt;gics-ranking-bot&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/idkidkidkidkidkidkidkidk/gics-sentry-bot&quot;&gt;gics-sentry-bot&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>Anti Scam Ads</title><link>https://laudantstolam.github.io/blogs/antiscam/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/antiscam/</guid><description>AIS3 hackathon project - anti scam ads extension</description><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;div&gt;
+&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>畢業專題</title><link>https://laudantstolam.github.io/blogs/gradproj/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gradproj/</guid><description>A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1T0W3_rBjih3zZ1Ew4sfCWNGTgnzDVLkg/view&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Anti Scam Ads</title><link>https://laudantstolam.github.io/blogs/antiscam/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/antiscam/</guid><description>2026 AIS3 Hackathon Colab Project</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;div&gt;
   
   
 &lt;/div&gt;
 &lt;h5&gt;Tech Stack&lt;/h5&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Louisa Auto Wifi connector</title><link>https://laudantstolam.github.io/blogs/louisapro/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/louisapro/</guid><description>Auto WiFi reconnecting tool for chained coffee brands</description><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;h3&gt;Intro&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Louisa Auto Wifi connector</title><link>https://laudantstolam.github.io/blogs/louisapro/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/louisapro/</guid><description>I hate reconnecting WIFIs when I goto different shops, so I made this</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;平常在不同的路*莎總需要清除網路設定再重新連線有點麻煩，所以搞了一個可以輸入店名或地址後自動設定wifi密碼的小工具&lt;/p&gt;
 &lt;h3&gt;Interface&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
@@ -3139,7 +3139,7 @@ Link
 有些經緯度沒有抓到就用google geography API抓(&lt;code&gt;query/02_fill_lating.py&lt;/code&gt;)
 最後用tkinter包起來&lt;/p&gt;
 &lt;h4&gt;Some Notes&lt;/h4&gt;
-&lt;p&gt;好玩 又是一個成功的密碼小偷了&lt;/p&gt;</content:encoded><category>project</category></item><item><title>可旋轉式線放電加工機</title><link>https://laudantstolam.github.io/blogs/microdrilling/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/microdrilling/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;p&gt;曾經和同學一起從設計到加工與組裝了一台桌上型微細放電加工機，也有幸拿到了全球傳動比賽的佳作:D&lt;/p&gt;
+&lt;p&gt;好玩 又是一個成功的密碼小偷了&lt;/p&gt;</content:encoded><category>project</category></item><item><title>可旋轉式線放電加工機</title><link>https://laudantstolam.github.io/blogs/microdrilling/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/microdrilling/</guid><description>We made a cool micro drilling machine and won some prize :D</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;p&gt;曾經和同學一起從設計到加工與組裝了一台桌上型微細放電加工機，也有幸拿到了全球傳動比賽的佳作:D&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1ueu987RiILR2b9hJuHULXI89_hbo_PSx/view?usp=sharing&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3180,7 +3180,7 @@ WEDG走線系統外觀圖&lt;/p&gt;
 &lt;p&gt;四、加工效率高：&lt;/p&gt;
 &lt;p&gt;旋轉式線放電加工機搭載自製RC放電迴路，使放電加工效率相較於一般市售放電加工機更高，且加工精度可達0.1um。&lt;/p&gt;
 &lt;h3&gt;心得&lt;/h3&gt;
-&lt;p&gt;從設計 材料加工,研磨到都是由我們親手完成的，完成作品的當下十分有成就感同時也在過程中學習到許多寶貴的經驗，很感謝當時指導我們的教授和學長們，沒有他們這個成品絕對無法成形&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ReCall</title><link>https://laudantstolam.github.io/blogs/recall/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/recall/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>
+&lt;p&gt;從設計 材料加工,研磨到都是由我們親手完成的，完成作品的當下十分有成就感同時也在過程中學習到許多寶貴的經驗，很感謝當時指導我們的教授和學長們，沒有他們這個成品絕對無法成形&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ReCall</title><link>https://laudantstolam.github.io/blogs/recall/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/recall/</guid><description>we designed a multi line visual novel to celebrate idol&apos;s birthday</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>
 Link
 &lt;div&gt;
 &lt;p&gt;Download: &lt;a href=&quot;https://x.com/ReCall2025ShuBD/status/1918153743302050275&quot;&gt;x.com/ReCall2025ShuBD/status/1918153743302050275&lt;/a&gt;&lt;/p&gt;
@@ -3200,7 +3200,7 @@ Link
 
   
   Your browser does not support the video tag.
-</content:encoded><category>project</category><category>renpy</category></item><item><title>Pomodoro &amp; Music player with pygame</title><link>https://laudantstolam.github.io/blogs/subtitle/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/subtitle/</guid><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;h1&gt;Subtitle&lt;/h1&gt;
+</content:encoded><category>project</category><category>renpy</category></item><item><title>Pomodoro &amp; Music player with pygame</title><link>https://laudantstolam.github.io/blogs/subtitle/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/subtitle/</guid><description>Combining pomodoro and online music player with pygame</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h1&gt;Subtitle&lt;/h1&gt;
 &lt;h3&gt;Project Overview&lt;/h3&gt;
 &lt;p&gt;just a normal focusing project which support Pomodoro/Music Playing/Todo List&lt;/p&gt;
 &lt;h3&gt;Getting Started&lt;/h3&gt;
@@ -3266,7 +3266,7 @@ user event  觸發時的副程式呼叫，透過while()迴圈建構出畫面基
 &lt;p&gt;本專題的目標是創建一個完全沉浸式的工作環境開發程式，就成果而言，我們完成了最初預期的小目標。未來，我們將在Github上持續更新和改進功能，例如音訊優化、代辦事項和計時功能的連接等。同時，我們還計劃將專案轉換為可執行文件，以便任何使用者可以下載和使用。&lt;/p&gt;
 &lt;h3&gt;陸、參考資料&lt;/h3&gt;
 &lt;p&gt;一、BaralTech, (January, 25, 2023), Pomodoro Timer in Python and PyGame  取自&lt;a href=&quot;https://www.youtube.com/watch?v=6oJMd6FWUB8&amp;amp;t=729s&amp;amp;pp=ygUVcG9tb2Rvcm8gdGltZXIgc&quot;&gt;https://www.youtube.com/watch?v=6oJMd6FWUB8&amp;amp;t=729s&amp;amp;pp=ygUVcG9tb2Rvcm8gdGltZXIgc&lt;/a&gt; HlnYW1lKeras. Callbacks API. Keras.
-&lt;a href=&quot;https://keras.io/api/callbacks/&quot;&gt;https://keras.io/api/callbacks/&lt;/a&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ASUS RT-AC router vuln mining</title><link>https://laudantstolam.github.io/blogs/vulnmining/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/vulnmining/</guid><description>colab project made in T5 camp 2026 - firefox hooker</description><pubDate>Mon, 27 Jul 2026 17:45:40 GMT</pubDate><content:encoded>&lt;div&gt;
+&lt;a href=&quot;https://keras.io/api/callbacks/&quot;&gt;https://keras.io/api/callbacks/&lt;/a&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ASUS RT-AC router vuln mining</title><link>https://laudantstolam.github.io/blogs/vulnmining/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/vulnmining/</guid><description>TeamT5 Camp Colab Project 2026</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;div&gt;
   
   
 &lt;/div&gt;</content:encoded><category>project</category></item></channel></rss>
