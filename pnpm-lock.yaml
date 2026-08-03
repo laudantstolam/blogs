@@ -32,15 +32,15 @@ importers:
       rehype-katex:
         specifier: ^7.0.1
         version: 7.0.1
+      remark-highlight:
+        specifier: ^0.1.1
+        version: 0.1.1
       remark-math:
         specifier: ^6.0.0
         version: 6.0.0
       sanitize-html:
         specifier: ^2.17.6
         version: 2.17.6
-      slugify:
-        specifier: ^1.6.6
-        version: 1.6.6
       tailwindcss:
         specifier: ^3.4.16
         version: 3.4.19(yaml@2.8.2)
@@ -63,9 +63,6 @@ importers:
       astro-expressive-code:
         specifier: ^0.38.3
         version: 0.38.3(astro@5.16.6(@types/node@25.0.3)(jiti@1.21.7)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2))
-      playwright:
-        specifier: ^1.49.1
-        version: 1.57.0
       remark-mermaid:
         specifier: ^0.2.0
         version: 0.2.0(mermaid.cli@0.3.6)
@@ -2389,6 +2386,10 @@ packages:
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
+
+  remark-highlight@0.1.1:
+    resolution: {integrity: sha512-sEstDJ5RG4dVpq2swkbC8fy71ZFo0rCPxfutvVY+Z2icoSb+HsM/9frGxYDyszm1CO2kDwi0CqwwX+vRIMzplA==}
+    engines: {node: '>=18'}
 
   remark-math@6.0.0:
     resolution: {integrity: sha512-MMqgnP74Igy+S3WwnhQ7kqGlEerTETXMvJhrUzDikVZ2/uogJCb+WHUg97hK9/jcfc0dkD73s3LN8zU49cTEtA==}
@@ -5793,6 +5794,13 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remark-highlight@0.1.1:
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-find-and-replace: 3.0.2
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
 
   remark-math@6.0.0:
     dependencies:
