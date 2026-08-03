@@ -1,8 +1,11 @@
 ---
 title: ReCall
 slug: recall
+description: we designed a multi line visual novel to celebrate idol's birthday
 publish: true
 featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711075514.png
+tech:
+  - renpy
 tags:
   - project
   - renpy

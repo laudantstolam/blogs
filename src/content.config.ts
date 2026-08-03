@@ -19,10 +19,11 @@ const blog = defineCollection({
 		publish: z.boolean().default(true),
 		created_date: dateSchema,
 		updated_date: dateSchema,
-		featured_image: z.string().optional().nullable(),
+		featured_image: z.string().url().optional().nullable(),
 		featured_image_alt: z.string().optional().nullable(),
 		slug: z.string().optional().nullable(),
 		tags: z.array(z.string()).default([]).nullable(),
+		tech: z.array(z.string()).default([]).nullable(),
 		// SEO specific fields
 		meta_title: z.string().optional().nullable(),
 		meta_description: z.string().optional().nullable(),
@@ -39,6 +40,21 @@ const blog = defineCollection({
 		author: z.string().optional().nullable(),
 		reading_time: z.number().optional().nullable(),
 		no_index: z.boolean().default(false),
+	}).superRefine((data, ctx) => {
+		if (data.tags?.includes('project') && !data.featured_image) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ['featured_image'],
+				message: `"${data.title}" tagged project but missing featured_image`,
+			});
+		}
+		if (data.tags?.includes('project') && !data.description) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ['description'],
+				message: `"${data.title}" tagged project but missing description`,
+			});
+		}
 	}),
 });
 

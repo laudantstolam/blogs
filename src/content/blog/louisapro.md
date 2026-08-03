@@ -1,8 +1,12 @@
 ---
 title: Louisa Auto Wifi connector
 slug: louisapro
-description: Auto WiFi reconnecting tool for chained coffee brands
+description: I hate reconnecting WIFIs when I goto different shops, so I made this
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250122125138.png
+tech:
+  - python
+  - renpy
 tags:
   - project
 ---

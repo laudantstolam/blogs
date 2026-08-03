@@ -1,7 +1,12 @@
 ---
 title: 畢業專題
 slug: gradproj
+description: A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711143009.png
+tech:
+  - ros
+  - pytorch
 tags:
   - project
 ---

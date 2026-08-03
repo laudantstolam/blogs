@@ -1,7 +1,13 @@
 ---
 title: StegImage Detect
 slug: stegdetect
+description: Steganography Identification System Based on Time Domain and Frequency Domain Methods
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711084006.png
+tech:
+  - apachespark
+  - scikitlearn
+  - python
 tags:
   - project
   - 資安

@@ -1,8 +1,11 @@
 ---
 title: FireFox Hooker
 slug: firefoxhooker
-description: Project made in T5 camp - firefox hooker
+description: TeamT5 Camp Colab Project
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711151746.png
+tech:
+  - cplusplus
 tags:
   - project
 

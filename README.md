@@ -63,6 +63,27 @@ export const LANGS: LangDef[] = [
 ```
 
 
+## Project posts
+
+`/projects` lists any post tagged `project` — no separate config, the cards
+pull straight from that post's own frontmatter.
+
+```md
+---
+title: My Project
+description: required — shown on the card         # mandatory if tagged project
+featured_image: https://example.com/preview.png    # mandatory if tagged project
+tech: [python, flask]                               # optional, iconify simple-icons slugs
+tags: [project]
+---
+```
+
+`description` and `featured_image` are enforced at build time (schema
+`superRefine` in `src/content.config.ts`) — a project-tagged post missing
+either fails the build with the post title in the error. `tech` entries must
+match an [iconify simple-icons](https://icon-sets.iconify.design/simple-icons/)
+slug or the badge renders with no icon.
+
 ## Deployment
 
 See `DEPLOYMENT.md` for GitHub Pages / custom domain setup

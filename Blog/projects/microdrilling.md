@@ -1,6 +1,7 @@
 ---
 title: 可旋轉式線放電加工機
 slug: microdrilling
+description: We made a cool micro drilling machine and won some prize :D
 publish: true
 featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250711075107.png
 tags:

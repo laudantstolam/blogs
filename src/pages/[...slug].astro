@@ -1,10 +1,22 @@
-e---
+---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
+
+	// Fail build on slug collision across ALL posts, not just project-tagged ones —
+	// a collision here silently drops one post's route.
+	const seenSlugs = new Map();
+	for (const post of posts) {
+		const slug = post.data.slug || post.id.replace(/\.[^/.]+$/, '');
+		if (seenSlugs.has(slug)) {
+			throw new Error(`[...slug].astro] duplicate slug "${slug}" on posts "${seenSlugs.get(slug)}" and "${post.data.title}"`);
+		}
+		seenSlugs.set(slug, post.data.title);
+	}
+
 	return posts.map((post) => {
 		// Use explicit slug if provided, otherwise generate from the file path
 		const slug = post.data.slug || post.id.replace(/\.[^/.]+$/, '');

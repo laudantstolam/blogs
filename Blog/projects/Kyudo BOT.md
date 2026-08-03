@@ -2,9 +2,15 @@
 title: kyudobot
 slug: kyudobot
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250207002613.png
+tech:
+  - line
+  - aws-lambda
+  - aws-dynamodb
+  - yolo
 tags:
   - project
-description: 箭矢落點辨識結合LINE聊天機器人自動化分析
+description: Analyzing the arrow's position and generating results
 ---
 >[!note]+ Link
 >Github: [laudantstolam/kyudou-bot: a line bot for analyzing kyudou practice](https://github.com/laudantstolam/kyudou-bot)

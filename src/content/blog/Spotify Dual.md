@@ -1,7 +1,11 @@
 ---
 title: Spotify Music Taste Analyze
 slug: spotifydual
+description: Analyzing music taste and generate common playlist with multiple users
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/202402191546709.png
+tech:
+  - flask
 tags:
   - project
 ---

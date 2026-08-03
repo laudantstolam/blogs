@@ -1,8 +1,13 @@
 ---
 title: Anti Scam Ads
 slug: antiscam
-description: AIS3 hackathon project - anti scam ads extension
+description: 2026 AIS3 Hackathon Colab Project
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20260129150146.png
+tech:
+  - python
+  - flask
+  - javascript
 tags:
   - project
 ---

@@ -1,7 +1,11 @@
 ---
 title: ASUS RT-AC router vuln mining
-description: colab project made in T5 camp 2026 - firefox hooker
+description: TeamT5 Camp Colab Project 2026
 publish: true
+featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20260129143257.png
+tech:
+  - python
+  - shell
 tags:
   - project
 
