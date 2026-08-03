@@ -13,7 +13,7 @@
 
 :root {
 	--accent: #268f84;
-	--accent-rgb: 32, 94, 166;
+	--accent-rgb: 38, 143, 132;
 	--accent-dark: #17416e;
 	--black: 16, 15, 15;
 	--gray: 87, 86, 83;
@@ -182,41 +182,71 @@ table {
 	width: 100%;
 	margin: 2rem 0;
 	border-collapse: collapse;
+	font-family: var(--font-body);
+	font-size: 0.95em;
+	line-height: 1.55;
 }
 
-table td,
 table th {
-	padding: 0.75rem;
-	border: 1px solid rgba(var(--gray), 0.2);
+	padding: 0.7rem 0.9rem;
+	text-align: left;
+	font-family: var(--font-mono);
+	font-size: 0.82em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: rgb(var(--black));
+	background: rgba(var(--black), 0.04);
+	border-bottom: 1px solid rgba(var(--black), 0.25);
+}
+
+table td {
+	padding: 0.7rem 0.9rem;
+	border-bottom: 1px solid rgba(var(--black), 0.08);
+	vertical-align: top;
+}
+
+table tr:last-child td {
+	border-bottom: none;
+}
+
+table tbody tr:hover {
+	background: rgba(var(--accent-rgb), 0.06);
 }
 
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 0;
 	margin: 2rem 0;
 }
 
+/* Inline code — Flexoki accent-tinted chip, hairline hug.
+   Font-size matches body paragraph (1em) so inline `foo` sits on the
+   baseline without shrinking the line. */
 code {
-	padding: 0.2em 0.4em;
-	background-color: rgba(var(--gray-light), 0.5);
-	border-radius: 4px;
+	padding: 0.1em 0.4em;
+	background-color: rgba(var(--accent-rgb), 0.1);
+	border: 1px solid rgba(var(--accent-rgb), 0.35);
+	border-radius: 0;
 	font-family: var(--font-mono);
-	font-size: 0.875em;
+	font-size: 1em;
 	font-weight: 500;
+	color: var(--accent);
 }
 
 pre {
-	padding: 1.5em;
-	border-radius: 8px;
+	padding: 1.25em 1.5em;
+	border-radius: 0;
 	background-color: rgb(var(--gray-light));
 	overflow-x: auto;
+	border: 1px solid rgba(var(--black), 0.1);
 }
 
 pre > code {
 	all: unset;
 	font-family: var(--font-mono);
-	font-size: 0.875em;
+	font-size: 1em;
 }
 
 blockquote {
@@ -228,7 +258,7 @@ blockquote {
 	color: rgb(var(--gray-dark));
 	background-color: rgba(var(--gray-light), 0.3);
 	/* padding: 1.5rem; */
-	border-radius: 0 8px 8px 0;
+	border-radius: 0;
 }
 
 hr {
@@ -304,24 +334,50 @@ li {
 	margin-bottom: 1em;
 	color: rgb(var(--black));
 	font-weight: 600;
+	/* DESIGN.md: Latin stays Georgia serif, only Han glyphs use Iansui */
+	/* Iansui sits BEFORE the serif generic; see DESIGN.md line 168 */
+	font-family: Georgia, 'Times New Roman', 'Iansui', 'Iansui-Regular', serif;
 }
 
+/* DESIGN.md: body copy in Iansui first, Onest for Latin fallback.
+   Reinforced on p/li so no root rule can accidentally drop the CJK face. */
+.prose p,
+.prose li,
+.prose blockquote {
+	font-family: var(--font-cjk), var(--font-body);
+}
+
+/* Heading sizes in `em` so `.prose` reader-scale on font-size propagates
+   uniformly (headings scale with body text, no mismatch at 120%/140%) */
 .prose h1 {
-	font-size: 2.5rem;
+	font-size: 2.35em;
 	margin-top: 0;
 }
 
 .prose h2 {
-	font-size: 1.75rem;
+	font-size: 1.65em;
 }
 
 .prose h3 {
-	font-size: 1.5rem;
+	font-size: 1.4em;
+}
+
+.prose h4 {
+	font-size: 1.2em;
+}
+
+.prose h5 {
+	font-size: 1.05em;
 }
 
 .prose p {
 	margin-bottom: 1.5em;
 	line-height: 1.75;
+	font-size: 1em;
+}
+
+.prose li {
+	font-size: 1em;
 }
 
 /* Enhanced List Styling */
@@ -355,64 +411,50 @@ li {
 	list-style-type: square;
 }
 
-/* Code Blocks */
+/* Code Blocks (plain, non-Expressive-Code fallback) */
 .prose pre {
 	padding: 1.25em 1.5em;
 	margin: 1.5em 0;
 	background-color: rgb(var(--gray-light));
-	border-radius: 8px;
+	border: 1px solid rgba(var(--black), 0.1);
+	border-radius: 0;
 	overflow-x: auto;
 	font-family: var(--font-mono);
-	font-size: 0.9em;
-	line-height: 1.7;
+	font-size: 1em;
+	line-height: 1.65;
 }
 
+/* Expressive Code wrapper — hairline card, block spacing (not inline) */
 .prose .expressive-code {
-	font-family: var(--font-mono);
-	font-size: 0.875em;
-	font-weight: var(--font-weight-bold);
-	padding: 0.2em 0.4em;
-	border-radius: 4px;
-	margin: 2rem;
+	margin: 2rem 0;
+	font-size: 1em;
+	line-height: 1.65;
 }
-
-.expressive-code pre > code {
-	font-weight: 600 !important;
-  }
+.prose .expressive-code pre {
+	border: 1px solid rgba(var(--black), 0.1);
+	border-radius: 0;
+}
+/* Inline code inside prose — keep hairline hug from global rule */
+.prose :not(pre) > code {
+	white-space: break-spaces;
+}
 
 .prose pre code {
 	background-color: transparent;
 	padding: 0;
+	border: 0;
 	border-radius: 0;
 	color: inherit;
-	font-size: 0.9em;
+	font-size: 1em;
 	white-space: pre;
+	font-weight: 400;
 }
 
-/* Tables */
+/* Tables — inherit hairline Flexoki style from root; prose adds outer frame */
 .prose table {
-	width: 100%;
 	margin: 2em 0;
-	border-collapse: collapse;
-	font-size: 0.9em;
-	line-height: 1.5;
-}
-
-.prose th {
-	font-weight: 600;
-	text-align: left;
-	padding: 0.75em;
-	border-bottom: 2px solid rgba(var(--gray), 0.2);
-}
-
-.prose td {
-	padding: 0.75em;
-	border-bottom: 1px solid rgba(var(--gray), 0.1);
-	vertical-align: top;
-}
-
-.prose tr:last-child td {
-	border-bottom: none;
+	border: 1px solid rgba(var(--black), 0.15);
+	background: rgba(var(--card-bg), 0.4);
 }
 
 /*Blockquotes*/
@@ -464,7 +506,7 @@ li {
 .prose img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 0;
 	margin: 2em 0;
 }
 

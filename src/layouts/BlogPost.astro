@@ -129,13 +129,16 @@ const safeTags = tags ?? [];
 
 			.title h1 {
 				margin: 0;
-				/* Latin serif; Han glyphs fall through to Iansui */
-				font-family: var(--font-heading), var(--font-cjk);
+				/* Latin → Georgia, Han glyphs fall through to Iansui (per-glyph
+				   fallback). No lang switching — the browser picks per char. */
+				/* Iansui sits before serif generic; see DESIGN.md line 168 */
+				font-family: Georgia, 'Times New Roman', 'Iansui', 'Iansui-Regular', serif;
 				letter-spacing: -0.02em;
 			}
 
 			.subtitle {
-				font-family: var(--font-heading), var(--font-cjk);
+				/* Iansui sits before serif generic; see DESIGN.md line 168 */
+				font-family: Georgia, 'Times New Roman', 'Iansui', 'Iansui-Regular', serif;
 				font-style: italic;
 				color: rgb(var(--gray));
 				font-size: 1.35rem;
@@ -144,7 +147,7 @@ const safeTags = tags ?? [];
 			}
 			.date {
 				font-family: var(--font-mono);
-				font-size: 0.78rem;
+				font-size: 1.0rem;
 				text-transform: uppercase;
 				letter-spacing: 0.09em;
 				color: rgb(var(--gray));
@@ -404,16 +407,12 @@ const safeTags = tags ?? [];
 				display: none;
 			}
 
-			/* Reader font zoom — scales the reading text only, driven by --reader-scale */
+			/* Reader zoom — scales content uniformly (text, headings, code)
+			   without touching the sheet's frame width. Root font-size on
+			   `.prose` scales, and all descendants inherit via em/inherit.
+			   Images fit the frame (max-width: 100%) so they stay in-bounds. */
 			.prose {
-				--reader-scale: 1;
-			}
-			:global(.prose p),
-			:global(.prose li) {
 				font-size: calc(1.0625rem * var(--reader-scale, 1));
-			}
-			:global(.prose blockquote) {
-				font-size: calc(1.18rem * var(--reader-scale, 1));
 			}
 
 			/* Reader toolbox — flat hairline card, bottom-right */

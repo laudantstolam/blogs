@@ -8,6 +8,7 @@ import remarkMermaid from "remark-mermaid";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkCallout from "@r4ai/remark-callout";
+import { flexokiLight, flexokiDark } from "./src/styles/ec-themes.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -32,6 +33,23 @@ export default defineConfig({
     ],
     rehypePlugins: [rehypeKatex] 
   },
-  integrations: [expressiveCode(), mdx(), sitemap(), tailwind()],
+  integrations: [
+    expressiveCode({
+      themes: [flexokiLight, flexokiDark],
+      useDarkModeMediaQuery: false,
+      themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
+      styleOverrides: {
+        borderRadius: "0",
+        codeFontFamily: "var(--font-mono)",
+        codeFontSize: "1em",
+        codePaddingBlock: "1.25em",
+        codePaddingInline: "1.5em",
+        frames: { frameBoxShadowCssValue: "none" },
+      },
+    }),
+    mdx(),
+    sitemap(),
+    tailwind(),
+  ],
   output: "static",
 });

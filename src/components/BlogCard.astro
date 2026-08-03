@@ -108,7 +108,10 @@ const postId = slug.replace(/\//g, '-');
         line-height: 1.25;
         margin-top: 0.5rem;
         color: rgb(var(--black));
-        font-family: var(--font-heading);
+        /* Iansui sits BEFORE the serif generic — otherwise browser matches
+           system serif (which has CJK) for Han glyphs and Iansui never runs.
+           See DESIGN.md line 168. */
+        font-family: Georgia, 'Times New Roman', 'Iansui', 'Iansui-Regular', serif;
         transition: color 0.2s ease;
     }
 
