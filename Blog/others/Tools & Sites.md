@@ -7,7 +7,7 @@ tags:
   - notes
   - 資安
 featured_image:
-created_date: 2025-10-07
+created_date: "<% tp.date.now %>"
 ---
 # Secutity/CTF
 ## Reverse

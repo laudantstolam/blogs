@@ -4,8 +4,6 @@ slug: subtitle
 description: Combining pomodoro and online music player with pygame
 publish: true
 featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/202306212151683.png
-tech:
-  - python
 tags:
   - project
 ---

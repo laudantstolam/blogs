@@ -91,7 +91,8 @@ created_date: 2025-10-26
 
 ### 02
 
-pyc 相關解壓縮
+`pyc` 相關解壓縮
+
 >[!quote]+ challenge
 >
 >`encrypted_sequencer_data` -> zlib解壓 -> marshel執行
@@ -1114,3 +1115,25 @@ GET /good HTTP/1.1
 
 進度整理:
 - GetUserName 
+
+---
+###### Calling Convension 101
+- Windows x64 ABI
+
+| C/C++ 參數 | Register |
+| -------- | -------- |
+| arg1     | **RCX**  |
+| arg2     | **RDX**  |
+| arg3     | **R8**   |
+| arg4     | **R9**   |
+```asm
+mov rcx, a      ; arg1
+mov rdx, b      ; arg2
+mov r8,  c      ; arg3
+mov r9,  d      ; arg4
+call foo
+
+= foo(a, b, c, d)
+```
+
+- 回傳值的RET一定放在RAX

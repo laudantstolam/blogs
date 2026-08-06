@@ -1,12 +1,7 @@
 ---
 title: Gics All In One
 slug: gicsallinone
-description: An all-in-one program for recording answer&questions, scoreboard monitoring and sentry
-publish: true
-featured_image: https://raw.githubusercontent.com/laudantstolam/gics-all-in-one/main/demo/dashboard.jpg
-tech:
-  - python
-  - javascript
+publish: false
 tags:
   - project
 ---
