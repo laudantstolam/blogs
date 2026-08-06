@@ -1,4 +1,168 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ash Blog</title><description/><link>https://laudantstolam.github.io/</link><item><title>Radare2 Tips</title><link>https://laudantstolam.github.io/blogs/r2/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/r2/</guid><description>原本只是想學ANGR但莫名其妙先學了R2</description><pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;教材: &lt;a href=&quot;https://youtu.be/oW8Ey5STrPI&quot;&gt;https://youtu.be/oW8Ey5STrPI&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ash Blog</title><description/><link>https://laudantstolam.github.io/</link><item><title>blog 2.0 新章與近況</title><link>https://laudantstolam.github.io/blogs/blog-20/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/blog-20/</guid><pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Blog 改版&lt;/h2&gt;
+&lt;p&gt;沉靜了許久後終於有一步步慢慢找回生產力的感覺，首先是從 blog 頁面的重構開始。
+原先就設想這個 blog 會作為實驗性質的 playground 定期用來測試 agent workflow 和 skills 的整合等等，因此過程中經歷了許多次的重新設計，但近期隨著逐漸穩定的前端流程感覺是時候進行改版了&lt;/p&gt;
+&lt;p&gt;這次的風格採用了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;kepano 設計的 &lt;a href=&quot;https://stephango.com/flexoki&quot;&gt;flexoki theme&lt;/a&gt; 作為主色調&lt;/li&gt;
+&lt;li&gt;借鑑 tw93 的 &lt;a href=&quot;https://github.com/tw93/Kami&quot;&gt;kami&lt;/a&gt; 專案的排版靈感&lt;/li&gt;
+&lt;li&gt;加上本身使用 obsidian 使用的&lt;a href=&quot;https://github.com/Akifyss/obsidian-border/&quot;&gt;border theme(Silver)&lt;/a&gt;融合，試圖讓 blog 看起來更像自己平常在 ob 中習慣的操作介面&lt;/li&gt;
+&lt;li&gt;callout 融合了&lt;a href=&quot;https://github.com/sumruler/obsidian-theme-phycat&quot;&gt;phycat&lt;/a&gt;的 callout 設計&lt;/li&gt;
+&lt;li&gt;字體的部分使用 &lt;code&gt;george font&lt;/code&gt; 作為英文字體，&lt;code&gt;Iansui font&lt;/code&gt; (芫荽) 作為中文字體&lt;/li&gt;
+&lt;li&gt;最後是參考了許多不同風格的 blog 設計完成了這次的改版&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;特別想提一下關於 callout 的改動，原先使用了&lt;a href=&quot;https://github.com/r4ai/remark-callout&quot;&gt;remark-callout&lt;/a&gt; 這個 npm package 作為 md2html 的渲染工具，後來看了 phycat 進行的改動(hover出現的emoji非常可愛 我大哭)，具體做法可以參考此 &lt;a href=&quot;https://github.com/laudantstolam/blogs/commit/697fdbf4bcd0656ebdab78a5bbab657596872f07&quot;&gt;commit&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Demo：&lt;/p&gt;
+&lt;div&gt;
+&lt;div&gt;Bug&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;みんな 見て見て！！
+この虫、可愛くない?&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;前後對比：&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;origional&lt;/th&gt;&lt;th&gt;phycat style&lt;/th&gt;&lt;th&gt;with floxoki style&lt;/th&gt;&lt;th&gt;final result&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;br /&gt;&lt;/td&gt;&lt;td&gt;&lt;br /&gt;&lt;/td&gt;&lt;td&gt;&lt;br /&gt;&lt;/td&gt;&lt;td&gt;&lt;br /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2&gt;近況分享&lt;/h2&gt;
+&lt;p&gt;另外近期也在思考加上更多生活化的內容，像是 tw93 的 weekly newsletter 一樣(但鑒於分享慾的極大起伏先暫訂季報吧)，總之近期看了一些有趣的東西，&lt;/p&gt;
+&lt;h4&gt;AI&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/diegosouzapw/OmniRoute&quot;&gt;Omniroute&lt;/a&gt;：一款最全面的反向代理，可以透過更改 agent base url 到中介頁面自定義model。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ayghri/i-have-adhd&quot;&gt;I-have-adhd&lt;/a&gt;：一個讓 AI 快速 TL;DR 的 skills，gpt的話直接在 prompt 說 &lt;code&gt;我有 adhd&lt;/code&gt; 即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;學習&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;上了一堂很有趣的晶片資安課，下一篇blog會來嘗試寫一下心得&lt;/li&gt;
+&lt;li&gt;近期接了一個有趣的活：同步口譯，練習了一些表達與同步翻譯的技巧，相當有趣的經驗&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;心態調整&lt;/h4&gt;
+&lt;p&gt;這半年經歷了許多起伏，也在許多回顧的過程中發現工作的產出穩定性由情緒為因素產生的波動相當明顯，而某天在 &lt;em&gt;Leila Hormozi&lt;/em&gt; 的影片裡面似乎找到了指認&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you want be consistent with things, then you actually have be built on bad days.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;關於計畫與進度，本身就應該涵蓋在你狀態最糟糕時也能產出的最小量&lt;/strong&gt;&lt;/p&gt;
+
+REF
+&lt;div&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1suPYzcEr8&quot;&gt;link&lt;/a&gt;原片刪了qq 這是搬運的連結&lt;/li&gt;
+&lt;li&gt;還有這個關於自律的分享
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content:encoded></item><item><title>Radare2 Tips</title><link>https://laudantstolam.github.io/blogs/r2en/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/r2en/</guid><description>TEST</description><pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;TEST&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;div&gt;
+&lt;div&gt;Skills&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;radius2 skills &amp;amp; mcp : &lt;a href=&quot;https://github.com/radareorg/radare2-skills&quot;&gt;https://github.com/radareorg/radare2-skills&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2&gt;1. Recon 相關&lt;/h2&gt;
+&lt;p&gt;開啟程式：&lt;/p&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;Terminal window&lt;/span&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;r2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;./your_program&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;p&gt;看到意義不明指標，用 &lt;code&gt;V&lt;/code&gt; 進入 hex view：&lt;/p&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;[0x00000fd0]&amp;gt; V&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;p&lt;/code&gt; 切換到 disassemble：
+&lt;/p&gt;
+&lt;h2&gt;2. 分析相關&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;shift + :&lt;/code&gt; 輸入 &lt;code&gt;aaa&lt;/code&gt; 解析後，用 &lt;code&gt;afi&lt;/code&gt; 看 function：
+&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;s main&lt;/code&gt; 找 main（或用 &lt;code&gt;s sym.main&lt;/code&gt;）：
+&lt;/p&gt;
+&lt;h3&gt;從外部抽資訊（不用進 r2）&lt;/h3&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;Terminal window&lt;/span&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;rabin2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;-z&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&amp;lt;binary&amp;gt;&lt;/span&gt;&lt;span&gt;      &lt;/span&gt;&lt;span&gt;# 抽 strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;r2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;-qc&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;izq&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&amp;lt;binary&amp;gt;&lt;/span&gt;&lt;span&gt;     &lt;/span&gt;&lt;span&gt;# quiet mode 列所有 strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;h3&gt;String xref&lt;/h3&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;aae        # emulation 分析，補出 string 的 cross-reference&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;axt &amp;lt;addr&amp;gt; # 找誰 reference 到此處&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;axf &amp;lt;addr&amp;gt; # 此處 reference 到哪&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;h2&gt;3. 常用指令&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;/th&gt;&lt;th&gt;說明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;aaa&lt;/code&gt;&lt;/td&gt;&lt;td&gt;自動分析、自動命名函數&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;afl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;列出 functions&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;afi&lt;/code&gt;&lt;/td&gt;&lt;td&gt;顯示 function 資訊&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;pdf&lt;/code&gt;&lt;/td&gt;&lt;td&gt;print disassembly&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;VV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;graph view（需先 &lt;code&gt;aaa&lt;/code&gt;）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;s &amp;lt;function/addr&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;seek and goto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;&lt;td&gt;切換 view（hex / 機械碼 / ..）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;V&lt;/code&gt;&lt;/td&gt;&lt;td&gt;進入 visual mode&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2&gt;4. Debugger&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;r2 -d &amp;lt;file&amp;gt;&lt;/code&gt; 用 debugger 開啟：&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;/th&gt;&lt;th&gt;說明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;db &amp;lt;addr&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;break point&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;dc&lt;/code&gt;&lt;/td&gt;&lt;td&gt;start with dbg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;shift&lt;/code&gt;&lt;/td&gt;&lt;td&gt;step&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2&gt;GUI 版 R2 - Cutter&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/rizinorg/cutter&quot;&gt;https://github.com/rizinorg/cutter&lt;/a&gt;
+Cutter是基於Rizin的GUI版本，Rizin本身是R2的fork (split off 2020)
+指令差不多但是底層API寫法不太一樣，下面是一些常用指令:&lt;/p&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iI        # 查看 Image info&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iS        # 列出 section&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;is        # 列出 symbols&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iz        # strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;aa        # 自動分析&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;afl       # 函數列表&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;pdf @main # 反組譯 main&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;</content:encoded></item><item><title>Radare2 Tips</title><link>https://laudantstolam.github.io/blogs/r2/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/r2/</guid><description>原本只是想學ANGR但莫名其妙先學了R2</description><pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;/p&gt;
 &lt;div&gt;
 &lt;div&gt;Skills&lt;/div&gt;
 &lt;div&gt;
@@ -550,7 +714,7 @@ me: QQ&lt;/p&gt;
 &lt;p&gt;事情的開始，是從某天我在尋找替代Obsidian Publish 的東西，偶然翻到有個youtuber vibe出來的東西(快去幫他按愛心)，直接把筆記庫換成這個repo，透過git自動上傳+部屬成astro靜態網頁，完全就是我需要的東西(!!!)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Beingpax/Obsidian-Blogger&quot;&gt;https://github.com/Beingpax/Obsidian-Blogger&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;DEMO: &lt;a href=&quot;https://youtu.be/OBx3v_tHprw?t=896&quot;&gt;https://youtu.be/OBx3v_tHprw?t=896&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;但是也遇到了幾個問題&lt;/p&gt;
 &lt;ul&gt;
@@ -694,7 +858,7 @@ me: QQ&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Bootloader解鎖(很危險，後果自負，推薦在模擬機跑就好)
 &lt;ul&gt;
-&lt;li&gt;Samsung —&amp;gt; &lt;a href=&quot;https://youtu.be/vBvvUFlcVeM&quot;&gt;https://youtu.be/vBvvUFlcVeM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
 &lt;li&gt;Redmi —&amp;gt; &lt;a href=&quot;https://magiskcn.com/mi-unlock.html&quot;&gt;https://magiskcn.com/mi-unlock.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -1298,12 +1462,7 @@ ref: &lt;a href=&quot;https://medium.com/pm%E7%9A%84%E7%94%9F%E7%94%A2%E5%8A%9B%
 &lt;/p&gt;
 &lt;h4&gt;(隱藏用法) 快速簡報展示&lt;/h4&gt;
 &lt;p&gt;套件: Advanced slides&lt;/p&gt;
-&lt;p&gt;在作筆記的時候如果想快速跟人用大字報講解
-或是DDL剩下十分鐘但是需要快速DEMO一些概念
-可以使用預設的&lt;code&gt;slides preview&lt;/code&gt;功能+&lt;code&gt;Advanced slides&lt;/code&gt;套件 (特別好用)
-
-甚至可以輸出成PDF/或是發佈到指定的PORT((((真的是喪心病狂但蒸褲ovo
-ref: &lt;a href=&quot;https://youtu.be/wNj79ryJETU&quot;&gt;https://youtu.be/wNj79ryJETU&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 &lt;h4&gt;心智圖&lt;/h4&gt;
 &lt;p&gt;套件: Mind Map&lt;/p&gt;
 &lt;p&gt;
@@ -1313,9 +1472,7 @@ ref: &lt;a href=&quot;https://youtu.be/wNj79ryJETU&quot;&gt;https://youtu.be/wNj
 &lt;p&gt;這個我比較少用 但看起來挺像那麼回事的
 &lt;/p&gt;
 &lt;h3&gt;Obsidian Excalidraw&lt;/h3&gt;
-&lt;p&gt;這個已經是另一個可以另外拉出去說的主題了
-族繁不及備載，有興趣可以先去看這個影片再慢慢摸索
-&lt;a href=&quot;https://www.youtube.com/watch?v=P_Q6avJGoWI&amp;amp;pp=ygUTZXhjYWxpZHJhdyBvYnNpZGlhbg%3D%3D&quot;&gt;https://www.youtube.com/watch?v=P_Q6avJGoWI&amp;amp;pp=ygUTZXhjYWxpZHJhdyBvYnNpZGlhbg%3D%3D&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 &lt;p&gt;包括但不限於: 手寫字/流程圖/網頁媒體即時預覽/關係圖建立/PDF標註與筆記 以上所有功能的整合&lt;/p&gt;
 &lt;p&gt;showcase一下之前材料力學的醜醜筆記
 &lt;/p&gt;</content:encoded><category>others</category></item><item><title>Flare-on 2025 Writeup</title><link>https://laudantstolam.github.io/blogs/flareon2025/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/flareon2025/</guid><description>我好菜不會逆向QQ</description><pubDate>Sun, 26 Oct 2025 00:00:00 GMT</pubDate><content:encoded>
@@ -1437,7 +1594,7 @@ solution
 &lt;/div&gt;
 
 &lt;h3&gt;02&lt;/h3&gt;
-&lt;p&gt;pyc 相關解壓縮&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pyc&lt;/code&gt; 相關解壓縮&lt;/p&gt;
 
 challenge
 &lt;div&gt;
@@ -1871,6 +2028,42 @@ and sub_140007360 handshake handler
 &lt;p&gt;進度整理:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GetUserName&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h6&gt;Calling Convension 101&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows x64 ABI&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;C/C++ 參數&lt;/th&gt;&lt;th&gt;Register&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;arg1&lt;/td&gt;&lt;td&gt;&lt;strong&gt;RCX&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;arg2&lt;/td&gt;&lt;td&gt;&lt;strong&gt;RDX&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;arg3&lt;/td&gt;&lt;td&gt;&lt;strong&gt;R8&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;arg4&lt;/td&gt;&lt;td&gt;&lt;strong&gt;R9&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;mov&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;rcx&lt;/span&gt;&lt;span&gt;, a      &lt;/span&gt;&lt;span&gt;; arg1&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;mov&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;rdx&lt;/span&gt;&lt;span&gt;, b      &lt;/span&gt;&lt;span&gt;; arg2&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;mov&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;r8&lt;/span&gt;&lt;span&gt;,  c      &lt;/span&gt;&lt;span&gt;; arg3&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;mov&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;r9&lt;/span&gt;&lt;span&gt;,  d      &lt;/span&gt;&lt;span&gt;; arg4&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;call&lt;/span&gt;&lt;span&gt; foo&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;= foo(a, b, c, d)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;回傳值的RET一定放在RAX&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><category>writeup</category><category>reverse</category></item><item><title>IOT security intro</title><link>https://laudantstolam.github.io/blogs/iot-101/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/iot-101/</guid><pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate><content:encoded>
 相關參考連結:
 &lt;div&gt;
@@ -2917,10 +3110,10 @@ long_to_bytes(FLAG)=b’breakall{know_u_know_key_exchange}‘&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;for&lt;/span&gt;&lt;span&gt; i &lt;/span&gt;&lt;span&gt;in&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;33&lt;/span&gt;&lt;span&gt;):&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span&gt;enc_value &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; enc&lt;/span&gt;&lt;span&gt;[&lt;/span&gt;&lt;span&gt;i&lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;9&lt;/span&gt;&lt;span&gt;]&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;    &lt;/span&gt;&lt;span&gt;for&lt;/span&gt;&lt;span&gt; byte &lt;/span&gt;&lt;span&gt;in&lt;/span&gt;&lt;span&gt; guess_list&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;        &lt;/span&gt;&lt;/span&gt;&lt;span&gt;byte_value &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;ord&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;        &lt;/span&gt;&lt;/span&gt;&lt;span&gt;guess &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte_value &lt;/span&gt;&lt;span&gt;*&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;41056&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;%&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;43969&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;        &lt;/span&gt;&lt;span&gt;if&lt;/span&gt;&lt;span&gt; guess &lt;/span&gt;&lt;span&gt;==&lt;/span&gt;&lt;span&gt; enc_value&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;            &lt;/span&gt;&lt;/span&gt;&lt;span&gt;result&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span&gt;append&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;            &lt;/span&gt;&lt;span&gt;break&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;print&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;flag_head &lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&apos;&apos;&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span&gt;join&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;result&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&quot;&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span&gt;&quot;&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;breakall{are_u_brute_master_or_math_master}&lt;/code&gt;&lt;/p&gt;</content:encoded><category>writeup</category></item><item><title>FireFox Hooker</title><link>https://laudantstolam.github.io/blogs/firefoxhooker/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/firefoxhooker/</guid><description>TeamT5 Camp Colab Project</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>
+&lt;p&gt;&lt;code&gt;breakall{are_u_brute_master_or_math_master}&lt;/code&gt;&lt;/p&gt;</content:encoded><category>writeup</category></item><item><title>FireFox Hooker</title><link>https://laudantstolam.github.io/blogs/firefoxhooker/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/firefoxhooker/</guid><description>TeamT5 Camp Colab Project</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>
     This browser does not support PDFs. Please download the PDF to view it: 
     &amp;amp;#x3C;a href=&quot;https://raw.githubusercontent.com/Ash0645/image_remote/main/t5camp.pdf&quot;&amp;gt;Download PDF&amp;amp;#x3C;/a&amp;gt;.
-</content:encoded><category>project</category></item><item><title>kyudobot</title><link>https://laudantstolam.github.io/blogs/kyudobot/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/kyudobot/</guid><description>Analyzing the arrow&apos;s position and generating results</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>
+</content:encoded><category>project</category></item><item><title>kyudobot</title><link>https://laudantstolam.github.io/blogs/kyudobot/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/kyudobot/</guid><description>Analyzing the arrow&apos;s position and generating results</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>
 Link
 &lt;div&gt;
 &lt;p&gt;Github: &lt;a href=&quot;https://github.com/laudantstolam/kyudou-bot&quot;&gt;laudantstolam/kyudou-bot: a line bot for analyzing kyudou practice&lt;/a&gt;&lt;/p&gt;
@@ -2987,12 +3180,7 @@ Link
 &lt;h4&gt;肆、	結論與未來展望&lt;/h4&gt;
 &lt;p&gt;最後綜觀成果而言，有初步達成當初理想的結果與實現，也在座標獲取與計算方面進行了教育其更精準的結果，之後期盼朝著用戶箭矢的區分與提升整體程式進程效率的方向進行改善。&lt;/p&gt;
 &lt;h4&gt;伍、	參考資料&lt;/h4&gt;
-&lt;p&gt;[1] &lt;a href=&quot;https://www.cnblogs.com/ybqjymy/p/12826850.html&quot;&gt;https://www.cnblogs.com/ybqjymy/p/12826850.html&lt;/a&gt;
-[2] &lt;a href=&quot;https://github.com/roboflow/notebooks/blob/main/notebooks/train-yolov8-instance-segmentation-on-custom-dataset.ipynb&quot;&gt;https://github.com/roboflow/notebooks/blob/main/notebooks/train-yolov8-instance-segmentation-on-custom-dataset.ipynb&lt;/a&gt;
-[4] &lt;a href=&quot;https://www.youtube.com/watch?v=wuZtUMEiKWY&quot;&gt;https://www.youtube.com/watch?v=wuZtUMEiKWY&lt;/a&gt;
-[5] &lt;a href=&quot;https://www.youtube.com/watch?v=pFiGSrRtaU4&amp;amp;t=293s&quot;&gt;https://www.youtube.com/watch?v=pFiGSrRtaU4&amp;amp;t=293s&lt;/a&gt;
-[6] &lt;a href=&quot;https://docs.ultralytics.com/tasks/segment/&quot;&gt;https://docs.ultralytics.com/tasks/segment/&lt;/a&gt;
-[7] &lt;a href=&quot;https://ithelp.ithome.com.tw/articles/10282541?sc=pt&quot;&gt;https://ithelp.ithome.com.tw/articles/10282541?sc=pt&lt;/a&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Spotify Music Taste Analyze</title><link>https://laudantstolam.github.io/blogs/spotifydual/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/spotifydual/</guid><description>Analyzing music taste and generate common playlist with multiple users</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h3&gt;Result Preview&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Spotify Music Taste Analyze</title><link>https://laudantstolam.github.io/blogs/spotifydual/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/spotifydual/</guid><description>Analyzing music taste and generate common playlist with multiple users</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;h3&gt;Result Preview&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
 &lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;Inspired by several Spotify expanded third-party project that expand into visualizing various listening data in well-designed interfaces, but limited to the analysis of personal data. Consequently, I decided to develop a project based on the concept of “making friends through music” to compare the data of two individuals. By analyzing personal listening habits, trending artists, and song attributes, we could present several types of data analysis.&lt;/p&gt;
@@ -3080,7 +3268,7 @@ Link
 &lt;h5&gt;MEANING&lt;/h5&gt;
 &lt;ul&gt;
 &lt;li&gt;share what are you listening with friends&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>StegImage Detect</title><link>https://laudantstolam.github.io/blogs/stegdetect/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/stegdetect/</guid><description>Steganography Identification System Based on Time Domain and Frequency Domain Methods</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>StegImage Detect</title><link>https://laudantstolam.github.io/blogs/stegdetect/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/stegdetect/</guid><description>Steganography Identification System Based on Time Domain and Frequency Domain Methods</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1bF-0ak2XFNQL-TY-jOYdq4gh0jxPlxll/view&quot;&gt;完整報告連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3&gt;題目名稱: 基於時域及頻域方法之隱寫術辨別系統&lt;/h3&gt;
@@ -3094,42 +3282,10 @@ Link
 
 
 
-&lt;/p&gt;</content:encoded><category>project</category><category>資安</category><category>forensic</category></item><item><title>Gics All In One</title><link>https://laudantstolam.github.io/blogs/gicsallinone/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gicsallinone/</guid><description>An all-in-one program for recording answer&amp;questions, scoreboard monitoring and sentry</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h2&gt;Ｍotivation&lt;/h2&gt;
-&lt;p&gt;女婕思初賽實在太痛苦 每年都需要守夜跟刷無聊題目 所以做了一個工具紀錄&lt;/p&gt;
-&lt;h4&gt;Demo(1/2) Awsome Answer Helper&lt;/h4&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;自動擷取題目+自動匹配選項+搜尋本地/雲端題庫並顯示答案&lt;/li&gt;
-&lt;li&gt;自動記錄答題&lt;/li&gt;
-&lt;li&gt;新題目自動記錄(包含使用者選的正確選項)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Demo(2/2) Fabulous Ranking Dashboard&lt;/h4&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;輸入組別自動查詢該組答對題數/土地/分數&lt;/li&gt;
-&lt;li&gt;全員排行榜一覽&lt;/li&gt;
-&lt;li&gt;即時排行榜顯示&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Even Sentry?!!&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;使用快捷鍵添加要加入哨兵範圍的四邊形（或是排除的）// trace 一下我們的精美script&lt;/li&gt;
-&lt;li&gt;可以自己把巡視土地的任務加入排程（0x02 scheduler）&lt;/li&gt;
-&lt;li&gt;(WIP)換個思路 如果你是個瘋子 可以去爬整張地圖然後知道每一組在哪 但是要注意pagamo的座標 之前有做過類似功能在ranking-bot -&amp;gt; find nerighbor&lt;/li&gt;
-&lt;li&gt;(WIP)可以順便看一下你的鄰居有沒有榜上的，就可以去打爆他們&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Other Awsome tools&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/2025gics/gics-ranking-bot&quot;&gt;gics-ranking-bot&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/idkidkidkidkidkidkidkidk/gics-sentry-bot&quot;&gt;gics-sentry-bot&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>畢業專題</title><link>https://laudantstolam.github.io/blogs/gradproj/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gradproj/</guid><description>A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/p&gt;</content:encoded><category>project</category><category>資安</category><category>forensic</category></item><item><title>畢業專題</title><link>https://laudantstolam.github.io/blogs/gradproj/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gradproj/</guid><description>A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1T0W3_rBjih3zZ1Ew4sfCWNGTgnzDVLkg/view&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Anti Scam Ads</title><link>https://laudantstolam.github.io/blogs/antiscam/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/antiscam/</guid><description>2026 AIS3 Hackathon Colab Project</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;div&gt;
-  
-  
-&lt;/div&gt;
-&lt;h5&gt;Tech Stack&lt;/h5&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Louisa Auto Wifi connector</title><link>https://laudantstolam.github.io/blogs/louisapro/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/louisapro/</guid><description>I hate reconnecting WIFIs when I goto different shops, so I made this</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h3&gt;Intro&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Louisa Auto Wifi connector</title><link>https://laudantstolam.github.io/blogs/louisapro/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/louisapro/</guid><description>I hate reconnecting WIFIs when I goto different shops, so I made this</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;平常在不同的路*莎總需要清除網路設定再重新連線有點麻煩，所以搞了一個可以輸入店名或地址後自動設定wifi密碼的小工具&lt;/p&gt;
 &lt;h3&gt;Interface&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
@@ -3139,7 +3295,12 @@ Link
 有些經緯度沒有抓到就用google geography API抓(&lt;code&gt;query/02_fill_lating.py&lt;/code&gt;)
 最後用tkinter包起來&lt;/p&gt;
 &lt;h4&gt;Some Notes&lt;/h4&gt;
-&lt;p&gt;好玩 又是一個成功的密碼小偷了&lt;/p&gt;</content:encoded><category>project</category></item><item><title>可旋轉式線放電加工機</title><link>https://laudantstolam.github.io/blogs/microdrilling/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/microdrilling/</guid><description>We made a cool micro drilling machine and won some prize :D</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;p&gt;曾經和同學一起從設計到加工與組裝了一台桌上型微細放電加工機，也有幸拿到了全球傳動比賽的佳作:D&lt;/p&gt;
+&lt;p&gt;好玩 又是一個成功的密碼小偷了&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Anti Scam Ads</title><link>https://laudantstolam.github.io/blogs/antiscam/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/antiscam/</guid><description>2026 AIS3 Hackathon Colab Project</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;div&gt;
+  
+  
+&lt;/div&gt;
+&lt;h5&gt;Tech Stack&lt;/h5&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>可旋轉式線放電加工機</title><link>https://laudantstolam.github.io/blogs/microdrilling/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/microdrilling/</guid><description>We made a cool micro drilling machine and won some prize :D</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;p&gt;曾經和同學一起從設計到加工與組裝了一台桌上型微細放電加工機，也有幸拿到了全球傳動比賽的佳作:D&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1ueu987RiILR2b9hJuHULXI89_hbo_PSx/view?usp=sharing&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3180,7 +3341,7 @@ WEDG走線系統外觀圖&lt;/p&gt;
 &lt;p&gt;四、加工效率高：&lt;/p&gt;
 &lt;p&gt;旋轉式線放電加工機搭載自製RC放電迴路，使放電加工效率相較於一般市售放電加工機更高，且加工精度可達0.1um。&lt;/p&gt;
 &lt;h3&gt;心得&lt;/h3&gt;
-&lt;p&gt;從設計 材料加工,研磨到都是由我們親手完成的，完成作品的當下十分有成就感同時也在過程中學習到許多寶貴的經驗，很感謝當時指導我們的教授和學長們，沒有他們這個成品絕對無法成形&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ReCall</title><link>https://laudantstolam.github.io/blogs/recall/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/recall/</guid><description>we designed a multi line visual novel to celebrate idol&apos;s birthday</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>
+&lt;p&gt;從設計 材料加工,研磨到都是由我們親手完成的，完成作品的當下十分有成就感同時也在過程中學習到許多寶貴的經驗，很感謝當時指導我們的教授和學長們，沒有他們這個成品絕對無法成形&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ReCall</title><link>https://laudantstolam.github.io/blogs/recall/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/recall/</guid><description>we designed a multi line visual novel to celebrate idol&apos;s birthday</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>
 Link
 &lt;div&gt;
 &lt;p&gt;Download: &lt;a href=&quot;https://x.com/ReCall2025ShuBD/status/1918153743302050275&quot;&gt;x.com/ReCall2025ShuBD/status/1918153743302050275&lt;/a&gt;&lt;/p&gt;
@@ -3200,7 +3361,7 @@ Link
 
   
   Your browser does not support the video tag.
-</content:encoded><category>project</category><category>renpy</category></item><item><title>Pomodoro &amp; Music player with pygame</title><link>https://laudantstolam.github.io/blogs/subtitle/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/subtitle/</guid><description>Combining pomodoro and online music player with pygame</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;h1&gt;Subtitle&lt;/h1&gt;
+</content:encoded><category>project</category><category>renpy</category></item><item><title>Pomodoro &amp; Music player with pygame</title><link>https://laudantstolam.github.io/blogs/subtitle/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/subtitle/</guid><description>Combining pomodoro and online music player with pygame</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;h1&gt;Subtitle&lt;/h1&gt;
 &lt;h3&gt;Project Overview&lt;/h3&gt;
 &lt;p&gt;just a normal focusing project which support Pomodoro/Music Playing/Todo List&lt;/p&gt;
 &lt;h3&gt;Getting Started&lt;/h3&gt;
@@ -3265,8 +3426,7 @@ user event  觸發時的副程式呼叫，透過while()迴圈建構出畫面基
 &lt;p&gt;總結而言，本次在製作學期專題的過程中除了更加靈活地運用python這門語言，也透 過物件導向的方式重新構築了對程式的掌握度，在專題的實踐與開發的過程中，雖然也有遇到難以解決的錯誤與困難，但也在每一次解決問題的同時也更提升了自我的能力。&lt;/p&gt;
 &lt;p&gt;本專題的目標是創建一個完全沉浸式的工作環境開發程式，就成果而言，我們完成了最初預期的小目標。未來，我們將在Github上持續更新和改進功能，例如音訊優化、代辦事項和計時功能的連接等。同時，我們還計劃將專案轉換為可執行文件，以便任何使用者可以下載和使用。&lt;/p&gt;
 &lt;h3&gt;陸、參考資料&lt;/h3&gt;
-&lt;p&gt;一、BaralTech, (January, 25, 2023), Pomodoro Timer in Python and PyGame  取自&lt;a href=&quot;https://www.youtube.com/watch?v=6oJMd6FWUB8&amp;amp;t=729s&amp;amp;pp=ygUVcG9tb2Rvcm8gdGltZXIgc&quot;&gt;https://www.youtube.com/watch?v=6oJMd6FWUB8&amp;amp;t=729s&amp;amp;pp=ygUVcG9tb2Rvcm8gdGltZXIgc&lt;/a&gt; HlnYW1lKeras. Callbacks API. Keras.
-&lt;a href=&quot;https://keras.io/api/callbacks/&quot;&gt;https://keras.io/api/callbacks/&lt;/a&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ASUS RT-AC router vuln mining</title><link>https://laudantstolam.github.io/blogs/vulnmining/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/vulnmining/</guid><description>TeamT5 Camp Colab Project 2026</description><pubDate>Mon, 03 Aug 2026 02:29:29 GMT</pubDate><content:encoded>&lt;div&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ASUS RT-AC router vuln mining</title><link>https://laudantstolam.github.io/blogs/vulnmining/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/vulnmining/</guid><description>TeamT5 Camp Colab Project 2026</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;div&gt;
   
   
 &lt;/div&gt;</content:encoded><category>project</category></item></channel></rss>
