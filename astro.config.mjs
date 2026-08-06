@@ -9,6 +9,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkCallout from "@r4ai/remark-callout";
 import remarkHighlight from "remark-highlight";
+import remarkYoutubePlugin from "remark-youtube";
 import { flexokiLight, flexokiDark } from "./src/styles/ec-themes.mjs";
 
 try {
@@ -38,6 +39,7 @@ export default defineConfig({
       remarkMath,
       remarkCallout,
       remarkHighlight,
+      remarkYoutubePlugin,
     ],
     rehypePlugins: [rehypeKatex] 
   },

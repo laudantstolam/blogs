@@ -217,6 +217,22 @@ const safeTags = tags ?? [];
 				margin: 1.5em auto;
 				border-radius: 0;
 			}
+			:global(.yt-embed) {
+				width: 100%;
+				max-width: 100%;
+				aspect-ratio: 16 / 9;
+				overflow: hidden;
+			}
+
+			:global(.yt-embed iframe) {
+				width: 100% !important;
+				height: 100% !important;
+				max-width: 100%;
+				border: 0;
+			}
+			:global(.prose iframe) {
+				max-width: 100%;
+			}
 
 			/* Table of Contents Styles */
 			.toc-wrapper {
