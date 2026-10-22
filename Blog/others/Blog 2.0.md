@@ -4,6 +4,7 @@ subtitle:
 description:
 publish: true
 tags:
+  - others
 featured_image:
 created_date: 2026-07-26
 ---
@@ -18,6 +19,7 @@ created_date: 2026-07-26
 - 加上本身使用 obsidian 使用的[border theme(Silver)](https://github.com/Akifyss/obsidian-border/)融合，試圖讓 blog 看起來更像自己平常在 ob 中習慣的操作介面
 - callout 融合了[phycat](https://github.com/sumruler/obsidian-theme-phycat)的 callout 設計
 - 字體的部分使用 `george font` 作為英文字體，`Iansui font` (芫荽) 作為中文字體
+- (2026.10月更新) 使用 kepano 的 [pele](https://github.com/obsidianmd/pele) 替代了 mermaid
 - 最後是參考了許多不同風格的 blog 設計完成了這次的改版
 
 特別想提一下關於 callout 的改動，原先使用了[remark-callout](https://github.com/r4ai/remark-callout) 這個 npm package 作為 md2html 的渲染工具，後來看了 phycat 進行的改動(~~hover出現的emoji非常可愛 我大哭~~)，具體做法可以參考此 [commit](https://github.com/laudantstolam/blogs/commit/697fdbf4bcd0656ebdab78a5bbab657596872f07)

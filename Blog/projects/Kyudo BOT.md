@@ -5,8 +5,8 @@ publish: true
 featured_image: https://raw.githubusercontent.com/Ash0645/image_remote/main/20250207002613.png
 tech:
   - line
-  - aws-lambda
-  - aws-dynamodb
+  - awslambda
+  - amazondynamodb
   - yolo
 tags:
   - project
