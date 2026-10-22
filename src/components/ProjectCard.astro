@@ -35,7 +35,7 @@ const { title, description, previewImage, blogSlug, tech } = Astro.props;
                         class="tech-icon"
                         role="img"
                         aria-label={t}
-                        style={`--icon-url: url(https://api.iconify.design/simple-icons:${t.toLowerCase()}.svg)`}
+                        style={`--icon-url: url(https://api.iconify.design/simple-icons/${t.toLowerCase()}.svg)`}
                       ></span>
                       {t}
                     </span>
