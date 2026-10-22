@@ -1,4 +1,174 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ash Blog</title><description/><link>https://laudantstolam.github.io/</link><item><title>blog 2.0 新章與近況</title><link>https://laudantstolam.github.io/blogs/blog-20/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/blog-20/</guid><pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Blog 改版&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ash Blog</title><description/><link>https://laudantstolam.github.io/</link><item><title>Drone Hacking? WTF?</title><link>https://laudantstolam.github.io/blogs/%E7%84%A1%E4%BA%BA%E6%A9%9F101/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/%E7%84%A1%E4%BA%BA%E6%A9%9F101/</guid><pubDate>Thu, 08 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;因為一些原因開始接觸無人機資安，想說來記錄過程中的摸索並提供一些入門的起點。
+(持續更新中，之後或許會盤出一點大的skills repo到github)&lt;/p&gt;
+&lt;h2&gt;無人機架構盤點&lt;/h2&gt;
+&lt;p&gt;目前的理解來看，無人機可以拆成&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;flight stack : 負責位置、控制、導航，大致簡稱飛控&lt;/li&gt;
+&lt;li&gt;middleware : 通訊連接硬體跟外部系統&lt;/li&gt;
+&lt;li&gt;Hardware/OS : 幾乎沒有包OS，在MCU上面跑&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;常見的 Flight Stack 幾乎都是 PX4和 Ardupilot 架構
+下面用PX4為範例，middleware就是 mavlink&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;跟一般的 IoT 不太一樣，不是那種會飛的超級router而已
+是以飛控為中心，用協議串聯不同的週邊設備&lt;/p&gt;
+&lt;p&gt;還會再搭配地面站跟伴飛電腦等等&lt;/p&gt;
+&lt;div&gt;
+  
+flowchart TB
+    subgraph GROUND[&quot;Ground Segment — 地面端&quot;]
+        GCS[&quot;Ground Control Station (GCS)&lt;br /&gt;QGroundControl / Mission Planner&lt;br /&gt;Mission Planning · Telemetry · Commands&quot;]
+    end
+
+    subgraph UAV[&quot;Airborne Segment — 無人機端&quot;]
+        direction TB
+
+        subgraph CC[&quot;Companion Computer — 選用&quot;]
+            ROS[&quot;ROS 2 Applications&lt;br /&gt;SLAM · CV · Path Planning&quot;]
+            MW[&quot;ROS 2 Middleware&lt;br /&gt;RMW / DDS&quot;]
+            ROS &amp;lt;--&amp;gt; MW
+        end
+
+        subgraph FC[&quot;Flight Controller (FC)&quot;]
+            direction TB
+            subgraph FLIGHT[&quot;Flight Stack — 二選一&quot;]
+                PX4[&quot;PX4&lt;br /&gt;EKF2 · Navigator · Controllers&quot;]
+                AP[&quot;ArduPilot&lt;br /&gt;AP_NavEKF · AP_Mission · AP_Motors&quot;]
+            end
+            INTERNAL[&quot;Internal Software Services&lt;br /&gt;PX4: uORB / Drivers&lt;br /&gt;ArduPilot: AP_HAL / Scheduler&quot;]
+            FLIGHT &amp;lt;--&amp;gt; INTERNAL
+        end
+
+        SENSOR[&quot;Sensors&lt;br /&gt;IMU · GNSS · Camera&quot;]
+        ACT[&quot;Actuators&lt;br /&gt;ESC · Motors · Servos&quot;]
+
+        MW &amp;lt;--&amp;gt;|&quot;MAVLink / MAVROS&lt;br /&gt;or PX4 DDS Bridge&quot;| INTERNAL
+        SENSOR --&amp;gt; INTERNAL
+        INTERNAL --&amp;gt; ACT
+    end
+
+    GCS &amp;lt;--&amp;gt;|&quot;Telemetry Link&lt;br /&gt;MAVLink over Radio / IP&quot;| INTERNAL
+    GCS &amp;lt;-.-&amp;gt;|&quot;Optional routed connection&quot;| MW
+
+    classDef ground fill:#dbeafe,stroke:#3976be,color:#17355a
+    classDef compute fill:#e7e2fb,stroke:#8065ba,color:#302154
+    classDef flight fill:#dcf2e4,stroke:#399260,color:#1b4c30
+    classDef hardware fill:#f1f1f1,stroke:#999,color:#333
+
+    class GCS ground
+    class ROS,MW compute
+    class PX4,AP,INTERNAL flight
+    class SENSOR,ACT hardware
+
+&lt;/div&gt;
+&lt;h2&gt;Awesome Related Sources&lt;/h2&gt;
+&lt;h3&gt;靶機相關&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/nicholasaleks/Damn-Vulnerable-Drone&quot;&gt;Damn-Vulnerable-Drone&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;模擬 ArduPilot + MAVLink 架構與漏洞，可作本地靶機練習&lt;/li&gt;
+&lt;li&gt;神之靶機&lt;/li&gt;
+&lt;li&gt;本 vault 對應筆記：[[DVD_compare]] · [[DVD writeup]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/nicholasaleks/Awesome-Drone-Hacking&quot;&gt;Awesome-Drone-Hacking&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;無人機駭客資源大全 (awesome-list)，本 SOP 攻擊面分類即依此架構拆解&lt;/li&gt;
+&lt;li&gt;延伸筆記：[[DVD writeup]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;攻擊框架與工具集&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/dronesploit/dronesploit&quot;&gt;DroneSploit&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;類似 Metasploit 的無人機專用攻擊框架&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/HKSSY/Drone-Hacking-Tool&quot;&gt;Drone Hacking Tool&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;GUI 工具，整合 USB WiFi 轉接卡 + HackRF One 進行無人機攻擊&lt;/li&gt;
+&lt;li&gt;教學：&lt;a href=&quot;https://blog.csdn.net/gitblog_01194/article/details/154785891&quot;&gt;CSDN 文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;無人機韌體安全測試方法論&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/scriptingxss/owasp-fstm&quot;&gt;OWASP FSTM (Firmware Security Testing Methodology)&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;OWASP 韌體安全測試方法論，涵蓋取得、分析、模擬、動態測試全流程&lt;/li&gt;
+&lt;li&gt;對應本 vault SOP：[[03_firmware]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/OWASP/owasp-istg.git&quot;&gt;OWASP ISTG (IoT Security Testing Guide)&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;OWASP 物聯網安全測試指南，含兩大部分：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ISTG-PHY&lt;/strong&gt;：實體介面測試&lt;/li&gt;
+&lt;li&gt;內部介面測試：UART / JTAG / SWD&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS&quot;&gt;OWASP IoT Security Verification Standard (ISVS)&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;OWASP IoT 安全驗證標準&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://cheatsheetseries.owasp.org/cheatsheets/Drone_Security_Cheat_Sheet.html#4-physical-security&quot;&gt;Drone Security Cheat Sheet&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;OWASP Cheat Sheet 系列，無人機安全速查表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;IoT / RF 通用安全資源&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/V33RU/awesome-connected-things-sec&quot;&gt;awesome-connected-things-sec&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;IoT 安全研究與漏洞利用技巧總匯，涵蓋 IoT、嵌入式、工控、車用系統&lt;/li&gt;
+&lt;li&gt;偏基礎但全面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/cn0xroot/RFSec-ToolKit&quot;&gt;RFSec-ToolKit&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;RF 通訊協定駭客工具集合，涵蓋 SDR、2G GSM、3G、4G LTE、5G 等協定分析工具與教學&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;無人機漏洞資料庫&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/aliasrobotics/RVD&quot;&gt;RVD (Robot Vulnerability Database)&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;機器人/傳感器相關漏洞的歸檔資料庫，使用 RVSS (Robot Vulnerability Scoring System) 評分&lt;/li&gt;
+&lt;li&gt;可用於比對無人機/機器人類 CVE 查核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/nicholasaleks/infected-drones&quot;&gt;Infected Drones&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;DVD 靶機作者自己挖的洞集合&lt;/li&gt;
+&lt;li&gt;有很多新的攻擊面，不定期會出現在他的 conf talk 上面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;開源韌體與飛控生態&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/brandonhimpfen/awesome-open-source-drone-firmware&quot;&gt;awesome-open-source-drone-firmware&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;開源無人機韌體、飛控軟體與相關工具清單彙整（ArduPilot/PX4 等主要開源韌體）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://app.airdata.com/wiki/Firmware/&quot;&gt;AirData Firmware Wiki&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;各廠牌無人機韌體版本與更新資訊 wiki&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/janesmae/awesome-drones&quot;&gt;https://github.com/janesmae/awesome-drones&lt;/a&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;針對無人機的模擬、學習教材、飛控韌體、開發工具、模擬器、硬體和開源專案集中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title>blog 2.0 新章與近況</title><link>https://laudantstolam.github.io/blogs/blog-20/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/blog-20/</guid><pubDate>Sun, 26 Jul 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Blog 改版&lt;/h2&gt;
 &lt;p&gt;沉靜了許久後終於有一步步慢慢找回生產力的感覺，首先是從 blog 頁面的重構開始。
 原先就設想這個 blog 會作為實驗性質的 playground 定期用來測試 agent workflow 和 skills 的整合等等，因此過程中經歷了許多次的重新設計，但近期隨著逐漸穩定的前端流程感覺是時候進行改版了&lt;/p&gt;
 &lt;p&gt;這次的風格採用了&lt;/p&gt;
@@ -66,198 +236,7 @@ REF
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-</content:encoded></item><item><title>Radare2 Tips</title><link>https://laudantstolam.github.io/blogs/r2en/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/r2en/</guid><description>TEST</description><pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;TEST&lt;/p&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;div&gt;
-&lt;div&gt;Skills&lt;/div&gt;
-&lt;div&gt;
-&lt;p&gt;radius2 skills &amp;amp; mcp : &lt;a href=&quot;https://github.com/radareorg/radare2-skills&quot;&gt;https://github.com/radareorg/radare2-skills&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2&gt;1. Recon 相關&lt;/h2&gt;
-&lt;p&gt;開啟程式：&lt;/p&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;Terminal window&lt;/span&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;r2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;./your_program&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;看到意義不明指標，用 &lt;code&gt;V&lt;/code&gt; 進入 hex view：&lt;/p&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;[0x00000fd0]&amp;gt; V&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;p&lt;/code&gt; 切換到 disassemble：
-&lt;/p&gt;
-&lt;h2&gt;2. 分析相關&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;shift + :&lt;/code&gt; 輸入 &lt;code&gt;aaa&lt;/code&gt; 解析後，用 &lt;code&gt;afi&lt;/code&gt; 看 function：
-&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;s main&lt;/code&gt; 找 main（或用 &lt;code&gt;s sym.main&lt;/code&gt;）：
-&lt;/p&gt;
-&lt;h3&gt;從外部抽資訊（不用進 r2）&lt;/h3&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;Terminal window&lt;/span&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;rabin2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;-z&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&amp;lt;binary&amp;gt;&lt;/span&gt;&lt;span&gt;      &lt;/span&gt;&lt;span&gt;# 抽 strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;r2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;-qc&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;izq&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&amp;lt;binary&amp;gt;&lt;/span&gt;&lt;span&gt;     &lt;/span&gt;&lt;span&gt;# quiet mode 列所有 strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;h3&gt;String xref&lt;/h3&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;aae        # emulation 分析，補出 string 的 cross-reference&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;axt &amp;lt;addr&amp;gt; # 找誰 reference 到此處&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;axf &amp;lt;addr&amp;gt; # 此處 reference 到哪&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;h2&gt;3. 常用指令&lt;/h2&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;/th&gt;&lt;th&gt;說明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;aaa&lt;/code&gt;&lt;/td&gt;&lt;td&gt;自動分析、自動命名函數&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;afl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;列出 functions&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;afi&lt;/code&gt;&lt;/td&gt;&lt;td&gt;顯示 function 資訊&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;pdf&lt;/code&gt;&lt;/td&gt;&lt;td&gt;print disassembly&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;VV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;graph view（需先 &lt;code&gt;aaa&lt;/code&gt;）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;s &amp;lt;function/addr&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;seek and goto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;&lt;td&gt;切換 view（hex / 機械碼 / ..）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;V&lt;/code&gt;&lt;/td&gt;&lt;td&gt;進入 visual mode&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
-&lt;h2&gt;4. Debugger&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;r2 -d &amp;lt;file&amp;gt;&lt;/code&gt; 用 debugger 開啟：&lt;/p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;/th&gt;&lt;th&gt;說明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;db &amp;lt;addr&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;break point&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;dc&lt;/code&gt;&lt;/td&gt;&lt;td&gt;start with dbg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;shift&lt;/code&gt;&lt;/td&gt;&lt;td&gt;step&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
-&lt;h2&gt;GUI 版 R2 - Cutter&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/rizinorg/cutter&quot;&gt;https://github.com/rizinorg/cutter&lt;/a&gt;
-Cutter是基於Rizin的GUI版本，Rizin本身是R2的fork (split off 2020)
-指令差不多但是底層API寫法不太一樣，下面是一些常用指令:&lt;/p&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iI        # 查看 Image info&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iS        # 列出 section&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;is        # 列出 symbols&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iz        # strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;aa        # 自動分析&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;afl       # 函數列表&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;pdf @main # 反組譯 main&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;</content:encoded></item><item><title>Radare2 Tips</title><link>https://laudantstolam.github.io/blogs/r2/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/r2/</guid><description>原本只是想學ANGR但莫名其妙先學了R2</description><pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;/p&gt;
-&lt;div&gt;
-&lt;div&gt;Skills&lt;/div&gt;
-&lt;div&gt;
-&lt;p&gt;radius2 skills &amp;amp; mcp : &lt;a href=&quot;https://github.com/radareorg/radare2-skills&quot;&gt;https://github.com/radareorg/radare2-skills&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2&gt;1. Recon 相關&lt;/h2&gt;
-&lt;p&gt;開啟程式：&lt;/p&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;Terminal window&lt;/span&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;r2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;./your_program&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;看到意義不明指標，用 &lt;code&gt;V&lt;/code&gt; 進入 hex view：&lt;/p&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;[0x00000fd0]&amp;gt; V&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;p&lt;/code&gt; 切換到 disassemble：
-&lt;/p&gt;
-&lt;h2&gt;2. 分析相關&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;shift + :&lt;/code&gt; 輸入 &lt;code&gt;aaa&lt;/code&gt; 解析後，用 &lt;code&gt;afi&lt;/code&gt; 看 function：
-&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;s main&lt;/code&gt; 找 main（或用 &lt;code&gt;s sym.main&lt;/code&gt;）：
-&lt;/p&gt;
-&lt;h3&gt;從外部抽資訊（不用進 r2）&lt;/h3&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;Terminal window&lt;/span&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;rabin2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;-z&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&amp;lt;binary&amp;gt;&lt;/span&gt;&lt;span&gt;      &lt;/span&gt;&lt;span&gt;# 抽 strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;r2&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;-qc&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;izq&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&amp;lt;binary&amp;gt;&lt;/span&gt;&lt;span&gt;     &lt;/span&gt;&lt;span&gt;# quiet mode 列所有 strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;h3&gt;String xref&lt;/h3&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;aae        # emulation 分析，補出 string 的 cross-reference&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;axt &amp;lt;addr&amp;gt; # 找誰 reference 到此處&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;axf &amp;lt;addr&amp;gt; # 此處 reference 到哪&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;h2&gt;3. 常用指令&lt;/h2&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;/th&gt;&lt;th&gt;說明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;aaa&lt;/code&gt;&lt;/td&gt;&lt;td&gt;自動分析、自動命名函數&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;afl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;列出 functions&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;afi&lt;/code&gt;&lt;/td&gt;&lt;td&gt;顯示 function 資訊&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;pdf&lt;/code&gt;&lt;/td&gt;&lt;td&gt;print disassembly&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;VV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;graph view（需先 &lt;code&gt;aaa&lt;/code&gt;）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;s &amp;lt;function/addr&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;seek and goto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;&lt;td&gt;切換 view（hex / 機械碼 / ..）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;V&lt;/code&gt;&lt;/td&gt;&lt;td&gt;進入 visual mode&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
-&lt;h2&gt;4. Debugger&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;r2 -d &amp;lt;file&amp;gt;&lt;/code&gt; 用 debugger 開啟：&lt;/p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;/th&gt;&lt;th&gt;說明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;db &amp;lt;addr&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;break point&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;dc&lt;/code&gt;&lt;/td&gt;&lt;td&gt;start with dbg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;shift&lt;/code&gt;&lt;/td&gt;&lt;td&gt;step&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
-&lt;h2&gt;GUI 版 R2 - Cutter&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/rizinorg/cutter&quot;&gt;https://github.com/rizinorg/cutter&lt;/a&gt;
-Cutter是基於Rizin的GUI版本，Rizin本身是R2的fork (split off 2020)
-指令差不多但是底層API寫法不太一樣，下面是一些常用指令:&lt;/p&gt;
-&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iI        # 查看 Image info&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iS        # 列出 section&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;is        # 列出 symbols&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;iz        # strings&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;aa        # 自動分析&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;afl       # 函數列表&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;pdf @main # 反組譯 main&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;</content:encoded></item><item><title>from notes to skills</title><link>https://laudantstolam.github.io/blogs/from-notes-to-skills/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/from-notes-to-skills/</guid><pubDate>Fri, 05 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Karpathy method: 從每週記錄到obsidian重構開始的思考與嘗試&lt;/h3&gt;
+</content:encoded></item><item><title>from notes to skills</title><link>https://laudantstolam.github.io/blogs/from-notes-to-skills/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/from-notes-to-skills/</guid><pubDate>Fri, 05 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Karpathy method: 從每週記錄到obsidian重構開始的思考與嘗試&lt;/h3&gt;
 &lt;p&gt;最近在休息期間對於blog多了很多想法，從重構obsidian結構到重構工作流程的過程中發現有更多想嘗試的blog記錄方式&lt;/p&gt;
 &lt;p&gt;首先是關於Karpathy提出的筆記方法，看完方法論和一些熱門的開源項目實踐(如 Openhuman.etc)目前我仍在觀望中還沒完全應用，但是共同的核心仍然是：&lt;strong&gt;對於讀過的有用資訊保存與作為未來相似研究的起點&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;目前的工作流程而言我會更加有意識地記錄下找資料過程中看過的文章／來源，結合平常看的RSS文章，分類成下面幾個類型&lt;/p&gt;
@@ -3110,10 +3089,10 @@ long_to_bytes(FLAG)=b’breakall{know_u_know_key_exchange}‘&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;for&lt;/span&gt;&lt;span&gt; i &lt;/span&gt;&lt;span&gt;in&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;33&lt;/span&gt;&lt;span&gt;):&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span&gt;enc_value &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; enc&lt;/span&gt;&lt;span&gt;[&lt;/span&gt;&lt;span&gt;i&lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;9&lt;/span&gt;&lt;span&gt;]&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;    &lt;/span&gt;&lt;span&gt;for&lt;/span&gt;&lt;span&gt; byte &lt;/span&gt;&lt;span&gt;in&lt;/span&gt;&lt;span&gt; guess_list&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;        &lt;/span&gt;&lt;/span&gt;&lt;span&gt;byte_value &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;ord&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;        &lt;/span&gt;&lt;/span&gt;&lt;span&gt;guess &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte_value &lt;/span&gt;&lt;span&gt;*&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;41056&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;%&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;43969&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;        &lt;/span&gt;&lt;span&gt;if&lt;/span&gt;&lt;span&gt; guess &lt;/span&gt;&lt;span&gt;==&lt;/span&gt;&lt;span&gt; enc_value&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;            &lt;/span&gt;&lt;/span&gt;&lt;span&gt;result&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span&gt;append&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;byte&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;            &lt;/span&gt;&lt;span&gt;break&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;print&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;flag_head &lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&apos;&apos;&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span&gt;join&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;result&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;&quot;&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span&gt;&quot;&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;breakall{are_u_brute_master_or_math_master}&lt;/code&gt;&lt;/p&gt;</content:encoded><category>writeup</category></item><item><title>FireFox Hooker</title><link>https://laudantstolam.github.io/blogs/firefoxhooker/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/firefoxhooker/</guid><description>TeamT5 Camp Colab Project</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>
+&lt;p&gt;&lt;code&gt;breakall{are_u_brute_master_or_math_master}&lt;/code&gt;&lt;/p&gt;</content:encoded><category>writeup</category></item><item><title>FireFox Hooker</title><link>https://laudantstolam.github.io/blogs/firefoxhooker/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/firefoxhooker/</guid><description>TeamT5 Camp Colab Project</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>
     This browser does not support PDFs. Please download the PDF to view it: 
     &amp;amp;#x3C;a href=&quot;https://raw.githubusercontent.com/Ash0645/image_remote/main/t5camp.pdf&quot;&amp;gt;Download PDF&amp;amp;#x3C;/a&amp;gt;.
-</content:encoded><category>project</category></item><item><title>kyudobot</title><link>https://laudantstolam.github.io/blogs/kyudobot/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/kyudobot/</guid><description>Analyzing the arrow&apos;s position and generating results</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>
+</content:encoded><category>project</category></item><item><title>kyudobot</title><link>https://laudantstolam.github.io/blogs/kyudobot/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/kyudobot/</guid><description>Analyzing the arrow&apos;s position and generating results</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>
 Link
 &lt;div&gt;
 &lt;p&gt;Github: &lt;a href=&quot;https://github.com/laudantstolam/kyudou-bot&quot;&gt;laudantstolam/kyudou-bot: a line bot for analyzing kyudou practice&lt;/a&gt;&lt;/p&gt;
@@ -3180,7 +3159,7 @@ Link
 &lt;h4&gt;肆、	結論與未來展望&lt;/h4&gt;
 &lt;p&gt;最後綜觀成果而言，有初步達成當初理想的結果與實現，也在座標獲取與計算方面進行了教育其更精準的結果，之後期盼朝著用戶箭矢的區分與提升整體程式進程效率的方向進行改善。&lt;/p&gt;
 &lt;h4&gt;伍、	參考資料&lt;/h4&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Spotify Music Taste Analyze</title><link>https://laudantstolam.github.io/blogs/spotifydual/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/spotifydual/</guid><description>Analyzing music taste and generate common playlist with multiple users</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;h3&gt;Result Preview&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Spotify Music Taste Analyze</title><link>https://laudantstolam.github.io/blogs/spotifydual/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/spotifydual/</guid><description>Analyzing music taste and generate common playlist with multiple users</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;h3&gt;Result Preview&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
 &lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;Inspired by several Spotify expanded third-party project that expand into visualizing various listening data in well-designed interfaces, but limited to the analysis of personal data. Consequently, I decided to develop a project based on the concept of “making friends through music” to compare the data of two individuals. By analyzing personal listening habits, trending artists, and song attributes, we could present several types of data analysis.&lt;/p&gt;
@@ -3268,7 +3247,7 @@ Link
 &lt;h5&gt;MEANING&lt;/h5&gt;
 &lt;ul&gt;
 &lt;li&gt;share what are you listening with friends&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>StegImage Detect</title><link>https://laudantstolam.github.io/blogs/stegdetect/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/stegdetect/</guid><description>Steganography Identification System Based on Time Domain and Frequency Domain Methods</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/ul&gt;</content:encoded><category>project</category></item><item><title>StegImage Detect</title><link>https://laudantstolam.github.io/blogs/stegdetect/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/stegdetect/</guid><description>Steganography Identification System Based on Time Domain and Frequency Domain Methods</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1bF-0ak2XFNQL-TY-jOYdq4gh0jxPlxll/view&quot;&gt;完整報告連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3&gt;題目名稱: 基於時域及頻域方法之隱寫術辨別系統&lt;/h3&gt;
@@ -3282,10 +3261,15 @@ Link
 
 
 
-&lt;/p&gt;</content:encoded><category>project</category><category>資安</category><category>forensic</category></item><item><title>畢業專題</title><link>https://laudantstolam.github.io/blogs/gradproj/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gradproj/</guid><description>A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/p&gt;</content:encoded><category>project</category><category>資安</category><category>forensic</category></item><item><title>畢業專題</title><link>https://laudantstolam.github.io/blogs/gradproj/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/gradproj/</guid><description>A Framework for Autonomous Mapping Based on Path Optimization to Enhance Map Accuracy</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1T0W3_rBjih3zZ1Ew4sfCWNGTgnzDVLkg/view&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Louisa Auto Wifi connector</title><link>https://laudantstolam.github.io/blogs/louisapro/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/louisapro/</guid><description>I hate reconnecting WIFIs when I goto different shops, so I made this</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;h3&gt;Intro&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Anti Scam Ads</title><link>https://laudantstolam.github.io/blogs/antiscam/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/antiscam/</guid><description>2026 AIS3 Hackathon Colab Project</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;div&gt;
+  
+  
+&lt;/div&gt;
+&lt;h5&gt;Tech Stack&lt;/h5&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Louisa Auto Wifi connector</title><link>https://laudantstolam.github.io/blogs/louisapro/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/louisapro/</guid><description>I hate reconnecting WIFIs when I goto different shops, so I made this</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;平常在不同的路*莎總需要清除網路設定再重新連線有點麻煩，所以搞了一個可以輸入店名或地址後自動設定wifi密碼的小工具&lt;/p&gt;
 &lt;h3&gt;Interface&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
@@ -3295,12 +3279,7 @@ Link
 有些經緯度沒有抓到就用google geography API抓(&lt;code&gt;query/02_fill_lating.py&lt;/code&gt;)
 最後用tkinter包起來&lt;/p&gt;
 &lt;h4&gt;Some Notes&lt;/h4&gt;
-&lt;p&gt;好玩 又是一個成功的密碼小偷了&lt;/p&gt;</content:encoded><category>project</category></item><item><title>Anti Scam Ads</title><link>https://laudantstolam.github.io/blogs/antiscam/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/antiscam/</guid><description>2026 AIS3 Hackathon Colab Project</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;div&gt;
-  
-  
-&lt;/div&gt;
-&lt;h5&gt;Tech Stack&lt;/h5&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>可旋轉式線放電加工機</title><link>https://laudantstolam.github.io/blogs/microdrilling/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/microdrilling/</guid><description>We made a cool micro drilling machine and won some prize :D</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;p&gt;曾經和同學一起從設計到加工與組裝了一台桌上型微細放電加工機，也有幸拿到了全球傳動比賽的佳作:D&lt;/p&gt;
+&lt;p&gt;好玩 又是一個成功的密碼小偷了&lt;/p&gt;</content:encoded><category>project</category></item><item><title>可旋轉式線放電加工機</title><link>https://laudantstolam.github.io/blogs/microdrilling/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/microdrilling/</guid><description>We made a cool micro drilling machine and won some prize :D</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;p&gt;曾經和同學一起從設計到加工與組裝了一台桌上型微細放電加工機，也有幸拿到了全球傳動比賽的佳作:D&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1ueu987RiILR2b9hJuHULXI89_hbo_PSx/view?usp=sharing&quot;&gt;論文連結&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3341,7 +3320,7 @@ WEDG走線系統外觀圖&lt;/p&gt;
 &lt;p&gt;四、加工效率高：&lt;/p&gt;
 &lt;p&gt;旋轉式線放電加工機搭載自製RC放電迴路，使放電加工效率相較於一般市售放電加工機更高，且加工精度可達0.1um。&lt;/p&gt;
 &lt;h3&gt;心得&lt;/h3&gt;
-&lt;p&gt;從設計 材料加工,研磨到都是由我們親手完成的，完成作品的當下十分有成就感同時也在過程中學習到許多寶貴的經驗，很感謝當時指導我們的教授和學長們，沒有他們這個成品絕對無法成形&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ReCall</title><link>https://laudantstolam.github.io/blogs/recall/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/recall/</guid><description>we designed a multi line visual novel to celebrate idol&apos;s birthday</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>
+&lt;p&gt;從設計 材料加工,研磨到都是由我們親手完成的，完成作品的當下十分有成就感同時也在過程中學習到許多寶貴的經驗，很感謝當時指導我們的教授和學長們，沒有他們這個成品絕對無法成形&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ReCall</title><link>https://laudantstolam.github.io/blogs/recall/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/recall/</guid><description>we designed a multi line visual novel to celebrate idol&apos;s birthday</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>
 Link
 &lt;div&gt;
 &lt;p&gt;Download: &lt;a href=&quot;https://x.com/ReCall2025ShuBD/status/1918153743302050275&quot;&gt;x.com/ReCall2025ShuBD/status/1918153743302050275&lt;/a&gt;&lt;/p&gt;
@@ -3361,7 +3340,7 @@ Link
 
   
   Your browser does not support the video tag.
-</content:encoded><category>project</category><category>renpy</category></item><item><title>Pomodoro &amp; Music player with pygame</title><link>https://laudantstolam.github.io/blogs/subtitle/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/subtitle/</guid><description>Combining pomodoro and online music player with pygame</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;h1&gt;Subtitle&lt;/h1&gt;
+</content:encoded><category>project</category><category>renpy</category></item><item><title>Pomodoro &amp; Music player with pygame</title><link>https://laudantstolam.github.io/blogs/subtitle/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/subtitle/</guid><description>Combining pomodoro and online music player with pygame</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;h1&gt;Subtitle&lt;/h1&gt;
 &lt;h3&gt;Project Overview&lt;/h3&gt;
 &lt;p&gt;just a normal focusing project which support Pomodoro/Music Playing/Todo List&lt;/p&gt;
 &lt;h3&gt;Getting Started&lt;/h3&gt;
@@ -3426,7 +3405,7 @@ user event  觸發時的副程式呼叫，透過while()迴圈建構出畫面基
 &lt;p&gt;總結而言，本次在製作學期專題的過程中除了更加靈活地運用python這門語言，也透 過物件導向的方式重新構築了對程式的掌握度，在專題的實踐與開發的過程中，雖然也有遇到難以解決的錯誤與困難，但也在每一次解決問題的同時也更提升了自我的能力。&lt;/p&gt;
 &lt;p&gt;本專題的目標是創建一個完全沉浸式的工作環境開發程式，就成果而言，我們完成了最初預期的小目標。未來，我們將在Github上持續更新和改進功能，例如音訊優化、代辦事項和計時功能的連接等。同時，我們還計劃將專案轉換為可執行文件，以便任何使用者可以下載和使用。&lt;/p&gt;
 &lt;h3&gt;陸、參考資料&lt;/h3&gt;
-&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ASUS RT-AC router vuln mining</title><link>https://laudantstolam.github.io/blogs/vulnmining/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/vulnmining/</guid><description>TeamT5 Camp Colab Project 2026</description><pubDate>Thu, 06 Aug 2026 17:39:46 GMT</pubDate><content:encoded>&lt;div&gt;
+&lt;p&gt;&lt;/p&gt;</content:encoded><category>project</category></item><item><title>ASUS RT-AC router vuln mining</title><link>https://laudantstolam.github.io/blogs/vulnmining/</link><guid isPermaLink="true">https://laudantstolam.github.io/blogs/vulnmining/</guid><description>TeamT5 Camp Colab Project 2026</description><pubDate>Thu, 22 Oct 2026 10:14:03 GMT</pubDate><content:encoded>&lt;div&gt;
   
   
 &lt;/div&gt;</content:encoded><category>project</category></item></channel></rss>
