@@ -207,6 +207,21 @@ const safeTags = tags ?? [];
 				border: 1px solid rgba(var(--black), 0.1);
 				border-radius: 0;
 				margin: 2rem 0;
+
+				/* pele theming — derived from Flexoki tokens, which flip under
+				   [data-theme='dark'], so the diagram follows dark mode for free */
+				--pele-bg: transparent;
+				--pele-fg: rgb(var(--gray-dark));
+				--pele-accent: var(--accent);
+				--pele-muted: rgb(var(--gray));
+				--pele-border: rgba(var(--black), 0.25);
+				--pele-line: rgba(var(--black), 0.45);
+				--pele-surface: rgb(var(--card-bg));
+				--pele-surface-alt: rgba(var(--accent-rgb), 0.12);
+				--pele-font: var(--font-cjk), var(--font-body);
+				--pele-font-mono: var(--font-mono);
+				--pele-radius: 0px;
+				/* series colors: left to pele's vibrant defaults */
 			}
 
 			/* Image styling in prose */
@@ -581,8 +596,22 @@ const safeTags = tags ?? [];
 		</div>
 
 		<script>
-			import mermaid from 'mermaid';
-			
+			import { mount } from 'pele';
+
+			// pele renders mermaid-syntax source (emitted as <div class="mermaid">
+			// by remark-mermaid's simple mode) into SVG, synchronously, no runtime deps.
+			function renderMermaid() {
+				document.querySelectorAll('.mermaid').forEach((el) => {
+					if ((el as HTMLElement).dataset.peleDone) return;
+					try {
+						mount(el as HTMLElement, el.textContent?.trim() ?? '');
+						(el as HTMLElement).dataset.peleDone = '1';
+					} catch (e) {
+						console.error('pele render failed', e);
+					}
+				});
+			}
+
 			function processObsidianImageSizes() {
 				const images = document.querySelectorAll('.prose img');
 				images.forEach(img => {
@@ -798,10 +827,7 @@ const safeTags = tags ?? [];
 
 			// Initialize on Astro page load
 			document.addEventListener('astro:page-load', () => {
-				mermaid.initialize({
-					startOnLoad: true,
-					theme: 'default'
-				});
+				renderMermaid();
 				processObsidianImageSizes();
 				initTOC();
 				decoratePaperArticle();
@@ -823,6 +849,7 @@ const safeTags = tags ?? [];
 			// Also initialize on DOMContentLoaded as fallback
 			if (document.readyState === 'loading') {
 				document.addEventListener('DOMContentLoaded', () => {
+					renderMermaid();
 					processObsidianImageSizes();
 					initTOC();
 					decoratePaperArticle();
@@ -840,6 +867,7 @@ const safeTags = tags ?? [];
 					}
 				});
 			} else {
+				renderMermaid();
 				processObsidianImageSizes();
 				initTOC();
 				decoratePaperArticle();
